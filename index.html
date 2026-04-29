@@ -141,8 +141,20 @@
   </div>
 
 <script>
+  // =================================================================
+  // 1. YOUR API URL & USER DIRECTORY (WITH PRE-SELECTED BRANCHES)
+  // =================================================================
   const API_URL = "https://script.google.com/macros/s/AKfycbxgxY6BXooYtMjMlV3wVfW1F7IikNRUWGv_Y89eCuJzlHk_k_2nl10nqvc3ATlk0vss/exec"; 
-  const userDirectory = { "1111": { name: "Thyme", role: "admin" }, "2222": { name: "Lucas", role: "admin" }, "3333": { name: "Cher", role: "staff" }, "4444": { name: "Korn", role: "staff" }, "5555": { name: "Wan", role: "staff" }};
+  
+  // NOTE: I added 'branch' here. It will auto-fill the form, but they can still change it!
+  const userDirectory = { 
+    "1111": { name: "Thyme", role: "admin" }, 
+    "2222": { name: "Lucas", role: "admin" }, 
+    "3333": { name: "Cher", role: "staff", branch: "Bianca EMSPHERE" }, 
+    "4444": { name: "Korn", role: "staff", branch: "LAVA" }, 
+    "5555": { name: "Wan", role: "staff", branch: "Bianca ICONSIAM" }
+  };
+  
   let currentUser = {};
   let liveDataCache = []; 
 
@@ -154,8 +166,22 @@
     if (user) {
       currentUser = user;
       document.getElementById('displayUser').innerText = `${user.name} (${user.role.toUpperCase()})`;
-      if(user.role === 'admin') { showView('adminDashboard'); fetchLiveAdminData(); } 
-      else { showView('staffMenu'); document.getElementById('itemsContainer').innerHTML = ''; addItemRow(); }
+      
+      if(user.role === 'admin') { 
+        showView('adminDashboard'); 
+        fetchLiveAdminData(); 
+      } else { 
+        showView('staffMenu'); 
+        document.getElementById('itemsContainer').innerHTML = ''; 
+        addItemRow(); 
+        
+        // AUTO-SELECT BRANCH IF THEY HAVE ONE
+        if(user.branch) {
+          document.getElementById('branch').value = user.branch;
+        } else {
+          document.getElementById('branch').value = ""; // Reset to default
+        }
+      }
       document.getElementById('authError').style.display = 'none'; 
     } else {
       document.getElementById('authError').style.display = 'block'; document.getElementById('passcode').value = '';
@@ -177,12 +203,16 @@
     return `REQ-${dateStr}-${Math.random().toString(36).substring(2, 6).toUpperCase()}`;
   }
 
-  // --- SAFE FETCH FUNCTION (BYPASSES GOOGLE PREFLIGHT) ---
-  async function safeGoogleFetch(payloadObject) {
+  // ==========================================
+  // RESET API CONNECTION LOGIC (TEXT/PLAIN)
+  // ==========================================
+  async function googleFetch(payload) {
     return fetch(API_URL, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams({ 'data': JSON.stringify(payloadObject) })
+      body: JSON.stringify(payload),
+      headers: {
+        'Content-Type': 'text/plain;charset=utf-8',
+      }
     }).then(res => res.json());
   }
 
@@ -191,12 +221,12 @@
   // ==========================================
   function fetchLiveAdminData() {
     document.getElementById('adminRequestsList').innerHTML = '<div class="loading-text">Fetching pending orders from Database...</div>';
-    safeGoogleFetch({ action: 'get_data', role: 'admin' })
+    googleFetch({ action: 'get_data', role: 'admin' })
     .then(response => {
       if(response.status === 'success') { liveDataCache = response.data; renderAdminUI(); } 
       else { document.getElementById('adminRequestsList').innerHTML = `<div class="loading-text" style="color:red;">Error: ${response.error}</div>`; }
     })
-    .catch(err => { document.getElementById('adminRequestsList').innerHTML = '<div class="loading-text" style="color:red;">Network Error. Check connection.</div>'; });
+    .catch(err => { document.getElementById('adminRequestsList').innerHTML = `<div class="loading-text" style="color:red;">Network Error: ${err.message}</div>`; });
   }
 
   function renderAdminUI() {
@@ -258,7 +288,7 @@
     const rowElement = document.getElementById('row-' + rowNumber);
     rowElement.innerHTML = `<div style="text-align:center; padding: 20px 0; font-weight:600; font-size:14px;">Updating Database...</div>`;
     
-    safeGoogleFetch({ action: 'update_status', rowNumber: rowNumber, newStatus: newStatus })
+    googleFetch({ action: 'update_status', rowNumber: rowNumber, newStatus: newStatus })
     .then(response => {
       if(response.status === 'success') {
         rowElement.innerHTML = `<div style="text-align:center; padding: 20px 0; font-weight:600; font-size:14px; color:#000;">Item ${newStatus}</div>`;
@@ -277,7 +307,7 @@
   // ==========================================
   function fetchLiveStatusData() {
     document.getElementById('staffRequestsList').innerHTML = '<div class="loading-text">Fetching history from Database...</div>';
-    safeGoogleFetch({ action: 'get_data', role: 'staff', userName: currentUser.name })
+    googleFetch({ action: 'get_data', role: 'staff', userName: currentUser.name })
     .then(response => {
       if(response.status === 'success') { renderStaffStatusUI(response.data); } 
       else { document.getElementById('staffRequestsList').innerHTML = `<div class="loading-text" style="color:red;">Error: ${response.error}</div>`; }
@@ -370,13 +400,16 @@
     });
 
     const payload = {
-      orderId: generatedOrderId, requester: currentUser.name,
-      branch: document.getElementById('branch').value, section: document.getElementById('section').value,
-      purposeEN: document.getElementById('purpose').value, isUrgent: document.getElementById('isUrgent').checked,
-      items: items
+      action: 'submit_order',
+      payload: {
+        orderId: generatedOrderId, requester: currentUser.name,
+        branch: document.getElementById('branch').value, section: document.getElementById('section').value,
+        purposeEN: document.getElementById('purpose').value, isUrgent: document.getElementById('isUrgent').checked,
+        items: items
+      }
     };
 
-    safeGoogleFetch({ action: 'submit_order', payload: payload })
+    googleFetch(payload)
     .then(response => {
       if (response.status === 'success') {
         alert(`SUCCESS!\n\nYour Request ID is: ${generatedOrderId}\nPlease save this ID for tracking.`);
