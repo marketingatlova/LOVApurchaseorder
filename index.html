@@ -253,27 +253,35 @@
   }
 
   // ==========================================
-  // API: FETCH ADMIN DATA (BYPASS APPLIED)
+  // API: FETCH ADMIN DATA
   // ==========================================
   function fetchLiveAdminData() {
     document.getElementById('adminRequestsList').innerHTML = '<div class="loading-text">Fetching pending orders from Database...</div>';
     
     fetch(API_URL, {
       method: 'POST',
-      credentials: 'omit', // <-- BYPASSES GOOGLE MULTIPLE ACCOUNT BUG
+      credentials: 'omit',
       redirect: 'follow',
       headers: { "Content-Type": "text/plain;charset=utf-8" },
       body: JSON.stringify({ action: 'get_data', role: 'admin' })
     })
-    .then(res => res.json())
-    .then(response => {
-      if(response.status === 'success') {
-        liveDataCache = response.data;
-        renderAdminUI();
+    .then(res => res.text()) // Use text() to catch Google HTML errors
+    .then(text => {
+      try {
+        const response = JSON.parse(text);
+        if(response.status === 'success') {
+          liveDataCache = response.data;
+          renderAdminUI();
+        } else {
+          document.getElementById('adminRequestsList').innerHTML = `<div class="loading-text" style="color:red;">Error: ${response.error}</div>`;
+        }
+      } catch (err) {
+        console.error("Google HTML Block:", text);
+        document.getElementById('adminRequestsList').innerHTML = '<div class="loading-text" style="color:red;">Google blocked the connection. Please deploy script as a New Version and ensure access is set to "Anyone".</div>';
       }
     })
     .catch(err => {
-      document.getElementById('adminRequestsList').innerHTML = '<div class="loading-text" style="color:red;">Error connecting to Database. Refresh the page to try again.</div>';
+      document.getElementById('adminRequestsList').innerHTML = '<div class="loading-text" style="color:red;">Network Error. Refresh the page.</div>';
     });
   }
 
@@ -331,7 +339,7 @@
   }
 
   // ==========================================
-  // API: APPROVE / REJECT (BYPASS APPLIED)
+  // API: APPROVE / REJECT
   // ==========================================
   function updateOrderStatus(rowNumber, newStatus) {
     const rowElement = document.getElementById('row-' + rowNumber);
@@ -339,44 +347,64 @@
     
     fetch(API_URL, {
       method: 'POST',
-      credentials: 'omit', // <-- BYPASSES GOOGLE MULTIPLE ACCOUNT BUG
+      credentials: 'omit',
       redirect: 'follow',
       headers: { "Content-Type": "text/plain;charset=utf-8" },
       body: JSON.stringify({ action: 'update_status', rowNumber: rowNumber, newStatus: newStatus })
     })
-    .then(res => res.json())
-    .then(response => {
-      rowElement.innerHTML = `<div style="text-align:center; padding: 20px 0; font-weight:600; font-size:14px; color:#000;">Item ${newStatus}</div>`;
-      setTimeout(() => { 
-        rowElement.style.opacity = '0'; 
-        liveDataCache = liveDataCache.filter(item => item.rowNumber !== rowNumber);
-        setTimeout(() => renderAdminUI(), 300); 
-      }, 1000);
+    .then(res => res.text())
+    .then(text => {
+      try {
+        const response = JSON.parse(text);
+        if(response.status === 'success') {
+          rowElement.innerHTML = `<div style="text-align:center; padding: 20px 0; font-weight:600; font-size:14px; color:#000;">Item ${newStatus}</div>`;
+          setTimeout(() => { 
+            rowElement.style.opacity = '0'; 
+            liveDataCache = liveDataCache.filter(item => item.rowNumber !== rowNumber);
+            setTimeout(() => renderAdminUI(), 300); 
+          }, 1000);
+        } else {
+          rowElement.innerHTML = `<div style="color:red; font-size:12px;">Error: ${response.error}</div>`;
+        }
+      } catch (err) {
+        alert("Google Security Block. Check Apps Script Deploy settings.");
+        renderAdminUI(); // Reset UI
+      }
     })
-    .catch(err => alert("Error updating status."));
+    .catch(err => {
+      alert("Network error updating status.");
+      renderAdminUI();
+    });
   }
 
   // ==========================================
-  // API: FETCH STAFF HISTORY (BYPASS APPLIED)
+  // API: FETCH STAFF HISTORY
   // ==========================================
   function fetchLiveStatusData() {
     document.getElementById('staffRequestsList').innerHTML = '<div class="loading-text">Fetching history from Database...</div>';
     
     fetch(API_URL, {
       method: 'POST',
-      credentials: 'omit', // <-- BYPASSES GOOGLE MULTIPLE ACCOUNT BUG
+      credentials: 'omit',
       redirect: 'follow',
       headers: { "Content-Type": "text/plain;charset=utf-8" },
       body: JSON.stringify({ action: 'get_data', role: 'staff', userName: currentUser.name })
     })
-    .then(res => res.json())
-    .then(response => {
-      if(response.status === 'success') {
-        renderStaffStatusUI(response.data);
+    .then(res => res.text())
+    .then(text => {
+      try {
+        const response = JSON.parse(text);
+        if(response.status === 'success') {
+          renderStaffStatusUI(response.data);
+        } else {
+          document.getElementById('staffRequestsList').innerHTML = `<div class="loading-text" style="color:red;">Error: ${response.error}</div>`;
+        }
+      } catch (err) {
+        document.getElementById('staffRequestsList').innerHTML = '<div class="loading-text" style="color:red;">Google blocked the connection. Please deploy script as a New Version.</div>';
       }
     })
     .catch(err => {
-      document.getElementById('staffRequestsList').innerHTML = '<div class="loading-text" style="color:red;">Error connecting to Database.</div>';
+      document.getElementById('staffRequestsList').innerHTML = '<div class="loading-text" style="color:red;">Network error.</div>';
     });
   }
 
@@ -447,7 +475,7 @@
   function updateRemoveButtons() { const rows = document.querySelectorAll('.item-card'); rows.forEach(r => r.querySelector('.btn-remove').style.display = rows.length > 1 ? 'block' : 'none'); }
 
   // ==========================================
-  // API: SUBMIT NEW ORDER TO SHEETS (BYPASS APPLIED)
+  // API: SUBMIT NEW ORDER TO SHEETS
   // ==========================================
   document.getElementById('purchaseForm').addEventListener('submit', function(e) {
     e.preventDefault();
@@ -480,20 +508,30 @@
 
     fetch(API_URL, {
       method: 'POST',
-      credentials: 'omit', // <-- BYPASSES GOOGLE MULTIPLE ACCOUNT BUG
+      credentials: 'omit',
       redirect: 'follow',
       headers: { "Content-Type": "text/plain;charset=utf-8" },
       body: JSON.stringify({ action: 'submit_order', payload: payload })
     })
-    .then(res => res.json())
-    .then(response => {
-      alert(`SUCCESS!\n\nYour Request ID is: ${generatedOrderId}\nPlease save this ID for tracking.`);
-      document.getElementById('purchaseForm').reset();
-      showView('staffMenu');
+    .then(res => res.text()) // Read as raw text first to catch Google HTML errors
+    .then(text => {
+      try {
+        const response = JSON.parse(text);
+        if (response.status === 'success') {
+          alert(`SUCCESS!\n\nYour Request ID is: ${generatedOrderId}\nPlease save this ID for tracking.`);
+          document.getElementById('purchaseForm').reset();
+          showView('staffMenu');
+        } else {
+          alert("Database Error: \n" + response.error); 
+        }
+      } catch (err) {
+        console.error("Google Block HTML:", text);
+        alert("Google Blocked the Connection.\n\nPlease deploy script as a New Version and ensure access is 'Anyone'.");
+      }
     })
     .catch(err => {
-      console.error(err);
-      alert("Error saving to database. Check your connection.");
+      console.error("Fetch Error:", err);
+      alert("Network Error. Please check your internet connection.");
     })
     .finally(() => { btn.innerText = "Submit Purchase Request"; btn.disabled = false; });
   });
