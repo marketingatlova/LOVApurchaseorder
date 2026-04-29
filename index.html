@@ -253,13 +253,14 @@
   }
 
   // ==========================================
-  // API: FETCH ADMIN DATA
+  // API: FETCH ADMIN DATA (BYPASS APPLIED)
   // ==========================================
   function fetchLiveAdminData() {
     document.getElementById('adminRequestsList').innerHTML = '<div class="loading-text">Fetching pending orders from Database...</div>';
     
     fetch(API_URL, {
       method: 'POST',
+      credentials: 'omit', // <-- BYPASSES GOOGLE MULTIPLE ACCOUNT BUG
       redirect: 'follow',
       headers: { "Content-Type": "text/plain;charset=utf-8" },
       body: JSON.stringify({ action: 'get_data', role: 'admin' })
@@ -330,7 +331,7 @@
   }
 
   // ==========================================
-  // API: APPROVE / REJECT
+  // API: APPROVE / REJECT (BYPASS APPLIED)
   // ==========================================
   function updateOrderStatus(rowNumber, newStatus) {
     const rowElement = document.getElementById('row-' + rowNumber);
@@ -338,6 +339,7 @@
     
     fetch(API_URL, {
       method: 'POST',
+      credentials: 'omit', // <-- BYPASSES GOOGLE MULTIPLE ACCOUNT BUG
       redirect: 'follow',
       headers: { "Content-Type": "text/plain;charset=utf-8" },
       body: JSON.stringify({ action: 'update_status', rowNumber: rowNumber, newStatus: newStatus })
@@ -355,13 +357,14 @@
   }
 
   // ==========================================
-  // API: FETCH STAFF HISTORY
+  // API: FETCH STAFF HISTORY (BYPASS APPLIED)
   // ==========================================
   function fetchLiveStatusData() {
     document.getElementById('staffRequestsList').innerHTML = '<div class="loading-text">Fetching history from Database...</div>';
     
     fetch(API_URL, {
       method: 'POST',
+      credentials: 'omit', // <-- BYPASSES GOOGLE MULTIPLE ACCOUNT BUG
       redirect: 'follow',
       headers: { "Content-Type": "text/plain;charset=utf-8" },
       body: JSON.stringify({ action: 'get_data', role: 'staff', userName: currentUser.name })
@@ -444,7 +447,7 @@
   function updateRemoveButtons() { const rows = document.querySelectorAll('.item-card'); rows.forEach(r => r.querySelector('.btn-remove').style.display = rows.length > 1 ? 'block' : 'none'); }
 
   // ==========================================
-  // API: SUBMIT NEW ORDER TO SHEETS
+  // API: SUBMIT NEW ORDER TO SHEETS (BYPASS APPLIED)
   // ==========================================
   document.getElementById('purchaseForm').addEventListener('submit', function(e) {
     e.preventDefault();
@@ -477,6 +480,7 @@
 
     fetch(API_URL, {
       method: 'POST',
+      credentials: 'omit', // <-- BYPASSES GOOGLE MULTIPLE ACCOUNT BUG
       redirect: 'follow',
       headers: { "Content-Type": "text/plain;charset=utf-8" },
       body: JSON.stringify({ action: 'submit_order', payload: payload })
