@@ -3,479 +3,420 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>LOVA Internal App</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <title>LOVA — Staff Portal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
-    :root { --bg-color: #f9fafb; --card-bg: #ffffff; --text-main: #111827; --text-muted: #6b7280; --border-color: #e5e7eb; --primary-black: #000000; --input-bg: #f9fafb; --brand: #2563eb; }
-    body { font-family: 'Inter', sans-serif; background-color: var(--bg-color); color: var(--text-main); margin: 0; padding-bottom: 80px; -webkit-font-smoothing: antialiased; }
-    .container { max-width: 800px; margin: 20px auto; padding: 0 15px; }
-    h2 { font-size: 22px; font-weight: 700; margin-bottom: 5px; text-align: center;}
-    p.subtitle { text-align: center; color: var(--text-muted); font-size: 14px; margin-bottom: 25px; }
-    label { font-weight: 500; display: block; margin-bottom: 6px; font-size: 13px; color: var(--text-main); }
-    .card { background: var(--card-bg); padding: 20px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); margin-bottom: 20px; border: 1px solid var(--border-color); }
-    .card-title { margin-top: 0; font-size: 16px; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between;}
-    input, select, textarea { width: 100%; min-height: 44px; padding: 10px 14px; border: 1px solid var(--border-color); border-radius: 8px; box-sizing: border-box; font-size: 14px; background-color: var(--input-bg); font-family: 'Inter', sans-serif; transition: all 0.2s ease; appearance: none; }
-    textarea { min-height: 80px; resize: vertical; }
-    input:focus, select:focus, textarea:focus { outline: none; border-color: var(--text-main); box-shadow: 0 0 0 1px var(--text-main); background-color: #fff; }
-    button { min-height: 44px; padding: 0 20px; background-color: var(--primary-black); color: #fff; border: none; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: 0.2s; width: 100%; display: flex; align-items: center; justify-content: center; }
-    button:active { transform: scale(0.98); }
-    button:disabled { opacity: 0.6; cursor: not-allowed; }
-    .btn-outline { background-color: transparent; color: var(--text-main); border: 1px dashed var(--border-color); margin-bottom: 20px; }
-    .btn-remove { background-color: transparent; color: var(--text-muted); min-height: 32px; padding: 4px 8px; width: auto; font-size: 12px; font-weight: 500;}
-    .btn-back { background: transparent; color: var(--text-muted); border: 1px solid var(--border-color); margin-bottom: 20px; }
-    .top-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-    .user-badge { background: #e5e7eb; color: var(--text-main); padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; }
-    .logout-btn { background: transparent; color: var(--text-muted); border: none; font-size: 13px; width: auto; min-height: auto; padding: 5px; }
-    #authSection { text-align: center; max-width: 350px; margin: 15vh auto; }
-    #passcode { text-align: center; font-size: 32px; letter-spacing: 15px; font-weight: 600; padding: 20px; background: #fff;}
-    #authError { color: #dc2626; font-size: 13px; display: none; margin-top: 15px; font-weight: 500;}
-    #staffMenu, #oseForm, #adminDashboard, #staffStatusDashboard { display: none; }
-    .menu-grid { display: grid; gap: 15px; }
-    .menu-btn { height: 80px; background: #fff; color: var(--text-main); border: 1px solid var(--border-color); box-shadow: 0 1px 3px rgba(0,0,0,0.02); font-size: 16px; justify-content: flex-start; padding-left: 20px; border-radius: 12px;}
-    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; }
-    .urgent-wrapper { display: flex; align-items: center; gap: 10px; margin-top: 15px; padding: 12px 15px; background: #fff; border: 1px dashed var(--border-color); border-radius: 8px; cursor: pointer;}
-    .urgent-wrapper input[type="checkbox"] { width: 20px; min-height: 20px; accent-color: #000; cursor: pointer; }
-    .admin-sticky-header { position: sticky; top: 0; z-index: 50; background: var(--bg-color); padding: 10px 0 15px 0; border-bottom: 1px solid var(--border-color); margin-bottom: 20px; }
-    .admin-stats-bar { display: flex; gap: 10px; margin-bottom: 15px; }
-    .stat-pill { padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; background: #fff; border: 1px solid var(--border-color); color: var(--text-main);}
-    .stat-urgent { background: #000; color: #fff; border-color: #000; }
-    .admin-search-bar { margin-bottom: 10px; }
-    .admin-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    .admin-order-group { background: #fff; border: 1px solid var(--border-color); border-radius: 12px; padding: 20px; margin-bottom: 20px; }
-    .order-group-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 15px; border-bottom: 1px solid var(--border-color); margin-bottom: 15px;}
-    .order-id-main { font-family: monospace; font-size: 16px; font-weight: 700; color: #000; }
-    .order-meta { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
-    .admin-item-row { display: grid; grid-template-columns: 60px 1fr; gap: 15px; padding: 15px 0; border-bottom: 1px dashed var(--border-color); transition: 0.2s;}
-    .admin-item-row:last-child { border-bottom: none; padding-bottom: 0; }
-    .admin-img { width: 60px; height: 60px; object-fit: cover; border-radius: 6px; border: 1px solid var(--border-color); background: var(--input-bg); }
-    .admin-no-img { width: 60px; height: 60px; border-radius: 6px; border: 1px dashed var(--border-color); background: var(--input-bg); display: flex; align-items: center; justify-content: center; font-size: 10px; color: #9ca3af; text-align: center;}
-    .item-header-flex { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 5px; }
-    .admin-item-title { font-weight: 600; font-size: 14px; color: #000; }
-    .admin-price { font-weight: 600; color: #000; font-size: 13px; }
-    .item-desc { font-size: 12px; color: var(--text-muted); margin-bottom: 10px; line-height: 1.4; }
-    .admin-actions { display: flex; gap: 8px; justify-content: flex-end;}
-    .btn-approve { background: #000; color: #fff; border: 1px solid #000; min-height: 36px; font-size: 12px; width: 100px; }
-    .btn-reject { background: #fff; color: var(--text-main); border: 1px solid var(--border-color); min-height: 36px; font-size: 12px; width: 100px; }
-    .badge-status { padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: 600; display: inline-block;}
-    .badge-pending { background: #fef3c7; color: #d97706; }
-    .badge-approved { background: #d1fae5; color: #047857; }
-    .badge-rejected { background: #fee2e2; color: #dc2626; }
-    .badge-urgent { background: #000; color: #fff; padding: 3px 8px; border-radius: 4px; font-size: 10px; font-weight: 600; letter-spacing: 0.5px; display: inline-block; margin-top: 5px;}
-    .item-stats-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 15px; margin-top: 15px; }
-    .media-grid { display: grid; grid-template-columns: 60px 1fr; gap: 15px; align-items: start; }
-    .thumbnail-box { width: 60px; height: 60px; background: var(--input-bg); border: 1px dashed var(--border-color); border-radius: 6px; display: flex; align-items: center; justify-content: center; overflow: hidden; font-size: 10px; color: #9ca3af; padding: 2px; box-sizing: border-box; text-align: center;}
-    .thumbnail-box img { width: 100%; height: 100%; object-fit: contain; display: none; border-radius: 4px;}
-    .tax-wrapper { grid-column: 1 / -1; }
-    .sticky-bottom { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); padding: 15px 20px; border-top: 1px solid var(--border-color); z-index: 100; box-shadow: 0 -2px 10px rgba(0,0,0,0.05); }
-    .sticky-bottom button { max-width: 800px; margin: 0 auto; }
-    .loading-text { text-align: center; color: var(--text-muted); font-size: 14px; margin-top: 40px; padding: 20px; border: 1px dashed var(--border-color); border-radius: 10px; }
-    @media (min-width: 600px) { .container { padding: 20px; } .item-stats-grid { grid-template-columns: 3fr 1fr 1fr 1fr; } .media-grid { grid-template-columns: 60px 3fr 1fr; } .tax-wrapper { grid-column: auto; } .sticky-bottom { position: static; background: transparent; padding: 0; border: none; box-shadow: none; backdrop-filter: none;} }
+    :root {
+      --navy:#1a1f2e; --navy2:#2d3447;
+      --red:#c0392b; --red-soft:#fdf0ef; --red-border:#f5c6c2;
+      --canvas:#f7f5f0; --surface:#ffffff;
+      --border:#e4e1db; --border-soft:#ede9e3;
+      --text:#1a1f2e; --text-2:#5a5750; --text-3:#9a9690;
+      /* Status pipeline */
+      --s-grey:#64748b;   --s-grey-bg:#f1f5f9;   --s-grey-border:#cbd5e1;
+      --s-blue:#1a5fa8;   --s-blue-bg:#eef3fb;   --s-blue-border:#bcd3f0;
+      --s-amber:#92570a;  --s-amber-bg:#fef3c7;  --s-amber-border:#fcd34d;
+      --s-teal:#0f766e;   --s-teal-bg:#ccfbf1;   --s-teal-border:#5eead4;
+      --s-green:#166534;  --s-green-bg:#dcfce7;  --s-green-border:#86efac;
+    }
+    * { box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent; }
+    body { font-family:'Plus Jakarta Sans','Sarabun',sans-serif;background:var(--canvas);min-height:100vh;padding-bottom:48px; }
+    .top-nav { background:var(--navy);padding:13px 16px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100; }
+    .nav-left { display:flex;align-items:baseline;gap:10px; }
+    .nav-wordmark { font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:#fff;letter-spacing:1px; }
+    .nav-tag { font-size:10px;font-weight:600;color:rgba(255,255,255,0.4);letter-spacing:1.5px;text-transform:uppercase; }
+    .nav-right { display:flex;align-items:center;gap:8px; }
+    .nav-user { font-size:12px;font-weight:500;color:rgba(255,255,255,0.55); }
+    .lang-toggle-nav { display:flex;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);border-radius:16px;padding:2px;gap:1px; }
+    .lang-btn { padding:3px 8px;border-radius:12px;font-size:10px;font-weight:600;cursor:pointer;border:none;background:transparent;color:rgba(255,255,255,0.5);transition:all 0.15s; }
+    .lang-btn.active { background:rgba(255,255,255,0.2);color:#fff; }
+    .btn-logout { background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.55);border:1px solid rgba(255,255,255,0.12);padding:6px 12px;border-radius:6px;font-family:'Plus Jakarta Sans','Sarabun',sans-serif;font-size:11px;font-weight:500;cursor:pointer;transition:background 0.15s; }
+    .content { padding:16px;max-width:600px;margin:0 auto; }
+    .card { background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:14px;box-shadow:0 1px 4px rgba(26,31,46,0.04); }
+    .section-label { font-size:10px;font-weight:600;color:var(--text-3);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--border-soft); }
+    .branch-label { font-size:10px;font-weight:600;color:var(--text-3);letter-spacing:1.5px;text-transform:uppercase;display:block;margin-bottom:6px; }
+    .branch-select { width:100%;border:none;background:transparent;font-family:'Plus Jakarta Sans','Sarabun',sans-serif;font-size:15px;font-weight:600;color:var(--text);outline:none;cursor:pointer;-webkit-appearance:none; }
+    .branch-row { display:flex;align-items:center;justify-content:space-between; }
+    .btn-history { background:transparent;color:var(--text-3);border:1px solid var(--border);border-radius:7px;padding:8px 14px;font-family:'Plus Jakarta Sans','Sarabun',sans-serif;font-size:11px;font-weight:500;cursor:pointer;width:100%;margin-top:12px;transition:background 0.15s; }
+    .tabs { display:flex;background:var(--canvas);border:1px solid var(--border);border-radius:9px;padding:3px;margin-bottom:14px;gap:3px; }
+    .tab { flex:1;text-align:center;padding:10px 8px;font-size:12px;font-weight:500;color:var(--text-3);cursor:pointer;border-radius:7px;transition:background 0.15s,color 0.15s; }
+    .tab.active { background:var(--surface);color:var(--text);font-weight:600;box-shadow:0 1px 3px rgba(26,31,46,0.07); }
+    .search-input { width:100%;height:44px;border:1px solid var(--border);border-radius:9px;padding:0 14px;font-family:'Plus Jakarta Sans','Sarabun',sans-serif;font-size:14px;color:var(--text);background:var(--surface);outline:none;margin-bottom:10px;-webkit-appearance:none;transition:border-color 0.2s; }
+    .search-input:focus { border-color:var(--navy2); }
+    .chips { display:flex;gap:7px;overflow-x:auto;padding-bottom:10px;margin-bottom:6px;scrollbar-width:none; }
+    .chips::-webkit-scrollbar { display:none; }
+    .chip { padding:6px 13px;border-radius:20px;background:var(--surface);border:1px solid var(--border);color:var(--text-3);font-size:11px;font-weight:500;white-space:nowrap;cursor:pointer;transition:all 0.15s; }
+    .chip.active { background:var(--navy);color:#fff;border-color:var(--navy); }
+    .product-card { background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;transition:border-color 0.15s; }
+    .product-card.has-qty { border-color:var(--navy); }
+    .prod-img { width:44px;height:44px;border-radius:7px;object-fit:cover;background:var(--canvas);flex-shrink:0; }
+    .prod-info { flex:1;padding:0 12px; }
+    .prod-name { font-size:13px;font-weight:600;color:var(--text);line-height:1.3; }
+    .prod-desc { font-size:11px;color:var(--text-3);margin-top:3px; }
+    .qty-input { width:60px;height:44px;text-align:center;font-family:'Plus Jakarta Sans',sans-serif;font-size:18px;font-weight:500;border:1px solid var(--border);border-radius:8px;background:var(--canvas);color:var(--text);outline:none;-webkit-appearance:none;padding:0;transition:border-color 0.15s,background 0.15s; }
+    .qty-input:focus { border-color:var(--navy);background:var(--surface); }
+    .btn-primary { width:100%;height:50px;border:none;border-radius:10px;font-family:'Plus Jakarta Sans','Sarabun',sans-serif;font-size:13px;font-weight:600;cursor:pointer;margin-top:8px;transition:opacity 0.15s,transform 0.15s;background:var(--navy);color:#fff; }
+    .btn-primary:active { transform:scale(0.98); }
+    .btn-primary:disabled { opacity:0.4;cursor:not-allowed;transform:none; }
+    .btn-primary:hover:not(:disabled) { background:var(--navy2); }
+    .btn-blue-action { background:var(--s-blue); }
+    .btn-blue-action:hover:not(:disabled) { background:#134d8c; }
+    .btn-green-action { background:#16a34a; }
+    .btn-green-action:hover:not(:disabled) { background:#15803d; }
+
+    /* ── STATUS BADGES ── */
+    .badge { display:inline-block;padding:3px 9px;border-radius:5px;font-size:10px;font-weight:600;margin-top:5px;border:1px solid; }
+    .badge-grey    { background:var(--s-grey-bg);   color:var(--s-grey);   border-color:var(--s-grey-border); }
+    .badge-blue    { background:var(--s-blue-bg);   color:var(--s-blue);   border-color:var(--s-blue-border); }
+    .badge-amber   { background:var(--s-amber-bg);  color:var(--s-amber);  border-color:var(--s-amber-border); }
+    .badge-teal    { background:var(--s-teal-bg);   color:var(--s-teal);   border-color:var(--s-teal-border); }
+    .badge-green   { background:var(--s-green-bg);  color:var(--s-green);  border-color:var(--s-green-border); }
+
+    .order-batch { background:var(--surface);border:1px solid var(--border);border-radius:10px;margin-bottom:10px;overflow:hidden; }
+    .batch-head { padding:13px 15px;display:flex;align-items:flex-start;justify-content:space-between;gap:10px; }
+    .batch-head-left { display:flex;align-items:flex-start;gap:10px;flex:1;cursor:pointer; }
+    .batch-id-text { font-size:12px;font-weight:600;color:var(--text); }
+    .batch-meta { font-size:11px;color:var(--text-3);margin-top:3px; }
+    .btn-sm { padding:7px 13px;border-radius:7px;font-family:'Plus Jakarta Sans','Sarabun',sans-serif;font-size:11px;font-weight:500;cursor:pointer;border:1px solid;transition:background 0.15s;white-space:nowrap;flex-shrink:0; }
+    .btn-sm-blue  { background:var(--s-blue-bg);  color:var(--s-blue);  border-color:var(--s-blue-border); }
+    .btn-sm-amber { background:var(--s-amber-bg); color:var(--s-amber); border-color:var(--s-amber-border); }
+    .btn-sm-muted { background:var(--canvas);color:var(--text-3);border-color:var(--border);cursor:not-allowed; }
+    .order-details { display:none;border-top:1px dashed var(--border);padding:10px 14px; }
+    .order-item-row { display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--border-soft); }
+    .order-item-row:last-child { border-bottom:none; }
+    .order-item-name { font-size:13px;font-weight:600;color:var(--text); }
+    .order-item-sub { font-size:11px;color:var(--text-3);margin-top:2px; }
+    .order-qty-display { font-size:18px;font-weight:500;color:var(--text); }
+    .select-all-bar { background:var(--canvas);border:1px solid var(--border);border-radius:9px;padding:11px 14px;margin-bottom:12px; }
+    .select-all-bar label { font-size:12px;font-weight:500;color:var(--text-2);cursor:pointer;display:flex;align-items:center;gap:10px; }
+    input[type="checkbox"] { width:17px;height:17px;accent-color:var(--s-blue);cursor:pointer; }
+    .history-card { background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:10px; }
+    .hist-top { display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;padding-bottom:10px;border-bottom:1px dashed var(--border); }
+    .hist-id { font-size:12px;font-weight:600;color:var(--text); }
+    .hist-time { font-size:11px;color:var(--text-3);margin-top:2px; }
+    .hist-status { font-size:11px;font-weight:600;color:var(--s-green); }
+    .hist-item { display:flex;justify-content:space-between;font-size:12px;color:var(--text-2);font-weight:500;padding:6px 0;border-bottom:1px solid var(--border-soft); }
+    .hist-item:last-child { border-bottom:none; }
+    .hist-item strong { color:var(--text);font-weight:600; }
+    .hist-driver { font-size:11px;color:var(--text-2);margin-top:10px;background:var(--canvas);padding:5px 9px;border-radius:5px;display:inline-block;border:1px solid var(--border); }
+    .modal-overlay { position:fixed;inset:0;background:rgba(26,31,46,0.55);display:flex;align-items:flex-end;justify-content:center;z-index:200;opacity:0;pointer-events:none;transition:opacity 0.25s; }
+    .modal-overlay.open { opacity:1;pointer-events:auto; }
+    .modal-sheet { background:var(--surface);width:100%;max-width:600px;border-radius:18px 18px 0 0;padding:22px 20px 40px;transform:translateY(100%);transition:transform 0.3s cubic-bezier(0.16,1,0.3,1);max-height:85vh;display:flex;flex-direction:column; }
+    .modal-overlay.open .modal-sheet { transform:translateY(0); }
+    .modal-handle { width:32px;height:3px;background:var(--border);border-radius:2px;margin:0 auto 18px; }
+    .modal-title { font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--text); }
+    .modal-sub { font-size:11px;font-weight:500;color:var(--text-3);margin-top:4px;margin-bottom:18px; }
+    .modal-list { overflow-y:auto;flex:1;border-top:1px solid var(--border-soft);border-bottom:1px solid var(--border-soft); }
+    .modal-item { display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px dashed var(--border); }
+    .modal-item:last-child { border-bottom:none; }
+    .modal-item-name { font-size:13px;font-weight:500;color:var(--text); }
+    .modal-item-qty { font-size:14px;font-weight:600;color:var(--s-green);background:var(--s-green-bg);padding:4px 12px;border-radius:6px;border:1px solid var(--s-green-border); }
+    .modal-total { font-size:13px;font-weight:600;color:var(--text);text-align:right;margin:12px 0 18px; }
+    .modal-btns { display:flex;gap:10px; }
+    .btn-cancel { flex:1;height:48px;background:var(--canvas);color:var(--text-2);border:1px solid var(--border);border-radius:10px;font-family:'Plus Jakarta Sans','Sarabun',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:background 0.15s; }
+    .btn-confirm { flex:2;height:48px;background:#16a34a;color:#fff;border:none;border-radius:10px;font-family:'Plus Jakarta Sans','Sarabun',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:opacity 0.15s,transform 0.15s; }
+    .btn-confirm:active { transform:scale(0.98); }
+    .btn-confirm:disabled { opacity:0.45;cursor:not-allowed;transform:none; }
+    .loading { text-align:center;color:var(--text-3);padding:40px 20px;font-size:13px; }
+    .empty-state { text-align:center;color:var(--s-green);padding:40px 20px;font-size:13px;font-weight:500; }
   </style>
 </head>
 <body>
-
-  <div id="authSection" class="card container">
-    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin: 0 auto 15px auto; display: block;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-    <h2>LOVA Hub</h2>
-    <p class="subtitle">Enter PIN to access your portal</p>
-    <input type="password" id="passcode" maxlength="4" placeholder="••••" autocomplete="off" onkeypress="handleEnter(event)" inputmode="numeric">
-    <p id="authError">Incorrect PIN. Please try again.</p>
-    <button onclick="authenticateUser()" style="margin-top: 20px;">Secure Login</button>
-  </div>
-
-  <div class="container" id="sharedNav" style="display:none;">
-    <div class="top-nav">
-      <span class="user-badge" id="displayUser"></span>
-      <button class="logout-btn" onclick="logout()">Logout</button>
+  <nav class="top-nav">
+    <div class="nav-left">
+      <div class="nav-wordmark">LOVA</div>
+      <div class="nav-tag" id="nav_tag">Staff</div>
     </div>
-  </div>
-
-  <div class="container" id="staffMenu">
-    <h2>Staff Operations</h2>
-    <div class="menu-grid">
-      <button class="menu-btn" onclick="showView('oseForm')" style="border-color:#000; font-weight:600;">🛒 External Purchase Form</button>
-      <button class="menu-btn" onclick="showView('staffStatusDashboard'); fetchLiveStatusData();">📦 My Order Status</button>
-      <button class="menu-btn" onclick="alert('Inventory module coming soon!')">📋 Counting Inventory</button>
-    </div>
-  </div>
-
-  <div class="container" id="oseForm">
-    <button class="btn-back" onclick="showView('staffMenu')">← Back to Menu</button>
-    <h2>External Purchase Form</h2>
-    
-    <form id="purchaseForm">
-      <div class="card">
-        <h3 class="card-title">Request Details</h3>
-        <div class="grid-2">
-          <div>
-            <label>Branch</label>
-            <select id="branch" required>
-              <option value="" disabled selected>Select Branch</option>
-              <option value="HQ">HQ</option>
-              <option value="LOVA GROUP">LOVA GROUP</option>
-              <option value="BIANCA EMSPHERE">BIANCA EMSPHERE</option>
-              <option value="BIANCA ONE BANGKOK">BIANCA ONE BANGKOK</option>
-              <option value="BIANCA SIAM PARAGON">BIANCA SIAM PARAGON</option>
-              <option value="BIANCA ICONSIAM">BIANCA ICONSIAM</option>
-              <option value="HOLYBELLY">HOLYBELLY</option>
-              <option value="LAVA">LAVA</option>
-              <option value="CK">CK</option>
-              <option value="DRIVER">DRIVER</option>
-              <option value="FINANCE">FINANCE</option>
-            </select>
-          </div>
-          <div><label>Section</label><select id="section" required><option value="" disabled selected>Select Section</option><option value="Kitchen">Kitchen</option><option value="Bar">Bar</option><option value="Service">Service</option></select></div>
-        </div>
-        <div><label>Purpose of Use (English)</label><textarea id="purpose" placeholder="Briefly explain why these items are needed..." required></textarea></div>
-        <label class="urgent-wrapper"><input type="checkbox" id="isUrgent"><span>Mark request as <b>URGENT</b></span></label>
+    <div class="nav-right">
+      <div class="nav-user" id="navUser"></div>
+      <div class="lang-toggle-nav">
+        <button class="lang-btn active" id="btnEN" onclick="setLang('en')">EN</button>
+        <button class="lang-btn" id="btnTH" onclick="setLang('th')">TH</button>
       </div>
-
-      <div id="itemsContainer"></div>
-
-      <button type="button" class="btn-outline" onclick="addItemRow()">+ Add Another Item</button>
-      <div class="sticky-bottom"><button type="submit" id="submitBtn">Submit Purchase Request</button></div>
-    </form>
-  </div>
-
-  <div class="container" id="staffStatusDashboard">
-    <button class="btn-back" onclick="showView('staffMenu')">← Back to Menu</button>
-    <h2>My Order Status</h2>
-    <p class="subtitle">Live tracking from Database</p>
-    <div id="staffRequestsList"><div class="loading-text">Connecting to Database...</div></div>
-  </div>
-
-  <div class="container" id="adminDashboard">
-    <h2>Approval Center</h2>
-    <div class="admin-sticky-header">
-      <div class="admin-stats-bar"><div class="stat-pill" id="statTotal">0 Pending</div><div class="stat-pill stat-urgent" id="statUrgent">0 Urgent</div></div>
-      <div class="admin-search-bar"><input type="text" id="searchOrderId" placeholder="Search Order ID (e.g. REQ-...)" onkeyup="renderAdminUI()"></div>
-      <div class="admin-controls">
-        <select id="filterLocation" onchange="renderAdminUI()">
-          <option value="All">All Locations</option>
-          <option value="HQ">HQ</option>
-          <option value="LOVA GROUP">LOVA GROUP</option>
-          <option value="BIANCA EMSPHERE">BIANCA EMSPHERE</option>
-          <option value="BIANCA ONE BANGKOK">BIANCA ONE BANGKOK</option>
-          <option value="BIANCA SIAM PARAGON">BIANCA SIAM PARAGON</option>
-          <option value="BIANCA ICONSIAM">BIANCA ICONSIAM</option>
-          <option value="HOLYBELLY">HOLYBELLY</option>
-          <option value="LAVA">LAVA</option>
-          <option value="CK">CK</option>
+      <button class="btn-logout" id="btn_logout" onclick="logout()">Logout</button>
+    </div>
+  </nav>
+  <div class="content">
+    <div class="card">
+      <span class="branch-label" id="txt_ordering_for">Ordering for branch</span>
+      <div class="branch-row">
+        <select id="branchSelector" class="branch-select" onchange="handleBranchChange()">
+          <option value="" disabled selected>Select a branch…</option>
         </select>
-        <select id="sortDate" onchange="renderAdminUI()"><option value="newest">Newest First</option><option value="oldest">Oldest First</option></select>
+      </div>
+      <button class="btn-history" id="btnToggleHistory" onclick="toggleHistory()">View 7-day history</button>
+    </div>
+    <div id="mainArea">
+      <div class="tabs">
+        <div class="tab active" id="tabOrder" onclick="switchTab('order')">External Purchase Form</div>
+        <div class="tab" id="tabReceive" onclick="switchTab('receive')">Active orders</div>
+      </div>
+      <div id="viewOrder"><div class="loading">Loading menu…</div></div>
+      <div id="viewReceive" style="display:none;"><div class="loading">Loading…</div></div>
+    </div>
+    <div id="viewHistory" style="display:none;">
+      <div class="section-label" id="txt_completed">Completed deliveries — last 7 days</div>
+      <div id="historyContent"><div class="loading">Loading…</div></div>
+    </div>
+  </div>
+  <div class="modal-overlay" id="reviewModal">
+    <div class="modal-sheet">
+      <div class="modal-handle"></div>
+      <div class="modal-title" id="txt_review_order">Review order</div>
+      <div class="modal-sub" id="modalBranch"></div>
+      <div class="modal-list" id="modalList"></div>
+      <div class="modal-total" id="modalTotal"></div>
+      
+      <div style="margin-bottom: 18px; padding: 12px; background: var(--red-soft); border: 1px dashed var(--red-border); border-radius: 8px; display: flex; align-items: center; gap: 10px;">
+        <input type="checkbox" id="urgentCheck" style="width: 18px; height: 18px; accent-color: var(--red); cursor: pointer;">
+        <label for="urgentCheck" style="font-size: 13px; font-weight: 600; color: var(--red); cursor: pointer;">Mark order as URGENT 🔴</label>
+      </div>
+
+      <div class="modal-btns">
+        <button class="btn-cancel" id="btn_go_back" onclick="closeModal()">Go back</button>
+        <button class="btn-confirm" id="btnConfirm" onclick="confirmOrder()">Confirm & send</button>
       </div>
     </div>
-    <div id="adminRequestsList"><div class="loading-text">Fetching pending orders...</div></div>
   </div>
 
-<script>
-  const API_URL = "https://script.google.com/macros/s/AKfycbxgxY6BXooYtMjMlV3wVfW1F7IikNRUWGv_Y89eCuJzlHk_k_2nl10nqvc3ATlk0vss/exec"; 
-  
-  // FULLY MAPPED DIRECTORY WITH ASSIGNED BRANCHES
-  const userDirectory = { 
-    "1234": { name: "Tyme", role: "admin", branch: "HQ" },
-    "2345": { name: "Foam", role: "admin", branch: "HQ" },
-    "3333": { name: "Naw lydia (Central Kitchen)", role: "admin", branch: "LOVA GROUP" },
-    "2222": { name: "JACK", role: "admin", branch: "LOVA GROUP" },
-    "1111": { name: "JERIKO", role: "admin", branch: "LOVA GROUP" },
-    "1000": { name: "CHEF KARN", role: "staff", branch: "BIANCA EMSPHERE" },
-    "1001": { name: "CHEF FON", role: "staff", branch: "BIANCA EMSPHERE" },
-    "2000": { name: "CHEF FLUKE", role: "staff", branch: "BIANCA ONE BANGKOK" },
-    "2001": { name: "CHEF NUT", role: "staff", branch: "BIANCA ONE BANGKOK" },
-    "3000": { name: "CHEF AU", role: "staff", branch: "BIANCA SIAM PARAGON" },
-    "3001": { name: "CHEF KOI", role: "staff", branch: "BIANCA SIAM PARAGON" },
-    "4000": { name: "CHEF BELL", role: "staff", branch: "BIANCA ICONSIAM" },
-    "4001": { name: "CHEF PIM", role: "staff", branch: "BIANCA ICONSIAM" },
-    "5000": { name: "CHEF BLACK", role: "staff", branch: "HOLYBELLY" },
-    "5001": { name: "CHEF DENISH", role: "staff", branch: "HOLYBELLY" },
-    "6000": { name: "CHEF JEREMY", role: "staff", branch: "LAVA" },
-    "6666": { name: "K.FLUKE", role: "staff", branch: "CK" },
-    "9000": { name: "K.TON", role: "staff", branch: "DRIVER" },
-    "4444": { name: "K.UM", role: "staff", branch: "CK" },
-    "5555": { name: "K.SISI", role: "staff", branch: "CK" },
-    "1212": { name: "TEST", role: "staff", branch: "FINANCE" }
-  };
-  
-  let currentUser = {};
-  let liveDataCache = []; 
-
-  function handleEnter(e) { if(e.key === 'Enter') authenticateUser(); }
-
-  function authenticateUser() {
-    const pin = document.getElementById('passcode').value.trim();
-    const user = userDirectory[pin];
-    if (user) {
-      currentUser = user;
-      document.getElementById('displayUser').innerText = `${user.name} (${user.role.toUpperCase()})`;
-      
-      if(user.role === 'admin') { 
-        showView('adminDashboard'); fetchLiveAdminData(); 
-      } else { 
-        showView('staffMenu'); 
-        document.getElementById('itemsContainer').innerHTML = ''; addItemRow(); 
-        
-        // AUTO-SELECT HOME BRANCH
-        if(user.branch) {
-          document.getElementById('branch').value = user.branch;
-        } else {
-          document.getElementById('branch').value = "";
+  <script>
+    // This connects directly to your NEW backend that handles the dynamic products
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbzeZ8CLU50nn2MDA6EoU0ZKnu8qihZRU-LhAgsk9GVqa7TKA44J5fVx-lMu-oeFiGWqfA/exec";
+    
+    // UPDATED DICTIONARY FOR 'EXTERNAL PURCHASE FORM'
+    const T = {
+      en: { nav_tag:"Staff", logout:"Logout", ordering_for:"Ordering for branch", view_history:"View 7-day history", back_ordering:"← Back to ordering", place_order:"External Purchase Form", active_orders:"Active orders", completed:"Completed deliveries — last 7 days", review_order:"Review order", target:"Target", total_units:"Total units", go_back:"Go back", confirm_send:"Confirm & send", sending:"Sending…", select_all:"Select all for confirmation", confirm_selected:"Confirm selected orders",
+        awaiting_cutoff:"Awaiting cut-off", prepping:"Prepping", on_the_way:"On the way", verified:"Chef confirmed", awaiting_driver:"Awaiting driver", confirm:"Confirm", edit:"Edit", save:"Save", saving:"Saving…", received:"Received ✓", handled_by:"Handled by", no_active:"All clear — no active orders.", no_history:"No delivery history found.", expected:"Expected", by:"By", qty:"Qty", search:"Search products…" },
+      th: { nav_tag:"พนักงาน", logout:"ออกจากระบบ", ordering_for:"สั่งของให้สาขา", view_history:"ดูประวัติ 7 วัน", back_ordering:"← กลับสู่การสั่งของ", place_order:"แบบฟอร์มสั่งซื้อภายนอก", active_orders:"ออเดอร์ที่รอดำเนินการ", completed:"ประวัติการจัดส่ง — 7 วันที่ผ่านมา", review_order:"ตรวจสอบออเดอร์", target:"สาขาปลายทาง", total_units:"จำนวนทั้งหมด", go_back:"ย้อนกลับ", confirm_send:"ยืนยันและส่ง", sending:"กำลังส่ง…", select_all:"เลือกทั้งหมดเพื่อยืนยัน", confirm_selected:"ยืนยันออเดอร์ที่เลือก",
+        awaiting_cutoff:"รอรอบส่งของถัดไป", prepping:"กำลังเตรียม", on_the_way:"กำลังจัดส่ง", verified:"เชฟยืนยันแล้ว", awaiting_driver:"รอคนขับ", confirm:"ยืนยัน", edit:"แก้ไข", save:"บันทึก", saving:"กำลังบันทึก…", received:"ได้รับแล้ว ✓", handled_by:"ดูแลโดย", no_active:"ไม่มีออเดอร์ที่รอดำเนินการ", no_history:"ไม่พบประวัติการจัดส่ง", expected:"จำนวนที่สั่ง", by:"โดย", qty:"จำนวน", search:"ค้นหาสินค้า…" }
+    };
+    let currentLang=sessionStorage.getItem("lova_lang")||"en";
+    const pin=sessionStorage.getItem("lova_pin")||"";
+    if(!pin)window.location.href="index.html";
+    let masterProducts=[],masterBranches=[],currentUser=null,selectedBranch="",pendingDeliveries=[],pendingOrderData=[],isShowingHistory=false,filterCat="ALL";
+    
+    function t(k){return T[currentLang][k]||T.en[k]||k;}
+    
+    function setLang(lang){
+      currentLang=lang;sessionStorage.setItem("lova_lang",lang);
+      document.getElementById("btnEN").classList.toggle("active",lang==="en");
+      document.getElementById("btnTH").classList.toggle("active",lang==="th");
+      document.getElementById("nav_tag").textContent=t("nav_tag");
+      document.getElementById("btn_logout").textContent=t("logout");
+      document.getElementById("txt_ordering_for").textContent=t("ordering_for");
+      document.getElementById("btnToggleHistory").textContent=isShowingHistory?t("back_ordering"):t("view_history");
+      document.getElementById("tabOrder").textContent=t("place_order");
+      document.getElementById("tabReceive").textContent=t("active_orders");
+      document.getElementById("txt_completed").textContent=t("completed");
+      document.getElementById("txt_review_order").textContent=t("review_order");
+      document.getElementById("btn_go_back").textContent=t("go_back");
+      document.getElementById("btnConfirm").textContent=t("confirm_send");
+    }
+    
+    setLang(currentLang);
+    
+    // Original, working Fetch connection for this URL
+    async function callGAS(action,params={}){
+      const res=await fetch(GAS_URL+"?callback=_",{method:"POST",body:JSON.stringify({action,...params}),headers:{"Content-Type":"text/plain"}});
+      const data=await res.json();if(data.error)throw new Error(data.error);return data.result;
+    }
+    
+    async function init(){
+      try{
+        currentUser=await callGAS("verifyStaff",{pin});
+        document.getElementById("navUser").textContent=currentUser.name;
+        const initData=await callGAS("getStaffAppInitData");
+        masterProducts=initData.products;masterBranches=initData.branches;
+        const sel=document.getElementById("branchSelector");
+        masterBranches.forEach(b=>sel.innerHTML+=`<option value="${b}">${b}</option>`);
+        renderOrderMenu();
+        if(currentUser.branch){sel.value=currentUser.branch;selectedBranch=currentUser.branch;fetchDeliveries();}
+      }catch(err){alert("Session error: "+err.message);window.location.href="index.html";}
+    }
+    
+    function logout(){sessionStorage.clear();window.location.href="logout.html?src=staff";}
+    
+    // UPDATED: BRANCH OVERRIDE ALERT (Bilingual)
+    function handleBranchChange(){
+      const nb=document.getElementById("branchSelector").value;
+      if(currentUser.role!=="Admin"&&currentUser.branch&&nb!==currentUser.branch){
+        if(!confirm((currentLang==="th"?"คำเตือน: สาขาหลักของคุณคือ ":"Branch override — your home branch is: ")+currentUser.branch+(currentLang==="th"?"\nคุณกำลังจะสั่งของให้สาขา: ":" \nBut you are about to order for: ")+nb+(currentLang==="th"?"\n\nยืนยันเพื่อดำเนินการต่อ?":"\n\nContinue?"))){
+            document.getElementById("branchSelector").value=selectedBranch;
+            return;
         }
       }
-      document.getElementById('authError').style.display = 'none'; 
-    } else {
-      document.getElementById('authError').style.display = 'block'; document.getElementById('passcode').value = '';
+      selectedBranch=nb;fetchDeliveries();
     }
-  }
-
-  function logout() { currentUser = {}; document.getElementById('passcode').value = ''; showView('authSection'); }
-
-  function showView(viewId) {
-    ['authSection', 'staffMenu', 'oseForm', 'adminDashboard', 'staffStatusDashboard', 'sharedNav'].forEach(id => document.getElementById(id).style.display = 'none');
-    document.getElementById(viewId).style.display = 'block';
-    if(viewId !== 'authSection') document.getElementById('sharedNav').style.display = 'block';
-    window.scrollTo(0,0);
-  }
-
-  function generateOrderID() {
-    const d = new Date();
-    const dateStr = (d.getMonth() + 1).toString().padStart(2, '0') + d.getDate().toString().padStart(2, '0');
-    return `REQ-${dateStr}-${Math.random().toString(36).substring(2, 6).toUpperCase()}`;
-  }
-
-  // --- BRANCH CHANGE ALERT LOGIC ---
-  document.getElementById('branch').addEventListener('change', function() {
-    if(currentUser && currentUser.branch && this.value !== currentUser.branch) {
-      alert(`⚠️ NOTICE: You changed the branch to ${this.value}. \n\nYour default home branch is ${currentUser.branch}. \n\nPlease ensure this is correct before submitting your order!`);
+    
+    async function fetchDeliveries(){
+      if(!selectedBranch)return;
+      document.getElementById("viewReceive").innerHTML=`<div class="loading">${t("loading")||"Loading…"}</div>`;
+      document.getElementById("historyContent").innerHTML=`<div class="loading">${t("loading")||"Loading…"}</div>`;
+      try{
+        const[pending,history]=await Promise.all([callGAS("getPendingReceivingForBranch",{branch:selectedBranch}),callGAS("getOrderHistory",{branch:selectedBranch})]);
+        pendingDeliveries=pending;renderReceiveView(pending);renderHistory(history);
+      }catch(err){document.getElementById("viewReceive").innerHTML=`<div class="loading">Error.</div>`;}
     }
-  });
+    
+    function switchTab(tab){
+      document.getElementById("tabOrder").classList.toggle("active",tab==="order");
+      document.getElementById("tabReceive").classList.toggle("active",tab==="receive");
+      document.getElementById("viewOrder").style.display=tab==="order"?"block":"none";
+      document.getElementById("viewReceive").style.display=tab==="receive"?"block":"none";
+    }
+    
+    function toggleHistory(){
+      isShowingHistory=!isShowingHistory;
+      document.getElementById("mainArea").style.display=isShowingHistory?"none":"block";
+      document.getElementById("viewHistory").style.display=isShowingHistory?"block":"none";
+      document.getElementById("btnToggleHistory").textContent=isShowingHistory?t("back_ordering"):t("view_history");
+    }
+    
+    function renderOrderMenu(){
+      let cats=["ALL"];
+      masterProducts.forEach(p=>{const c=(p[3]||"Uncategorized").trim();if(!cats.includes(c))cats.push(c);});
+      let html=`<input type="text" id="searchInput" class="search-input" placeholder="${t('search')}" oninput="filterProducts()">`;
+      html+=`<div class="chips">`;
+      cats.forEach(c=>{const safe=c.replace(/[^a-zA-Z0-9]/g,"");html+=`<div class="chip ${c==="ALL"?"active":""}" id="chip-${safe}" onclick="setCategory('${c}')">${c}</div>`;});
+      html+=`</div><div id="productList">`;
+      masterProducts.forEach((p,i)=>{
+        const cat=(p[3]||"Uncategorized").trim();
+        const imgHtml=p[4]?`<img src="${p[4]}" class="prod-img">`:`<div class="prod-img"></div>`;
+        const descHtml=p[2]?`<div class="prod-desc">${p[2]}</div>`:"";
+        html+=`<div class="product-card item-card" data-name="${(p[1]||"").toLowerCase()}" data-cat="${cat}">${imgHtml}<div class="prod-info"><div class="prod-name">${p[1]}</div>${descHtml}</div><input type="number" id="qty-${i}" class="qty-input" placeholder="0" inputmode="numeric" min="0" oninput="this.closest('.product-card').classList.toggle('has-qty',parseInt(this.value)>0)"></div>`;
+      });
+      html+=`</div><button class="btn-primary" onclick="reviewOrder()">${t('review_order')}</button>`;
+      document.getElementById("viewOrder").innerHTML=html;
+    }
+    
+    function setCategory(cat){
+      filterCat=cat;
+      document.querySelectorAll(".chip").forEach(el=>el.classList.remove("active"));
+      document.getElementById("chip-"+cat.replace(/[^a-zA-Z0-9]/g,""))?.classList.add("active");
+      filterProducts();
+    }
+    
+    function filterProducts(){
+      const q=(document.getElementById("searchInput")?.value||"").toLowerCase();
+      document.querySelectorAll(".item-card").forEach(card=>{card.style.display=(card.dataset.name.includes(q)&&(filterCat==="ALL"||card.dataset.cat===filterCat))?"flex":"none";});
+    }
+    
+    function reviewOrder(){
+      pendingOrderData=[];let total=0,html="";
+      masterProducts.forEach((p,i)=>{const qty=parseInt(document.getElementById("qty-"+i)?.value);if(qty>0){pendingOrderData.push({name:p[1],qty});total+=qty;html+=`<div class="modal-item"><span class="modal-item-name">${p[1]}</span><span class="modal-item-qty">×${qty}</span></div>`;}});
+      if(!pendingOrderData.length){alert(currentLang==="th"?"กรุณากรอกจำนวนอย่างน้อยหนึ่งรายการ":"Please enter at least one quantity.");return;}
+      document.getElementById("modalBranch").textContent=t("target")+": "+selectedBranch;
+      document.getElementById("modalList").innerHTML=html;
+      document.getElementById("modalTotal").textContent=t("total_units")+": "+total;
+      document.getElementById("reviewModal").classList.add("open");
+    }
+    
+    function closeModal(){document.getElementById("reviewModal").classList.remove("open");}
+    
+    async function confirmOrder(){
+      const btn=document.getElementById("btnConfirm");btn.textContent=t("sending");btn.disabled=true;
+      const isUrgent = document.getElementById("urgentCheck")?.checked || false;
+      try{
+        const msg=await callGAS("processOrder",{orderData:pendingOrderData,userInfo:{name:currentUser.name,pin},targetBranch:selectedBranch, isUrgent: isUrgent});
+        closeModal();alert(msg);
+        if(document.getElementById("urgentCheck")) document.getElementById("urgentCheck").checked = false;
+        masterProducts.forEach((_,i)=>{const el=document.getElementById("qty-"+i);if(el)el.value="";});
+        document.querySelectorAll(".product-card").forEach(c=>c.classList.remove("has-qty"));
+        await fetchDeliveries();switchTab("receive");
+      }catch(err){alert("Error: "+err.message);}
+      btn.textContent=t("confirm_send");btn.disabled=false;
+    }
 
-  // ==========================================
-  // RESET API CONNECTION (Standard Plain Text)
-  // ==========================================
-  async function safeGoogleFetch(payloadObject) {
-    return fetch(API_URL, {
-      method: 'POST',
-      redirect: 'follow',
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify(payloadObject)
-    })
-    .then(res => res.text())
-    .then(text => {
-      try {
-        return JSON.parse(text);
-      } catch(e) {
-        console.error("Google returned HTML error:", text);
-        throw new Error("Google Security Block. Ensure Web App is deployed as 'New version' and access is 'Anyone'.");
+    function statusBadge(status,lang){
+      const map={
+        "":"grey", "PENDING":"grey",
+        "SENT":"blue",
+        "ON THE WAY":"amber",
+        "STAFF VERIFIED":"teal","CHEF CONFIRMED":"teal",
+        "DELIVERED":"green","RECEIVED":"green",
+        "CANCELLED":"red"
+      };
+      const cls=map[status]||"grey";
+      const labels={
+        en:{"":"Awaiting cut-off","PENDING":"Awaiting cut-off","SENT":"Prepping","ON THE WAY":"On the way","STAFF VERIFIED":"Chef confirmed","CHEF CONFIRMED":"Chef confirmed","DELIVERED":"Delivered","RECEIVED":"Received","CANCELLED":"Cancelled"},
+        th:{"":"รอรอบส่งของถัดไป","PENDING":"รอรอบส่งของถัดไป","SENT":"กำลังเตรียม","ON THE WAY":"กำลังจัดส่ง","STAFF VERIFIED":"เชฟยืนยันแล้ว","CHEF CONFIRMED":"เชฟยืนยันแล้ว","DELIVERED":"จัดส่งแล้ว","RECEIVED":"ได้รับแล้ว","CANCELLED":"ยกเลิก"}
+      };
+      const label=(labels[lang]||labels.en)[status]||(labels.en[status]||status);
+      return`<div class="badge badge-${cls}">${label}</div>`;
+    }
+
+    function renderReceiveView(data){
+      const container=document.getElementById("viewReceive");
+      if(!data.length){container.innerHTML=`<div class="empty-state">${t("no_active")}</div>`;return;}
+      const grouped={};
+      data.forEach((item,idx)=>{item._idx=idx;if(!grouped[item.id])grouped[item.id]={id:item.id,date:item.date,orderedBy:item.orderedBy,items:[]};grouped[item.id].items.push(item);});
+      let hasReceivable=false,html="";
+      for(const key in grouped){
+        const grp=grouped[key],safeId=key.replace(/[^a-zA-Z0-9]/g,"");
+        const status=grp.items[0].status,isPending=status===""||status==="PENDING",isPrepping=status==="SENT";
+        if(!isPending&&!isPrepping)hasReceivable=true;
+        const badge=statusBadge(status,currentLang);
+        const actionBtn=isPending?`<button class="btn-sm btn-sm-amber" id="editBtn-${safeId}" onclick="toggleEdit('${safeId}')">${t("edit")}</button>`:isPrepping?`<button class="btn-sm btn-sm-muted" disabled>${t("awaiting_driver")}</button>`:`<button class="btn-sm btn-sm-blue" id="confirmBtn-${safeId}" onclick="submitReceipt('${safeId}')">${t("confirm")}</button>`;
+        const chkHtml=(!isPending&&!isPrepping)?`<input type="checkbox" id="chk-${safeId}" class="indv-chk" checked>`:"";
+        html+=`<div class="order-batch"><div class="batch-head">${chkHtml}<div class="batch-head-left" onclick="toggleDetails('${safeId}')"><div><div class="batch-id-text">${grp.id}</div><div class="batch-meta">${t("by")} ${grp.orderedBy} · ${grp.date}</div>${badge}</div></div>${actionBtn}</div><div class="order-details" id="det-${safeId}">`;
+        grp.items.forEach(item=>{
+          html+=`<div class="order-item-row"><div><div class="order-item-name">${item.item}</div>${!isPending?`<div class="order-item-sub">${t("expected")}: ${item.qty}</div>`:""}</div>`;
+          html+=!isPending?`<input type="number" id="recQty-${item._idx}" class="qty-input" value="${item.qty}" inputmode="numeric" min="0" style="height:38px;">`:
+            `<div id="dispQty-${item._idx}" class="order-qty-display">${item.qty}</div><input type="number" id="editQty-${item._idx}" class="qty-input edit-input-${safeId}" data-rownum="${item.rowNum}" value="${item.qty}" inputmode="numeric" min="0" style="display:none;height:38px;">`;
+          html+=`</div>`;
+        });
+        html+=`</div></div>`;
       }
-    });
-  }
-
-  // ==========================================
-  // ADMIN: FETCH DATA
-  // ==========================================
-  function fetchLiveAdminData() {
-    document.getElementById('adminRequestsList').innerHTML = '<div class="loading-text">Fetching pending orders from Database...</div>';
-    safeGoogleFetch({ action: 'get_data', role: 'admin' })
-    .then(response => {
-      if(response.status === 'success') { liveDataCache = response.data; renderAdminUI(); } 
-      else { document.getElementById('adminRequestsList').innerHTML = `<div class="loading-text" style="color:red;">Error: ${response.error}</div>`; }
-    })
-    .catch(err => { document.getElementById('adminRequestsList').innerHTML = `<div class="loading-text" style="color:red;">Network Error: ${err.message}</div>`; });
-  }
-
-  function renderAdminUI() {
-    const container = document.getElementById('adminRequestsList');
-    const filterLoc = document.getElementById('filterLocation').value;
-    const sortOrder = document.getElementById('sortDate').value;
-    const searchTxt = document.getElementById('searchOrderId').value.toUpperCase().trim();
-    
-    let filteredData = liveDataCache; 
-    if (searchTxt) filteredData = filteredData.filter(req => req.orderId.includes(searchTxt));
-    if (filterLoc !== 'All') filteredData = filteredData.filter(req => req.branch === filterLoc);
-    filteredData.sort((a, b) => sortOrder === 'newest' ? new Date(b.date) - new Date(a.date) : new Date(a.date) - new Date(b.date));
-
-    const urgentCount = filteredData.filter(req => req.isUrgent).length;
-    document.getElementById('statTotal').innerText = `${filteredData.length} Items Pending`;
-    document.getElementById('statUrgent').innerText = `${urgentCount} Urgent`;
-    document.getElementById('statUrgent').style.display = urgentCount > 0 ? 'block' : 'none';
-
-    container.innerHTML = '';
-    if (filteredData.length === 0) { container.innerHTML = '<p style="text-align:center; color:#6b7280; margin-top:40px;">No pending items found.</p>'; return; }
-
-    const groupedOrders = {};
-    filteredData.forEach(item => {
-      if (!groupedOrders[item.orderId]) groupedOrders[item.orderId] = [];
-      groupedOrders[item.orderId].push(item);
-    });
-
-    for (const [orderId, items] of Object.entries(groupedOrders)) {
-      const primary = items[0]; 
-      const dateStr = new Date(primary.date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', hour: '2-digit', minute:'2-digit' });
-      const hasUrgent = items.some(i => i.isUrgent);
-
-      let groupHTML = `<div class="admin-order-group"><div class="order-group-header"><div><div class="order-id-main">${orderId} ${hasUrgent ? '<span class="badge-urgent">URGENT</span>' : ''}</div><div class="order-meta">By <b>${primary.requester}</b> • ${primary.branch} (${primary.section})</div><div class="order-meta">${dateStr}</div></div></div><div class="order-items-list">`;
-
-      items.forEach(req => {
-        const photoHtml = req.photo ? `<img src="${req.photo}" class="admin-img">` : `<div class="admin-no-img">No Img</div>`;
-        groupHTML += `
-          <div class="admin-item-row" id="row-${req.rowNumber}">
-            ${photoHtml}
-            <div>
-              <div class="item-header-flex"><div class="admin-item-title">${req.itemTitle}</div><div class="admin-price">${req.qty} ${req.unit} @ ฿${(req.totalPrice / req.qty).toLocaleString()}</div></div>
-              <div class="item-desc">${req.purpose}</div>
-              <div class="admin-actions">
-                <button class="btn-reject" onclick="updateOrderStatus(${req.rowNumber}, 'Rejected')">Reject</button>
-                <button class="btn-approve" onclick="updateOrderStatus(${req.rowNumber}, 'Approved')">Approve</button>
-              </div>
-            </div>
-          </div>`;
-      });
-      groupHTML += `</div></div>`;
-      container.innerHTML += groupHTML;
-    }
-  }
-
-  // ==========================================
-  // ADMIN: APPROVE/REJECT
-  // ==========================================
-  function updateOrderStatus(rowNumber, newStatus) {
-    const rowElement = document.getElementById('row-' + rowNumber);
-    rowElement.innerHTML = `<div style="text-align:center; padding: 20px 0; font-weight:600; font-size:14px;">Updating Database...</div>`;
-    
-    safeGoogleFetch({ action: 'update_status', rowNumber: rowNumber, newStatus: newStatus })
-    .then(response => {
-      if(response.status === 'success') {
-        rowElement.innerHTML = `<div style="text-align:center; padding: 20px 0; font-weight:600; font-size:14px; color:#000;">Item ${newStatus}</div>`;
-        setTimeout(() => { 
-          rowElement.style.opacity = '0'; 
-          liveDataCache = liveDataCache.filter(item => item.rowNumber !== rowNumber);
-          setTimeout(() => renderAdminUI(), 300); 
-        }, 1000);
-      } else { rowElement.innerHTML = `<div style="color:red; font-size:12px;">Error: ${response.error}</div>`; }
-    })
-    .catch(err => { alert("Network error updating status."); renderAdminUI(); });
-  }
-
-  // ==========================================
-  // STAFF: FETCH HISTORY
-  // ==========================================
-  function fetchLiveStatusData() {
-    document.getElementById('staffRequestsList').innerHTML = '<div class="loading-text">Fetching history from Database...</div>';
-    safeGoogleFetch({ action: 'get_data', role: 'staff', userName: currentUser.name })
-    .then(response => {
-      if(response.status === 'success') { renderStaffStatusUI(response.data); } 
-      else { document.getElementById('staffRequestsList').innerHTML = `<div class="loading-text" style="color:red;">Error: ${response.error}</div>`; }
-    })
-    .catch(err => { document.getElementById('staffRequestsList').innerHTML = '<div class="loading-text" style="color:red;">Network error.</div>'; });
-  }
-
-  function renderStaffStatusUI(myRequests) {
-    const container = document.getElementById('staffRequestsList');
-    container.innerHTML = '';
-    if (myRequests.length === 0) { container.innerHTML = '<p style="text-align:center; color:#6b7280; margin-top:40px;">You have no order history.</p>'; return; }
-
-    const groupedOrders = {};
-    myRequests.forEach(item => {
-      if (!groupedOrders[item.orderId]) groupedOrders[item.orderId] = [];
-      groupedOrders[item.orderId].push(item);
-    });
-
-    const sortedOrderIds = Object.keys(groupedOrders).sort((a, b) => new Date(groupedOrders[b][0].date) - new Date(groupedOrders[a][0].date));
-
-    sortedOrderIds.forEach(orderId => {
-      const items = groupedOrders[orderId];
-      const primary = items[0];
-      const dateStr = new Date(primary.date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', hour: '2-digit', minute:'2-digit' });
-
-      let groupHTML = `<div class="admin-order-group"><div class="order-group-header"><div><div class="order-id-main">${orderId}</div><div class="order-meta">${primary.branch} (${primary.section})</div><div class="order-meta">${dateStr}</div></div></div><div class="order-items-list">`;
-
-      items.forEach(req => {
-        const photoHtml = req.photo ? `<img src="${req.photo}" class="admin-img">` : `<div class="admin-no-img">No Img</div>`;
-        let statusClass = req.status.includes('Pending') ? 'badge-pending' : (req.status === 'Approved' ? 'badge-approved' : 'badge-rejected');
-
-        groupHTML += `
-          <div class="admin-item-row">
-            ${photoHtml}
-            <div style="flex:1; width:100%;">
-              <div class="item-header-flex"><div class="admin-item-title">${req.itemTitle}</div><span class="badge-status ${statusClass}">${req.status.toUpperCase()}</span></div>
-              <div class="item-desc">${req.qty} ${req.unit}</div>
-            </div>
-          </div>`;
-      });
-      groupHTML += `</div></div>`;
-      container.innerHTML += groupHTML;
-    });
-  }
-
-  // ==========================================
-  // STAFF: FORM LOGIC
-  // ==========================================
-  function addItemRow() {
-    const container = document.getElementById('itemsContainer');
-    const row = document.createElement('div');
-    row.className = 'card item-card';
-    const uniqueId = 'img-' + Date.now();
-    row.innerHTML = `<div class="item-header" style="display:flex; justify-content:space-between; margin-bottom:10px;"><span style="font-weight:600; font-size:14px;">Item Details</span><button type="button" class="btn-remove" onclick="removeRow(this)" style="display:none;">✕ Remove</button></div><div><label>Item Name (EN)</label><input type="text" class="itemName" placeholder="e.g. Copper Pan" required></div><div class="item-stats-grid"><div><label>Qty</label><input type="number" class="quantity" placeholder="0" min="1" required inputmode="numeric"></div><div><label>Unit</label><select class="unit" required><option value="" disabled selected>Select</option><option value="Piece">Piece</option><option value="Pack">Pack</option><option value="Box">Box</option><option value="Bottle">Bottle</option><option value="Dozen">Dozen</option><option value="Meter">Meter</option><option value="Kg">Kg</option></select></div><div><label>Price/Unit</label><input type="number" class="price" placeholder="THB" required inputmode="decimal"></div></div><div class="media-grid"><div class="thumbnail-box"><span id="text-${uniqueId}">No Img</span><img id="${uniqueId}" src="" alt="Preview"></div><div><label>Product Link</label><input type="url" class="link" placeholder="Paste Shopee URL..." onblur="fetchThumbnail(this, '${uniqueId}')"><input type="hidden" class="extractedImageUrl"></div><div class="tax-wrapper"><label>Tax Invoice</label><select class="taxInvoice" required><option value="No">No</option><option value="Yes">Yes</option></select></div></div>`;
-    container.appendChild(row); updateRemoveButtons();
-  }
-
-  async function fetchThumbnail(input, imgId) {
-    const url = input.value.trim(); const imgEl = document.getElementById(imgId); const textEl = document.getElementById('text-' + imgId);
-    if (!url) return; textEl.innerText = 'Load...';
-    try { const res = await fetch(`https://api.microlink.io/?url=${encodeURIComponent(url)}`); const data = await res.json();
-      if (data.status === 'success' && data.data.image) { imgEl.src = data.data.image.url; imgEl.style.display = 'block'; textEl.style.display = 'none'; input.parentElement.querySelector('.extractedImageUrl').value = data.data.image.url; } 
-      else { textEl.innerText = 'No Img'; }
-    } catch (e) { textEl.innerText = 'No Img'; }
-  }
-
-  function removeRow(btn) { btn.closest('.item-card').remove(); updateRemoveButtons(); }
-  function updateRemoveButtons() { const rows = document.querySelectorAll('.item-card'); rows.forEach(r => r.querySelector('.btn-remove').style.display = rows.length > 1 ? 'block' : 'none'); }
-
-  // ==========================================
-  // STAFF: SUBMIT ORDER
-  // ==========================================
-  document.getElementById('purchaseForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const btn = document.getElementById('submitBtn');
-    btn.innerText = "Saving to Database..."; btn.disabled = true;
-    
-    const generatedOrderId = generateOrderID();
-    const items = [];
-    document.querySelectorAll('.item-card').forEach((row) => {
-      items.push({
-        itemNameEN: row.querySelector('.itemName').value,
-        qty: parseFloat(row.querySelector('.quantity').value),
-        unit: row.querySelector('.unit').value,
-        price: parseFloat(row.querySelector('.price').value),
-        link: row.querySelector('.link').value,
-        imgUrl: row.querySelector('.extractedImageUrl').value || '',
-        taxInvoice: row.querySelector('.taxInvoice').value
-      });
-    });
-
-    const payload = {
-      action: 'submit_order',
-      payload: {
-        orderId: generatedOrderId, requester: currentUser.name,
-        branch: document.getElementById('branch').value, section: document.getElementById('section').value,
-        purposeEN: document.getElementById('purpose').value, isUrgent: document.getElementById('isUrgent').checked,
-        items: items
+      if(hasReceivable){
+        html=`<div class="select-all-bar"><label><input type="checkbox" id="selectAll" checked onchange="toggleSelectAll(this)"> ${t("select_all")}</label></div>`+html;
+        html+=`<button class="btn-primary btn-blue-action" id="btnBatchConfirm" onclick="submitReceipt()" style="margin-top:4px;">${t("confirm_selected")}</button>`;
       }
-    };
-
-    safeGoogleFetch(payload)
-    .then(response => {
-      if (response.status === 'success') {
-        alert(`SUCCESS!\n\nYour Request ID is: ${generatedOrderId}\nPlease save this ID for tracking.`);
-        document.getElementById('purchaseForm').reset();
-        showView('staffMenu');
-      } else { alert("Database Error: \n" + response.error); }
-    })
-    .catch(err => { alert(err.message); })
-    .finally(() => { btn.innerText = "Submit Purchase Request"; btn.disabled = false; });
-  });
-</script>
+      container.innerHTML=html;
+    }
+    function toggleDetails(safeId){const det=document.getElementById("det-"+safeId);if(det)det.style.display=det.style.display==="block"?"none":"block";}
+    function toggleSelectAll(box){document.querySelectorAll(".indv-chk").forEach(c=>c.checked=box.checked);}
+    
+    function toggleEdit(safeId){
+      const btn=document.getElementById("editBtn-"+safeId),inputs=document.querySelectorAll(".edit-input-"+safeId),det=document.getElementById("det-"+safeId);
+      if(btn.textContent===t("edit")||btn.textContent==="Edit"||btn.textContent==="แก้ไข"){
+        det.style.display="block";btn.textContent=t("save");btn.className="btn-sm btn-sm-blue";
+        inputs.forEach(inp=>{document.getElementById("dispQty-"+inp.id.split("-")[1]).style.display="none";inp.style.display="block";});
+      }else{
+        btn.textContent=t("saving");btn.disabled=true;
+        const updates=Array.from(inputs).map(inp=>({rowNum:inp.dataset.rownum,qty:parseInt(inp.value)||0}));
+        callGAS("updatePendingOrder",{payload:{updates},userInfo:{name:currentUser.name,pin}})
+          .then(msg=>{alert(msg);fetchDeliveries();})
+          .catch(err=>{alert("Error: "+err.message);btn.textContent=t("save");btn.disabled=false;});
+      }
+    }
+    
+    async function submitReceipt(specificSafeId){
+      const receiptData=[];
+      pendingDeliveries.forEach(item=>{
+        if(item.status!=="ON THE WAY")return;
+        const isTarget=specificSafeId?item.id.replace(/[^a-zA-Z0-9]/g,"")===specificSafeId:document.getElementById("chk-"+item.id.replace(/[^a-zA-Z0-9]/g,""))?.checked;
+        if(isTarget){const qty=parseInt(document.getElementById("recQty-"+item._idx)?.value);if(!isNaN(qty))receiptData.push({rowNum:item.rowNum,item:item.item,receivedQty:qty});}
+      });
+      if(!receiptData.length){alert(currentLang==="th"?"ยังไม่มีออเดอร์ที่ส่งมา":"No dispatched orders to confirm yet.");return;}
+      const btnId=specificSafeId?"confirmBtn-"+specificSafeId:"btnBatchConfirm";
+      const btn=document.getElementById(btnId);if(btn){btn.textContent="...";btn.disabled=true;}
+      try{const msg=await callGAS("submitReceiving",{payload:receiptData,userInfo:{name:currentUser.name,pin}});alert(msg);fetchDeliveries();}
+      catch(err){alert("Error: "+err.message);if(btn){btn.textContent=specificSafeId?t("confirm"):t("confirm_selected");btn.disabled=false;}}
+    }
+    
+    function renderHistory(data){
+      const container=document.getElementById("historyContent");
+      if(!data.length){container.innerHTML=`<div class="loading">${t("no_history")}</div>`;return;}
+      const grouped={};
+      data.forEach(item=>{if(!grouped[item.id])grouped[item.id]={time:item.receivedAt,driver:item.driver,items:[]};grouped[item.id].items.push(item);});
+      container.innerHTML=Object.entries(grouped).map(([oId,order])=>`
+        <div class="history-card">
+          <div class="hist-top"><div><div class="hist-id">${oId}</div><div class="hist-time">${order.time}</div></div><div class="hist-status">${t("received")}</div></div>
+          ${order.items.map(sub=>`<div class="hist-item"><span>${sub.item}</span><strong>${t("qty")}: ${sub.qty}</strong></div>`).join("")}
+          <div class="hist-driver">${t("handled_by")}: ${order.driver}</div>
+        </div>`).join("");
+    }
+    init();
+  </script>
 </body>
 </html>
