@@ -95,7 +95,7 @@
   <div class="container" id="staffMenu">
     <h2>Staff Operations</h2>
     <div class="menu-grid">
-      <button class="menu-btn" onclick="showView('oseForm')" style="border-color:#000; font-weight:600;">🛒 Purchase OSE</button>
+      <button class="menu-btn" onclick="showView('oseForm')" style="border-color:#000; font-weight:600;">🛒 External Purchase Form</button>
       <button class="menu-btn" onclick="showView('staffStatusDashboard'); fetchLiveStatusData();">📦 My Order Status</button>
       <button class="menu-btn" onclick="alert('Inventory module coming soon!')">📋 Counting Inventory</button>
     </div>
@@ -103,18 +103,37 @@
 
   <div class="container" id="oseForm">
     <button class="btn-back" onclick="showView('staffMenu')">← Back to Menu</button>
-    <h2>Purchase OSE</h2>
+    <h2>External Purchase Form</h2>
+    
     <form id="purchaseForm">
       <div class="card">
         <h3 class="card-title">Request Details</h3>
         <div class="grid-2">
-          <div><label>Branch</label><select id="branch" required><option value="" disabled selected>Select Branch</option><option value="Bianca EMSPHERE">Bianca EMSPHERE</option><option value="Bianca ICONSIAM">Bianca ICONSIAM</option><option value="Bianca ONE BANGKOK">Bianca ONE BANGKOK</option><option value="Bianca SIAM PARAGON">Bianca SIAM PARAGON</option><option value="Terminal 21">Terminal 21</option><option value="LAVA">LAVA</option></select></div>
+          <div>
+            <label>Branch</label>
+            <select id="branch" required>
+              <option value="" disabled selected>Select Branch</option>
+              <option value="HQ">HQ</option>
+              <option value="LOVA GROUP">LOVA GROUP</option>
+              <option value="BIANCA EMSPHERE">BIANCA EMSPHERE</option>
+              <option value="BIANCA ONE BANGKOK">BIANCA ONE BANGKOK</option>
+              <option value="BIANCA SIAM PARAGON">BIANCA SIAM PARAGON</option>
+              <option value="BIANCA ICONSIAM">BIANCA ICONSIAM</option>
+              <option value="HOLYBELLY">HOLYBELLY</option>
+              <option value="LAVA">LAVA</option>
+              <option value="CK">CK</option>
+              <option value="DRIVER">DRIVER</option>
+              <option value="FINANCE">FINANCE</option>
+            </select>
+          </div>
           <div><label>Section</label><select id="section" required><option value="" disabled selected>Select Section</option><option value="Kitchen">Kitchen</option><option value="Bar">Bar</option><option value="Service">Service</option></select></div>
         </div>
         <div><label>Purpose of Use (English)</label><textarea id="purpose" placeholder="Briefly explain why these items are needed..." required></textarea></div>
         <label class="urgent-wrapper"><input type="checkbox" id="isUrgent"><span>Mark request as <b>URGENT</b></span></label>
       </div>
+
       <div id="itemsContainer"></div>
+
       <button type="button" class="btn-outline" onclick="addItemRow()">+ Add Another Item</button>
       <div class="sticky-bottom"><button type="submit" id="submitBtn">Submit Purchase Request</button></div>
     </form>
@@ -133,7 +152,18 @@
       <div class="admin-stats-bar"><div class="stat-pill" id="statTotal">0 Pending</div><div class="stat-pill stat-urgent" id="statUrgent">0 Urgent</div></div>
       <div class="admin-search-bar"><input type="text" id="searchOrderId" placeholder="Search Order ID (e.g. REQ-...)" onkeyup="renderAdminUI()"></div>
       <div class="admin-controls">
-        <select id="filterLocation" onchange="renderAdminUI()"><option value="All">All Locations</option><option value="Bianca EMSPHERE">Bianca EMSPHERE</option><option value="Bianca ICONSIAM">Bianca ICONSIAM</option><option value="Bianca ONE BANGKOK">Bianca ONE BANGKOK</option><option value="Bianca SIAM PARAGON">Bianca SIAM PARAGON</option><option value="Terminal 21">Terminal 21</option><option value="LAVA">LAVA</option></select>
+        <select id="filterLocation" onchange="renderAdminUI()">
+          <option value="All">All Locations</option>
+          <option value="HQ">HQ</option>
+          <option value="LOVA GROUP">LOVA GROUP</option>
+          <option value="BIANCA EMSPHERE">BIANCA EMSPHERE</option>
+          <option value="BIANCA ONE BANGKOK">BIANCA ONE BANGKOK</option>
+          <option value="BIANCA SIAM PARAGON">BIANCA SIAM PARAGON</option>
+          <option value="BIANCA ICONSIAM">BIANCA ICONSIAM</option>
+          <option value="HOLYBELLY">HOLYBELLY</option>
+          <option value="LAVA">LAVA</option>
+          <option value="CK">CK</option>
+        </select>
         <select id="sortDate" onchange="renderAdminUI()"><option value="newest">Newest First</option><option value="oldest">Oldest First</option></select>
       </div>
     </div>
@@ -141,18 +171,31 @@
   </div>
 
 <script>
-  // =================================================================
-  // 1. YOUR API URL & USER DIRECTORY (WITH PRE-SELECTED BRANCHES)
-  // =================================================================
   const API_URL = "https://script.google.com/macros/s/AKfycbxgxY6BXooYtMjMlV3wVfW1F7IikNRUWGv_Y89eCuJzlHk_k_2nl10nqvc3ATlk0vss/exec"; 
   
-  // NOTE: I added 'branch' here. It will auto-fill the form, but they can still change it!
+  // FULLY MAPPED DIRECTORY WITH ASSIGNED BRANCHES
   const userDirectory = { 
-    "1111": { name: "Thyme", role: "admin" }, 
-    "2222": { name: "Lucas", role: "admin" }, 
-    "3333": { name: "Cher", role: "staff", branch: "Bianca EMSPHERE" }, 
-    "4444": { name: "Korn", role: "staff", branch: "LAVA" }, 
-    "5555": { name: "Wan", role: "staff", branch: "Bianca ICONSIAM" }
+    "1234": { name: "Tyme", role: "admin", branch: "HQ" },
+    "2345": { name: "Foam", role: "admin", branch: "HQ" },
+    "3333": { name: "Naw lydia (Central Kitchen)", role: "admin", branch: "LOVA GROUP" },
+    "2222": { name: "JACK", role: "admin", branch: "LOVA GROUP" },
+    "1111": { name: "JERIKO", role: "admin", branch: "LOVA GROUP" },
+    "1000": { name: "CHEF KARN", role: "staff", branch: "BIANCA EMSPHERE" },
+    "1001": { name: "CHEF FON", role: "staff", branch: "BIANCA EMSPHERE" },
+    "2000": { name: "CHEF FLUKE", role: "staff", branch: "BIANCA ONE BANGKOK" },
+    "2001": { name: "CHEF NUT", role: "staff", branch: "BIANCA ONE BANGKOK" },
+    "3000": { name: "CHEF AU", role: "staff", branch: "BIANCA SIAM PARAGON" },
+    "3001": { name: "CHEF KOI", role: "staff", branch: "BIANCA SIAM PARAGON" },
+    "4000": { name: "CHEF BELL", role: "staff", branch: "BIANCA ICONSIAM" },
+    "4001": { name: "CHEF PIM", role: "staff", branch: "BIANCA ICONSIAM" },
+    "5000": { name: "CHEF BLACK", role: "staff", branch: "HOLYBELLY" },
+    "5001": { name: "CHEF DENISH", role: "staff", branch: "HOLYBELLY" },
+    "6000": { name: "CHEF JEREMY", role: "staff", branch: "LAVA" },
+    "6666": { name: "K.FLUKE", role: "staff", branch: "CK" },
+    "9000": { name: "K.TON", role: "staff", branch: "DRIVER" },
+    "4444": { name: "K.UM", role: "staff", branch: "CK" },
+    "5555": { name: "K.SISI", role: "staff", branch: "CK" },
+    "1212": { name: "TEST", role: "staff", branch: "FINANCE" }
   };
   
   let currentUser = {};
@@ -168,18 +211,16 @@
       document.getElementById('displayUser').innerText = `${user.name} (${user.role.toUpperCase()})`;
       
       if(user.role === 'admin') { 
-        showView('adminDashboard'); 
-        fetchLiveAdminData(); 
+        showView('adminDashboard'); fetchLiveAdminData(); 
       } else { 
         showView('staffMenu'); 
-        document.getElementById('itemsContainer').innerHTML = ''; 
-        addItemRow(); 
+        document.getElementById('itemsContainer').innerHTML = ''; addItemRow(); 
         
-        // AUTO-SELECT BRANCH IF THEY HAVE ONE
+        // AUTO-SELECT HOME BRANCH
         if(user.branch) {
           document.getElementById('branch').value = user.branch;
         } else {
-          document.getElementById('branch').value = ""; // Reset to default
+          document.getElementById('branch').value = "";
         }
       }
       document.getElementById('authError').style.display = 'none'; 
@@ -203,17 +244,32 @@
     return `REQ-${dateStr}-${Math.random().toString(36).substring(2, 6).toUpperCase()}`;
   }
 
+  // --- BRANCH CHANGE ALERT LOGIC ---
+  document.getElementById('branch').addEventListener('change', function() {
+    if(currentUser && currentUser.branch && this.value !== currentUser.branch) {
+      alert(`⚠️ NOTICE: You changed the branch to ${this.value}. \n\nYour default home branch is ${currentUser.branch}. \n\nPlease ensure this is correct before submitting your order!`);
+    }
+  });
+
   // ==========================================
-  // RESET API CONNECTION LOGIC (TEXT/PLAIN)
+  // RESET API CONNECTION (Standard Plain Text)
   // ==========================================
-  async function googleFetch(payload) {
+  async function safeGoogleFetch(payloadObject) {
     return fetch(API_URL, {
       method: 'POST',
-      body: JSON.stringify(payload),
-      headers: {
-        'Content-Type': 'text/plain;charset=utf-8',
+      redirect: 'follow',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(payloadObject)
+    })
+    .then(res => res.text())
+    .then(text => {
+      try {
+        return JSON.parse(text);
+      } catch(e) {
+        console.error("Google returned HTML error:", text);
+        throw new Error("Google Security Block. Ensure Web App is deployed as 'New version' and access is 'Anyone'.");
       }
-    }).then(res => res.json());
+    });
   }
 
   // ==========================================
@@ -221,7 +277,7 @@
   // ==========================================
   function fetchLiveAdminData() {
     document.getElementById('adminRequestsList').innerHTML = '<div class="loading-text">Fetching pending orders from Database...</div>';
-    googleFetch({ action: 'get_data', role: 'admin' })
+    safeGoogleFetch({ action: 'get_data', role: 'admin' })
     .then(response => {
       if(response.status === 'success') { liveDataCache = response.data; renderAdminUI(); } 
       else { document.getElementById('adminRequestsList').innerHTML = `<div class="loading-text" style="color:red;">Error: ${response.error}</div>`; }
@@ -288,7 +344,7 @@
     const rowElement = document.getElementById('row-' + rowNumber);
     rowElement.innerHTML = `<div style="text-align:center; padding: 20px 0; font-weight:600; font-size:14px;">Updating Database...</div>`;
     
-    googleFetch({ action: 'update_status', rowNumber: rowNumber, newStatus: newStatus })
+    safeGoogleFetch({ action: 'update_status', rowNumber: rowNumber, newStatus: newStatus })
     .then(response => {
       if(response.status === 'success') {
         rowElement.innerHTML = `<div style="text-align:center; padding: 20px 0; font-weight:600; font-size:14px; color:#000;">Item ${newStatus}</div>`;
@@ -307,7 +363,7 @@
   // ==========================================
   function fetchLiveStatusData() {
     document.getElementById('staffRequestsList').innerHTML = '<div class="loading-text">Fetching history from Database...</div>';
-    googleFetch({ action: 'get_data', role: 'staff', userName: currentUser.name })
+    safeGoogleFetch({ action: 'get_data', role: 'staff', userName: currentUser.name })
     .then(response => {
       if(response.status === 'success') { renderStaffStatusUI(response.data); } 
       else { document.getElementById('staffRequestsList').innerHTML = `<div class="loading-text" style="color:red;">Error: ${response.error}</div>`; }
@@ -409,7 +465,7 @@
       }
     };
 
-    googleFetch(payload)
+    safeGoogleFetch(payload)
     .then(response => {
       if (response.status === 'success') {
         alert(`SUCCESS!\n\nYour Request ID is: ${generatedOrderId}\nPlease save this ID for tracking.`);
@@ -417,7 +473,7 @@
         showView('staffMenu');
       } else { alert("Database Error: \n" + response.error); }
     })
-    .catch(err => { alert("Network Error. Please check your internet connection."); })
+    .catch(err => { alert(err.message); })
     .finally(() => { btn.innerText = "Submit Purchase Request"; btn.disabled = false; });
   });
 </script>
