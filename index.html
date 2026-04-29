@@ -95,8 +95,6 @@
     .tax-wrapper { grid-column: 1 / -1; }
     .sticky-bottom { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); padding: 15px 20px; border-top: 1px solid var(--border-color); z-index: 100; box-shadow: 0 -2px 10px rgba(0,0,0,0.05); }
     .sticky-bottom button { max-width: 800px; margin: 0 auto; }
-
-    /* Loading States */
     .loading-text { text-align: center; color: var(--text-muted); font-size: 14px; margin-top: 40px; padding: 20px; border: 1px dashed var(--border-color); border-radius: 10px; }
 
     @media (min-width: 600px) {
@@ -143,7 +141,7 @@
       <div class="card">
         <h3 class="card-title">Request Details</h3>
         <div class="grid-2">
-          <div><label>Branch</label><select id="branch" required><option value="" disabled selected>Select Branch</option><option value="Bianca EMSPHERE">Bianca EMSPHERE</option><option value="Bianca ICONSIAM">Bianca ICONSIAM</option><option value="Bianca ONE BANGKOK">Bianca ONE BANGKOK</option><option value="LAVA">LAVA</option></select></div>
+          <div><label>Branch</label><select id="branch" required><option value="" disabled selected>Select Branch</option><option value="Bianca EMSPHERE">Bianca EMSPHERE</option><option value="Bianca ICONSIAM">Bianca ICONSIAM</option><option value="Bianca ONE BANGKOK">Bianca ONE BANGKOK</option><option value="Bianca SIAM PARAGON">Bianca SIAM PARAGON</option><option value="Terminal 21">Terminal 21</option><option value="LAVA">LAVA</option></select></div>
           <div><label>Section</label><select id="section" required><option value="" disabled selected>Select Section</option><option value="Kitchen">Kitchen</option><option value="Bar">Bar</option><option value="Service">Service</option></select></div>
         </div>
         <div><label>Purpose of Use (English)</label><textarea id="purpose" placeholder="Briefly explain why these items are needed..." required></textarea></div>
@@ -188,6 +186,8 @@
           <option value="Bianca EMSPHERE">Bianca EMSPHERE</option>
           <option value="Bianca ICONSIAM">Bianca ICONSIAM</option>
           <option value="Bianca ONE BANGKOK">Bianca ONE BANGKOK</option>
+          <option value="Bianca SIAM PARAGON">Bianca SIAM PARAGON</option>
+          <option value="Terminal 21">Terminal 21</option>
           <option value="LAVA">LAVA</option>
         </select>
         <select id="sortDate" onchange="renderAdminUI()">
@@ -208,10 +208,8 @@
   // ==========================================
   const API_URL = "https://script.google.com/macros/s/AKfycbxgxY6BXooYtMjMlV3wVfW1F7IikNRUWGv_Y89eCuJzlHk_k_2nl10nqvc3ATlk0vss/exec"; 
   
-  const userDirectory = { "1111": { name: "Thyme", role: "admin" }, "2222": { name: "Lucas", role: "admin" }, "3333": { name: "Cher", role: "staff" }, "4444": { name: "Korn", role: "staff" }};
+  const userDirectory = { "1111": { name: "Thyme", role: "admin" }, "2222": { name: "Lucas", role: "admin" }, "3333": { name: "Cher", role: "staff" }, "4444": { name: "Korn", role: "staff" }, "5555": { name: "Wan", role: "staff" }};
   let currentUser = {};
-  
-  // This will store the LIVE data we fetch from Google Sheets
   let liveDataCache = []; 
 
   function handleEnter(e) { if(e.key === 'Enter') authenticateUser(); }
@@ -262,6 +260,8 @@
     
     fetch(API_URL, {
       method: 'POST',
+      redirect: 'follow',
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
       body: JSON.stringify({ action: 'get_data', role: 'admin' })
     })
     .then(res => res.json())
@@ -338,6 +338,8 @@
     
     fetch(API_URL, {
       method: 'POST',
+      redirect: 'follow',
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
       body: JSON.stringify({ action: 'update_status', rowNumber: rowNumber, newStatus: newStatus })
     })
     .then(res => res.json())
@@ -345,11 +347,11 @@
       rowElement.innerHTML = `<div style="text-align:center; padding: 20px 0; font-weight:600; font-size:14px; color:#000;">Item ${newStatus}</div>`;
       setTimeout(() => { 
         rowElement.style.opacity = '0'; 
-        // Remove from local cache and re-render
         liveDataCache = liveDataCache.filter(item => item.rowNumber !== rowNumber);
         setTimeout(() => renderAdminUI(), 300); 
       }, 1000);
-    });
+    })
+    .catch(err => alert("Error updating status."));
   }
 
   // ==========================================
@@ -360,6 +362,8 @@
     
     fetch(API_URL, {
       method: 'POST',
+      redirect: 'follow',
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
       body: JSON.stringify({ action: 'get_data', role: 'staff', userName: currentUser.name })
     })
     .then(res => res.json())
@@ -367,6 +371,9 @@
       if(response.status === 'success') {
         renderStaffStatusUI(response.data);
       }
+    })
+    .catch(err => {
+      document.getElementById('staffRequestsList').innerHTML = '<div class="loading-text" style="color:red;">Error connecting to Database.</div>';
     });
   }
 
@@ -470,6 +477,8 @@
 
     fetch(API_URL, {
       method: 'POST',
+      redirect: 'follow',
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
       body: JSON.stringify({ action: 'submit_order', payload: payload })
     })
     .then(res => res.json())
@@ -478,7 +487,10 @@
       document.getElementById('purchaseForm').reset();
       showView('staffMenu');
     })
-    .catch(err => alert("Error saving to database. Check your connection."))
+    .catch(err => {
+      console.error(err);
+      alert("Error saving to database. Check your connection.");
+    })
     .finally(() => { btn.innerText = "Submit Purchase Request"; btn.disabled = false; });
   });
 </script>
