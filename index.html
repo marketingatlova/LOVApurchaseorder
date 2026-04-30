@@ -45,12 +45,12 @@
     p.subtitle { color: var(--text-muted); font-size: 14px; font-weight: 500; }
     
     /* ------------------------------------------- */
-    /* NEW: STRICT 2x2 ROUTING GRID (Flawless Alignment) */
+    /* STRICT 2x2 ROUTING GRID */
     /* ------------------------------------------- */
     .flat-routing { 
         display: grid; 
         grid-template-columns: minmax(180px, 280px) minmax(180px, 280px); 
-        gap: 28px 64px; /* 64px horizontal gap, 28px vertical gap */
+        gap: 28px 64px;
         justify-content: center; 
         margin-top: 48px; 
         margin-bottom: 48px; 
@@ -66,7 +66,7 @@
         background: transparent; 
         border: none; 
         outline: none; 
-        padding: 0 20px 6px 0; /* 20px right padding for chevron */
+        padding: 0 20px 6px 0; 
         appearance: none; 
         font-family: 'Plus Jakarta Sans', sans-serif; 
         width: 100%; 
@@ -80,7 +80,6 @@
         color: var(--navy); 
         transition: border-color 0.2s; 
         border-radius: 0;
-        /* Sleek custom chevron arrow */
         background-image: url('data:image/svg+xml;utf8,<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="%231a1f2e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>');
         background-repeat: no-repeat;
         background-position: right 0px center; 
@@ -106,7 +105,7 @@
     /* Typography & Inputs */
     .form-group { width: 100%; display: flex; flex-direction: column;}
     .form-group label { font-size: 10px; color: var(--text-kicker); font-weight: 700; margin-bottom: 6px; letter-spacing: 0.5px; text-transform: uppercase; display: block; }
-    input[type="text"], input[type="number"], input[type="url"], select, textarea { width: 100%; height: 42px; padding: 0 14px; border: 1px solid transparent; border-radius: 8px; font-size: 14px; background-color: var(--input-bg); font-family: 'Plus Jakarta Sans', sans-serif; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); appearance: none; color: var(--text-main); font-weight: 500;}
+    input[type="text"], input[type="number"], input[type="url"], select, textarea { width: 100%; height: 42px; padding: 0 14px; border: 1px solid transparent; border-radius: 8px; font-size: 14px; background-color: var(--input-bg); font-family: 'Plus Jakarta Sans', sans-serif; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); appearance: none; color: var(--text-main); font-weight: 500; box-sizing: border-box;}
     input[type="text"]:focus, input[type="number"]:focus, input[type="url"]:focus, select:focus { outline: none; border-color: #d1cfc7; background-color: var(--surface); box-shadow: 0 0 0 3px rgba(26,31,46,0.04); }
     input::placeholder { color: #aaa69c; font-weight: 400; }
     .input-readonly { background-color: var(--input-shaded) !important; color: var(--navy) !important; cursor: not-allowed; font-weight: 700 !important; border: 1px dashed var(--border-dashed) !important; }
@@ -156,8 +155,32 @@
     .btn-confirm-final:disabled { opacity: 0.5; cursor: not-allowed; }
 
     /* Auth & Menus */
-    #authSection { text-align: center; max-width: 380px; margin: 15vh auto; border-radius: 16px; padding: 40px 24px; background: var(--surface); box-shadow: 0 4px 24px rgba(0,0,0,0.02);}
-    #passcode { text-align: center; font-size: 32px; letter-spacing: 16px; font-weight: 700; padding: 16px; background: #faf9f7; border: 1px solid var(--border); margin-bottom: 12px; border-radius: 12px; height: 64px;}
+    #authSection { text-align: center; width: 100%; max-width: 360px; margin: 15vh auto; border-radius: 16px; padding: 40px 32px; background: var(--surface); box-shadow: 0 8px 32px rgba(0,0,0,0.04); box-sizing: border-box; }
+    
+    /* CORRECTED LOGIN INPUT */
+    #passcode { 
+        width: 100%; 
+        box-sizing: border-box;
+        text-align: center; 
+        font-size: 32px; 
+        letter-spacing: 16px; 
+        text-indent: 16px; /* Offsets the letter-spacing to prevent bounding box overflow */
+        font-weight: 700; 
+        padding: 10px; 
+        background: #faf9f7; 
+        border: 2px solid var(--border); 
+        margin-bottom: 16px; 
+        border-radius: 12px; 
+        height: 64px; 
+        color: var(--text-main);
+        outline: none;
+        transition: all 0.2s;
+    }
+    #passcode:focus {
+        border-color: #2563eb;
+        box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+    }
+
     #authError { color: var(--red); font-size: 13px; display: none; margin-top: 12px; font-weight: 600;}
     #staffMenu, #oseForm, #adminDashboard, #staffStatusDashboard, #sharedNav { display: none; }
     .menu-grid { display: grid; gap: 12px; margin-top: 32px;}
@@ -193,7 +216,7 @@
       .flat-routing { grid-template-columns: 1fr; gap: 24px; padding: 0;}
       .item-grid-master { grid-template-columns: 1fr; gap: 16px; }
       .row-span-2 { grid-row: auto; height: auto; }
-      .upload-box { min-height: 160px; margin-bottom: 8px;}
+      .upload-box { min-height: 140px; margin-bottom: 8px;}
       .routing-col { align-items: flex-start; }
     }
   </style>
@@ -360,8 +383,8 @@
       </div>
 
       <div class="modal-btns">
-        <button type="button" class="btn-cancel" onclick="closeReviewModal()">Cancel</button>
-        <button type="button" class="btn-confirm-final" id="finalSubmitBtn" onclick="executeOrderUpload()">Yes, Submit Order</button>
+        <button class="btn-cancel" onclick="closeReviewModal()">Cancel</button>
+        <button class="btn-confirm-final" id="finalSubmitBtn" onclick="executeOrderUpload()">Yes, Submit Order</button>
       </div>
     </div>
   </div>
@@ -566,14 +589,24 @@
       let groupHTML = `<div class="order-batch"><div class="batch-head"><div><div class="batch-id-text">${orderId} ${hasUrgent ? '<span class="badge-urgent">URGENT</span>' : ''}</div><div class="batch-meta">By <b>${primary.requester}</b> • ${primary.branch} (${primary.section})</div><div class="batch-meta">${dateStr}</div></div></div>`;
 
       items.forEach(req => {
-        const photoHtml = req.photo ? `<a href="${req.photo}" target="_blank"><img src="${req.photo}" class="prod-img"></a>` : `<div class="prod-img" style="display:flex; align-items:center; justify-content:center; font-size:10px; color:var(--text-3);">No Img</div>`;
+        // Safe Photo Render Fix
+        const safePhoto = req.photo || req.imgUrl;
+        const photoHtml = safePhoto ? `<a href="${safePhoto}" target="_blank"><img src="${safePhoto}" class="prod-img"></a>` : `<div class="prod-img" style="display:flex; align-items:center; justify-content:center; font-size:10px; color:var(--text-3); text-align:center;">No Img</div>`;
+        
+        // Safe Math Fix
+        const safeQty = req.qty || '-';
+        let safePrice = 0;
+        if (req.totalPrice && req.qty) safePrice = req.totalPrice / req.qty;
+        else if (req.price) safePrice = req.price;
+        const priceStr = safePrice ? `฿${Number(safePrice).toLocaleString()}` : '-';
+
         groupHTML += `
           <div class="order-item-row" id="row-${req.rowNumber}">
             ${photoHtml}
             <div>
               <div style="display:flex; justify-content:space-between; align-items:flex-start;">
                  <div class="admin-item-title">${req.itemTitle}</div>
-                 <div class="admin-price">${req.qty} ${req.unit} @ ฿${(req.totalPrice / req.qty).toLocaleString()}</div>
+                 <div class="admin-price">${safeQty} ${req.unit || ''} @ ${priceStr}</div>
               </div>
               <div class="item-desc">${req.purpose}</div>
             </div>
@@ -634,7 +667,8 @@
       let groupHTML = `<div class="card" style="padding:0; overflow:hidden;"><div style="padding: 16px 20px; background: #faf9f7; border-bottom: 1px solid var(--border); display:flex; justify-content:space-between; align-items:center;"><div><div style="font-weight:700; font-size:14px; font-family:monospace;">${orderId}</div><div style="font-size:12px; color:var(--text-muted); margin-top:4px;">${primary.branch} (${primary.section})</div></div><div style="font-size:12px; color:var(--text-muted); text-align:right;">${dateStr}</div></div>`;
 
       items.forEach(req => {
-        const photoHtml = req.photo ? `<img src="${req.photo}" style="width:48px; height:48px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">` : `<div style="width:48px; height:48px; border-radius:6px; background:var(--bg); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:9px; color:var(--text-3);">No Img</div>`;
+        const safePhoto = req.photo || req.imgUrl;
+        const photoHtml = safePhoto ? `<img src="${safePhoto}" class="prod-img" style="width:48px; height:48px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">` : `<div style="width:48px; height:48px; border-radius:6px; background:var(--bg); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:9px; color:var(--text-3); text-align:center;">No Img</div>`;
         let statusClass = req.status.includes('Pending') ? 'badge-pending' : (req.status === 'Approved' ? 'badge-approved' : 'badge-rejected');
 
         groupHTML += `
@@ -645,7 +679,7 @@
                   <div style="font-size:14px; font-weight:700; color:var(--text-main);">${req.itemTitle}</div>
                   <span class="badge ${statusClass}" style="margin-top:0;">${req.status.toUpperCase()}</span>
               </div>
-              <div style="font-size:12px; color:var(--text-muted); margin-top:4px;">${req.qty} ${req.unit}</div>
+              <div style="font-size:12px; color:var(--text-muted); margin-top:4px;">${req.qty || '-'} ${req.unit || ''}</div>
             </div>
           </div>`;
       });
@@ -683,7 +717,7 @@
               </div>
               <img id="${uniqueId}" src="" alt="Preview">
            </div>
-           <input type="file" class="fileUploadInput" id="fileInput-${uniqueId}" accept="image/*" style="display:none;" onchange="handleLocalPreview(this, '${uniqueId}')" required>
+           <input type="file" class="fileUploadInput" id="fileInput-${uniqueId}" accept="image/*" style="display:none;" onchange="handleLocalPreview(this, '${uniqueId}')">
         </div>
 
         <div class="form-group"><label>${T[currentLang].purpose}</label><input type="text" class="purpose" placeholder="e.g. For new steak menu..." required></div>
@@ -726,14 +760,19 @@
   function removeRow(btn) { btn.closest('.item-card').remove(); updateRemoveButtons(); updateGrandTotal(); }
   function updateRemoveButtons() { const rows = document.querySelectorAll('.item-card'); rows.forEach(r => r.querySelector('.btn-remove').style.display = rows.length > 1 ? 'block' : 'none'); }
 
-  // Cloudinary Upload Engine
+  // Cloudinary Safe Upload Engine
   async function uploadToCloudinary(file) {
+    if (!file) return "";
     const formData = new FormData();
     formData.append("file", file);
     formData.append("upload_preset", UPLOAD_PRESET);
-    const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, { method: "POST", body: formData });
-    const data = await res.json();
-    return data.secure_url;
+    try {
+      const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, { method: "POST", body: formData });
+      const data = await res.json();
+      return data.secure_url || "";
+    } catch(e) {
+      return "";
+    }
   }
 
   // ==========================================
@@ -749,8 +788,12 @@
     finalOrderPayload = [];
     const itemCards = document.querySelectorAll('.item-card');
     let receiptHtml = '';
+    let missingPhoto = false;
 
     itemCards.forEach((row, i) => {
+      const fileInput = row.querySelector('.fileUploadInput');
+      if (!fileInput.files[0]) missingPhoto = true;
+
       const name = row.querySelector('.itemName').value;
       const purpose = row.querySelector('.purpose').value;
       const qty = parseFloat(row.querySelector('.quantity').value);
@@ -758,7 +801,6 @@
       const price = parseFloat(row.querySelector('.price').value);
       const link = row.querySelector('.link').value;
       const tax = row.querySelector('.taxInvoice').value;
-      const fileInput = row.querySelector('.fileUploadInput');
       
       const total = (qty * price);
       const totalStr = `฿${total.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
@@ -774,6 +816,11 @@
 
       finalOrderPayload.push({ rowElement: row, file: fileInput.files[0], name, purpose, qty, unit, price, link, tax });
     });
+
+    if (missingPhoto) {
+        alert("Action Required: Please upload a photo for every item before submitting.");
+        return;
+    }
 
     document.getElementById('modalBranchSub').innerText = `Ordering for: ${document.getElementById('branch').value} (${document.getElementById('section').value})`;
     document.getElementById('modalReceiptList').innerHTML = receiptHtml;
