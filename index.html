@@ -44,16 +44,17 @@
     h2 { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; margin-bottom: 8px; color: var(--text-main);}
     p.subtitle { color: var(--text-muted); font-size: 14px; font-weight: 500; }
     
-    /* BREATHABLE HEADER GRID (Fixed Clipping) */
-    .flat-routing { display: flex; flex-wrap: wrap; gap: 32px; margin-top: 40px; margin-bottom: 40px; padding: 0 16px; align-items: end;}
-    .routing-col { display: flex; flex-direction: column; gap: 8px; flex: 1; min-width: 180px; }
-    .routing-col label { font-size: 11px; color: var(--text-kicker); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; margin: 0;}
-    .routing-val, .routing-select { font-size: 16px; font-weight: 700; color: var(--text-main); background: transparent; border: none; outline: none; padding: 0; appearance: none; font-family: 'Plus Jakarta Sans', sans-serif;}
-    .routing-select { border-bottom: 1px dashed var(--border-dashed); padding-bottom: 6px; border-radius: 0; cursor: pointer; color: var(--navy); width: 100%;}
+    /* BREATHABLE HEADER GRID (2-Line Layout) */
+    .flat-routing { display: grid; grid-template-columns: 1fr 1fr; gap: 24px 32px; margin-top: 32px; margin-bottom: 32px; padding: 0 16px; align-items: end;}
+    .routing-col { display: flex; flex-direction: column; gap: 6px; }
+    .routing-col label { font-size: 10px; color: var(--text-kicker); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; margin: 0;}
+    .routing-val, .routing-select { font-size: 14px; font-weight: 500; color: var(--text-main); background: transparent; border: none; outline: none; padding: 0; appearance: none; font-family: 'Plus Jakarta Sans', sans-serif;}
+    .routing-select { border-bottom: 1px dashed var(--border-dashed); padding-bottom: 6px; border-radius: 0; cursor: pointer; width: 100%; transition: border-color 0.2s;}
+    .routing-select:focus, .routing-select:hover { border-color: var(--navy); }
     .routing-val { padding-bottom: 7px; } 
     
     /* Plumped Urgent Pill */
-    .urgent-pill { display: inline-flex; align-items: center; gap: 10px; padding: 10px 18px; background: #fdf0ef; border: 1px solid #f5c6c2; border-radius: 24px; cursor: pointer; transition: all 0.2s; margin-bottom: 2px;}
+    .urgent-pill { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; background: #fdf0ef; border: 1px solid #f5c6c2; border-radius: 20px; cursor: pointer; transition: all 0.2s; margin: 0; height: 36px;}
     .urgent-pill input[type="checkbox"] { width: 16px; min-height: 16px; accent-color: var(--red); cursor: pointer; margin: 0; padding: 0; }
     .urgent-pill span { color: var(--red); font-weight: 700; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;}
 
@@ -114,7 +115,6 @@
     .btn-confirm-final:disabled { opacity: 0.5; cursor: not-allowed; }
 
     /* Auth & Menus */
-    /* FIXED: Restored surface background to auth section */
     #authSection { text-align: center; max-width: 380px; margin: 15vh auto; border-radius: 16px; padding: 40px 24px; background: var(--surface); box-shadow: 0 4px 24px rgba(0,0,0,0.02);}
     #passcode { text-align: center; font-size: 32px; letter-spacing: 16px; font-weight: 700; padding: 16px; background: #faf9f7; border: 1px solid var(--border); margin-bottom: 12px; border-radius: 12px; height: 64px;}
     #authError { color: var(--red); font-size: 13px; display: none; margin-top: 12px; font-weight: 600;}
@@ -149,9 +149,10 @@
     .badge-urgent { background: var(--red); color: #fff; padding: 4px 10px; border-radius: 4px; font-size: 10px; font-weight: 700; margin-left: 12px; border: none;}
 
     @media (max-width: 650px) {
+      .flat-routing { grid-template-columns: 1fr; gap: 20px; }
       .item-grid-master { grid-template-columns: 1fr; gap: 16px; }
       .row-span-2 { grid-row: auto; height: auto; }
-      .upload-box { min-height: 160px; margin-bottom: 8px;}
+      .upload-box { min-height: 140px; margin-bottom: 8px;}
     }
   </style>
 </head>
@@ -202,7 +203,7 @@
       
       <form id="purchaseForm">
         
-        <!-- Flat, Breathable Routing Section (Fixed Clipping) -->
+        <!-- Flat, Breathable Routing Section (2-Line Grid) -->
         <div class="flat-routing">
            <div class="routing-col">
              <label>Requester Name</label>
@@ -234,7 +235,7 @@
                 <option value="Service">Service</option>
              </select>
            </div>
-           <div class="routing-col" style="align-items: flex-end; min-width: auto; flex: 0;">
+           <div class="routing-col" style="justify-content: flex-end; align-items: flex-start; padding-bottom: 4px;">
               <label class="urgent-pill">
                 <input type="checkbox" id="isUrgent">
                 <span>URGENT 🔴</span>
