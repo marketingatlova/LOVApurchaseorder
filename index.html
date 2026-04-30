@@ -63,9 +63,15 @@
     /* The Nested Media Box */
     .media-box { background: #fcfcfb; border: 1px dashed var(--border-dashed); border-radius: 10px; padding: 16px; display: flex; gap: 16px; margin-top: 8px; align-items: flex-end;}
     .preview-wrapper { display: flex; flex-direction: column; width: 80px; flex-shrink: 0;}
-    .preview-sq { width: 80px; height: 80px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; display: flex; align-items: center; justify-content: center; overflow: hidden; font-size: 11px; color: #b3b0a7; text-align: center;}
+    .preview-sq { width: 80px; height: 80px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; font-size: 11px; color: #b3b0a7; text-align: center; cursor: pointer; transition: all 0.2s ease;}
+    .preview-sq:hover { border-color: var(--navy); background: #faf9f6; }
     .preview-sq img { width: 100%; height: 100%; object-fit: cover; display: none; }
+    .preview-placeholder { display: flex; flex-direction: column; align-items: center; gap: 6px; font-weight: 600; padding: 6px;}
+    
     .link-tax-grid { flex: 1; display: grid; grid-template-columns: 1fr 140px; gap: 16px; }
+    .link-tax-grid > div { display: flex; flex-direction: column; justify-content: space-between; height: 100%; }
+    .photo-status-text { flex: 1; margin-top: 8px; font-size: 13px; color: var(--text-muted); font-weight: 500; background: var(--input-bg); border-radius: 8px; display: flex; align-items: center; padding: 0 16px;}
+    .photo-status-text.active { background: #eef3fb; color: #1a5fa8; border: 1px solid #bcd3f0; }
 
     /* Buttons */
     .btn-add { width: 100%; min-height: 52px; background: transparent; color: var(--text-main); border: 1px dashed var(--border-dashed); border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; transition: 0.2s; font-family: 'Plus Jakarta Sans', sans-serif;}
@@ -77,6 +83,8 @@
     .urgent-pill { display: inline-flex; align-items: center; gap: 8px; margin-top: 4px; padding: 8px 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 20px; cursor: pointer; transition: all 0.2s;}
     .urgent-pill input[type="checkbox"] { width: 16px; min-height: 16px; accent-color: var(--red); cursor: pointer; margin: 0; padding: 0; }
     .urgent-pill span { color: var(--text-main); font-weight: 700; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;}
+    .urgent-pill:has(input:checked) { background: var(--red-soft); border-color: var(--red-border); }
+    .urgent-pill:has(input:checked) span { color: var(--red); }
 
     /* Sticky Bottom */
     .sticky-bottom { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(245,244,240,0.95); backdrop-filter: blur(12px); padding: 20px; border-top: 1px solid var(--border); z-index: 100; display: flex; justify-content: center;}
@@ -263,14 +271,18 @@
 
 <script>
   // =================================================================
-  // YOUR SECURE API URL 
+  // YOUR API & CLOUDINARY CONFIGURATION 
   // =================================================================
   const API_URL = "https://script.google.com/macros/s/AKfycbxgxY6BXooYtMjMlV3wVfW1F7IikNRUWGv_Y89eCuJzlHk_k_2nl10nqvc3ATlk0vss/exec"; 
   
+  // SECURE CLOUDINARY UPLOAD CREDENTIALS
+  const CLOUD_NAME = "dynjnftnu";
+  const UPLOAD_PRESET = "lova_staff_purchase_app"; 
+  
   // DICTIONARY 
   const T = {
-    en: { place_order: "External Purchase Form", active_orders: "My Order Status", inv: "Counting Inventory", qty: "QTY", unit: "UNIT", price: "PRICE/UNIT", link: "PRODUCT LINK", tax: "TAX INVOICE", purpose: "PURPOSE OF USE", name: "ITEM NAME (EN)", preview: "PREVIEW" },
-    th: { place_order: "แบบฟอร์มสั่งซื้อภายนอก", active_orders: "สถานะออเดอร์ของฉัน", inv: "เช็คสต็อก (เร็วๆ นี้)", qty: "จำนวน", unit: "หน่วย", price: "ราคา/หน่วย", link: "ลิงก์สินค้า", tax: "ใบกำกับภาษี", purpose: "วัตถุประสงค์การใช้งาน", name: "ชื่อสินค้า (ภาษาอังกฤษ)", preview: "รูปภาพ" }
+    en: { place_order: "External Purchase Form", active_orders: "My Order Status", inv: "Counting Inventory", qty: "QTY", unit: "UNIT", price: "PRICE/UNIT", photo: "PHOTO UPLOAD", tax: "TAX INVOICE", purpose: "PURPOSE OF USE", name: "ITEM NAME (EN)", preview: "PREVIEW" },
+    th: { place_order: "แบบฟอร์มสั่งซื้อภายนอก", active_orders: "สถานะออเดอร์ของฉัน", inv: "เช็คสต็อก (เร็วๆ นี้)", qty: "จำนวน", unit: "หน่วย", price: "ราคา/หน่วย", photo: "อัปโหลดรูปภาพ", tax: "ใบกำกับภาษี", purpose: "วัตถุประสงค์การใช้งาน", name: "ชื่อสินค้า (ภาษาอังกฤษ)", preview: "รูปภาพ" }
   };
   let currentLang = sessionStorage.getItem("lova_lang") || "en";
 
@@ -432,7 +444,7 @@
       let groupHTML = `<div class="order-batch"><div class="batch-head"><div><div class="batch-id-text">${orderId} ${hasUrgent ? '<span class="badge-urgent">URGENT</span>' : ''}</div><div class="batch-meta">By <b>${primary.requester}</b> • ${primary.branch} (${primary.section})</div><div class="batch-meta">${dateStr}</div></div></div>`;
 
       items.forEach(req => {
-        const photoHtml = req.photo ? `<img src="${req.photo}" class="prod-img">` : `<div class="prod-img" style="display:flex; align-items:center; justify-content:center; font-size:10px; color:var(--text-3);">No Img</div>`;
+        const photoHtml = req.photo ? `<a href="${req.photo}" target="_blank"><img src="${req.photo}" class="prod-img"></a>` : `<div class="prod-img" style="display:flex; align-items:center; justify-content:center; font-size:10px; color:var(--text-3);">No Img</div>`;
         groupHTML += `
           <div class="order-item-row" id="row-${req.rowNumber}">
             ${photoHtml}
@@ -527,7 +539,7 @@
   }
 
   // ==========================================
-  // STAFF: DYNAMIC UI BUILDER (THE NEW MEDIA BOX)
+  // STAFF: DYNAMIC UI BUILDER (CLOUDINARY READY)
   // ==========================================
   function addItemRow() {
     const container = document.getElementById('itemsContainer');
@@ -552,17 +564,25 @@
         <div><label>${T[currentLang].price}</label><input type="number" class="price" placeholder="THB" required inputmode="decimal"></div>
       </div>
       
-      <!-- The New Media Box -->
       <div class="media-box">
         <div class="preview-wrapper">
            <label>${T[currentLang].preview}</label>
-           <div class="preview-sq">
-              <span id="text-${uniqueId}">No Img</span>
+           <!-- Clickable Image Preview Box -->
+           <div class="preview-sq" onclick="document.getElementById('fileInput-${uniqueId}').click()">
+              <div class="preview-placeholder" id="text-${uniqueId}">
+                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                 <span style="margin-top:4px;">Tap to Upload</span>
+              </div>
               <img id="${uniqueId}" src="" alt="Preview">
            </div>
+           <!-- Hidden File Input -->
+           <input type="file" id="fileInput-${uniqueId}" accept="image/*" style="display:none;" onchange="handleLocalPreview(this, '${uniqueId}')" required>
         </div>
         <div class="link-tax-grid">
-           <div><label>${T[currentLang].link}</label><input type="url" class="link" placeholder="Paste Shopee URL..." onblur="fetchThumbnail(this, '${uniqueId}')"><input type="hidden" class="extractedImageUrl"></div>
+           <div>
+             <label>${T[currentLang].photo}</label>
+             <div class="photo-status-text" id="status-${uniqueId}">No photo selected</div>
+           </div>
            <div><label>${T[currentLang].tax}</label><select class="taxInvoice" required><option value="No">No</option><option value="Yes">Yes</option></select></div>
         </div>
       </div>
@@ -571,63 +591,125 @@
     updateRemoveButtons();
   }
 
-  async function fetchThumbnail(input, imgId) {
-    const url = input.value.trim(); const imgEl = document.getElementById(imgId); const textEl = document.getElementById('text-' + imgId);
-    if (!url) return; textEl.innerText = 'Load...';
-    try { const res = await fetch(`https://api.microlink.io/?url=${encodeURIComponent(url)}`); const data = await res.json();
-      if (data.status === 'success' && data.data.image) { imgEl.src = data.data.image.url; imgEl.style.display = 'block'; textEl.style.display = 'none'; input.parentElement.querySelector('.extractedImageUrl').value = data.data.image.url; } 
-      else { textEl.innerText = 'No Img'; }
-    } catch (e) { textEl.innerText = 'No Img'; }
+  // Instantly show the photo they selected using local browser memory
+  function handleLocalPreview(input, uniqueId) {
+    const file = input.files[0];
+    const previewBox = document.getElementById(uniqueId);
+    const textEl = document.getElementById(`text-${uniqueId}`);
+    const statusEl = document.getElementById(`status-${uniqueId}`);
+    
+    if (file) {
+      previewBox.src = URL.createObjectURL(file);
+      previewBox.style.display = 'block';
+      textEl.style.display = 'none';
+      statusEl.innerText = "✓ Ready to upload";
+      statusEl.classList.add("active");
+    } else {
+      previewBox.style.display = 'none';
+      textEl.style.display = 'flex';
+      statusEl.innerText = "No photo selected";
+      statusEl.classList.remove("active");
+    }
+  }
+
+  // Cloudinary Upload Engine
+  async function uploadToCloudinary(file) {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", UPLOAD_PRESET);
+
+    const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, {
+      method: "POST",
+      body: formData
+    });
+    const data = await res.json();
+    return data.secure_url;
   }
 
   function removeRow(btn) { btn.closest('.item-card').remove(); updateRemoveButtons(); }
   function updateRemoveButtons() { const rows = document.querySelectorAll('.item-card'); rows.forEach(r => r.querySelector('.btn-remove').style.display = rows.length > 1 ? 'block' : 'none'); }
 
   // ==========================================
-  // STAFF: SUBMIT ORDER
+  // STAFF: BATCH UPLOAD & SUBMIT ORDER
   // ==========================================
-  document.getElementById('purchaseForm').addEventListener('submit', function(e) {
+  document.getElementById('purchaseForm').addEventListener('submit', async function(e) {
     e.preventDefault();
-    const btn = document.getElementById('submitBtn');
-    btn.innerText = "Saving to Database..."; btn.disabled = true;
     
-    const generatedOrderId = generateOrderID();
-    const items = [];
-    document.querySelectorAll('.item-card').forEach((row) => {
-      items.push({
-        itemNameEN: row.querySelector('.itemName').value,
-        purposeEN: row.querySelector('.purpose').value, 
-        qty: parseFloat(row.querySelector('.quantity').value),
-        unit: row.querySelector('.unit').value,
-        price: parseFloat(row.querySelector('.price').value),
-        link: row.querySelector('.link').value,
-        imgUrl: row.querySelector('.extractedImageUrl').value || '',
-        taxInvoice: row.querySelector('.taxInvoice').value
-      });
-    });
+    const btn = document.getElementById('submitBtn');
+    btn.innerText = "Uploading Photos... Please wait"; 
+    btn.disabled = true;
+    
+    try {
+      const generatedOrderId = generateOrderID();
+      const items = [];
+      const itemCards = document.querySelectorAll('.item-card');
 
-    const payload = {
-      action: 'submit_order',
-      payload: {
-        orderId: generatedOrderId, 
-        requester: currentUser.name,
-        branch: document.getElementById('branch').value, 
-        section: document.getElementById('section').value,
-        isUrgent: document.getElementById('isUrgent').checked,
-        items: items
+      // Loop through each item and upload its photo to Cloudinary
+      for (let i = 0; i < itemCards.length; i++) {
+        const row = itemCards[i];
+        
+        let finalImageUrl = "";
+        const fileInput = row.querySelector('input[type="file"]');
+        const file = fileInput.files[0];
+
+        // Ensure they selected a photo
+        if (!file) {
+            throw new Error(`Please upload a photo for item ${i + 1}`);
+        }
+
+        // Upload to Cloudinary
+        btn.innerText = `Uploading Photo ${i + 1} of ${itemCards.length}...`; 
+        finalImageUrl = await uploadToCloudinary(file);
+
+        items.push({
+          itemNameEN: row.querySelector('.itemName').value,
+          purposeEN: row.querySelector('.purpose').value, 
+          qty: parseFloat(row.querySelector('.quantity').value),
+          unit: row.querySelector('.unit').value,
+          price: parseFloat(row.querySelector('.price').value),
+          link: "", // Removed the Shopee link entirely
+          imgUrl: finalImageUrl, // This is the clean Cloudinary URL
+          taxInvoice: row.querySelector('.taxInvoice').value
+        });
       }
-    };
 
-    safeGoogleFetch(payload)
-    .then(response => {
+      // Now that all photos are safely in Cloudinary, save text to Google Sheets
+      btn.innerText = "Saving to Database..."; 
+      
+      const payload = {
+        action: 'submit_order',
+        payload: {
+          orderId: generatedOrderId, 
+          requester: currentUser.name,
+          branch: document.getElementById('branch').value, 
+          section: document.getElementById('section').value,
+          isUrgent: document.getElementById('isUrgent').checked,
+          items: items
+        }
+      };
+
+      const response = await safeGoogleFetch(payload);
+      
       if (response.status === 'success') {
         alert(`SUCCESS!\n\nYour Request ID is: ${generatedOrderId}\nPlease save this ID for tracking.`);
         document.getElementById('purchaseForm').reset();
+        
+        // Reset all image previews
+        document.querySelectorAll('.preview-sq img').forEach(img => img.style.display = 'none');
+        document.querySelectorAll('.preview-placeholder').forEach(txt => txt.style.display = 'flex');
+        document.querySelectorAll('.photo-status-text').forEach(st => { st.innerText = "No photo selected"; st.classList.remove("active"); });
+        
         showView('staffMenu');
-      } else { alert("Database Error: \n" + response.error); }
-    })
-    .catch(err => { alert(err.message); })
-    .finally(() => { btn.innerText = "Confirm & Send Order"; btn.disabled = false; });
+      } else { 
+        alert("Database Error: \n" + response.error); 
+      }
+      
+    } catch (err) {
+      alert("Error: " + err.message);
+    } finally {
+      btn.innerText = "Confirm & Send Order"; 
+      btn.disabled = false;
+    }
   });
 </script>
 </body>
