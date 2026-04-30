@@ -12,6 +12,7 @@
       --bg: #f5f4f0; 
       --surface: #ffffff;
       --input-bg: #f4f3f0;
+      --input-shaded: #e9e8e2;
       --border: #e6e4de; 
       --border-dashed: #dcd9d0;
       --navy: #1a1f2e; 
@@ -23,7 +24,7 @@
     }
     
     * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-    body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); min-height: 100vh; padding-bottom: 100px; color: var(--text-main); }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); min-height: 100vh; padding-bottom: 120px; color: var(--text-main); }
     
     /* Navigation */
     .top-nav { background: var(--navy); padding: 18px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
@@ -36,68 +37,87 @@
     .btn-logout:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.5); }
     
     /* Core Layout */
-    .container { max-width: 720px; margin: 0 auto; padding: 0 16px; }
-    
-    /* Header Area Centering */
+    .container { max-width: 800px; margin: 0 auto; padding: 0 16px; }
     .header-area { display: flex; flex-direction: column; align-items: center; margin: 40px 0 24px 0; text-align: center; }
     .btn-back { background: #ffffff; color: var(--text-muted); border: 1px solid var(--border); padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: 600; cursor: pointer; margin-bottom: 24px; transition: 0.2s; display: inline-flex; align-items: center;}
     .btn-back:hover { background: var(--input-bg); color: var(--text-main); }
-    h2 { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; margin-bottom: 8px; color: var(--text-main);}
+    h2 { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; margin-bottom: 8px; color: var(--text-main);}
     p.subtitle { color: var(--text-muted); font-size: 14px; font-weight: 500; }
     
     /* Cards */
-    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 20px; box-shadow: 0 4px 24px rgba(0,0,0,0.02); }
-    .card-title { font-size: 16px; font-weight: 700; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid var(--input-bg); display: flex; justify-content: space-between; align-items: center;}
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 32px; margin-bottom: 20px; box-shadow: 0 4px 24px rgba(0,0,0,0.02); }
+    .card-title { font-size: 18px; font-weight: 700; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--input-bg); display: flex; justify-content: space-between; align-items: center;}
     
     /* Typography & Inputs */
     label { font-size: 10px; color: var(--text-kicker); font-weight: 700; margin-bottom: 8px; letter-spacing: 0.5px; text-transform: uppercase; display: block; }
-    input, select, textarea { width: 100%; min-height: 48px; padding: 12px 16px; border: 1px solid transparent; border-radius: 8px; font-size: 14px; background-color: var(--input-bg); font-family: 'Plus Jakarta Sans', sans-serif; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); appearance: none; color: var(--text-main); font-weight: 500;}
-    textarea { min-height: 80px; resize: vertical; }
-    input:focus, select:focus, textarea:focus { outline: none; border-color: #d1cfc7; background-color: var(--surface); box-shadow: 0 0 0 4px rgba(26,31,46,0.04); }
-    input::placeholder, textarea::placeholder { color: #a3a097; font-weight: 400; }
+    .form-group { margin-bottom: 16px; width: 100%; }
+    input, select, textarea { width: 100%; min-height: 48px; padding: 12px 16px; border: 1px solid transparent; border-radius: 8px; font-size: 15px; background-color: var(--input-bg); font-family: 'Plus Jakarta Sans', sans-serif; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); appearance: none; color: var(--text-main); font-weight: 500;}
+    input:focus, select:focus { outline: none; border-color: #d1cfc7; background-color: var(--surface); box-shadow: 0 0 0 4px rgba(26,31,46,0.04); }
+    input::placeholder { color: #a3a097; font-weight: 400; }
     
-    /* Grids */
-    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
-    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 20px; }
-    
-    /* The Nested Media Box */
-    .media-box { background: #fcfcfb; border: 1px dashed var(--border-dashed); border-radius: 10px; padding: 16px; display: flex; gap: 16px; margin-top: 8px; align-items: flex-end;}
-    .preview-wrapper { display: flex; flex-direction: column; width: 80px; flex-shrink: 0;}
-    .preview-sq { width: 80px; height: 80px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; font-size: 11px; color: #b3b0a7; text-align: center; cursor: pointer; transition: all 0.2s ease;}
-    .preview-sq:hover { border-color: var(--navy); background: #faf9f6; }
-    .preview-sq img { width: 100%; height: 100%; object-fit: cover; display: none; }
-    .preview-placeholder { display: flex; flex-direction: column; align-items: center; gap: 6px; font-weight: 600; padding: 6px;}
-    
-    .link-tax-grid { flex: 1; display: grid; grid-template-columns: 1fr 140px; gap: 16px; }
-    .link-tax-grid > div { display: flex; flex-direction: column; justify-content: space-between; height: 100%; }
-    .photo-status-text { flex: 1; margin-top: 8px; font-size: 13px; color: var(--text-muted); font-weight: 500; background: var(--input-bg); border-radius: 8px; display: flex; align-items: center; padding: 0 16px;}
-    .photo-status-text.active { background: #eef3fb; color: #1a5fa8; border: 1px solid #bcd3f0; }
+    /* The "Subtle" Routing Dropdowns */
+    .subtle-select { background-color: transparent !important; padding: 0 !important; font-size: 16px !important; font-weight: 600 !important; min-height: 32px !important; border: none !important; color: var(--text-main) !important; cursor: pointer;}
+    .subtle-select:focus { box-shadow: none !important; border: none !important;}
+    .subtle-select-wrapper { background: var(--bg); border-radius: 8px; padding: 12px 16px; display: flex; align-items: center;}
+
+    /* 2-Column Item Grid */
+    .item-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: stretch; }
+    .col-left { display: flex; flex-direction: column; gap: 4px; }
+    .col-right { display: flex; flex-direction: column; gap: 4px; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    /* Right Column Specifics */
+    .preview-upload-box { flex: 1; min-height: 140px; background: var(--surface); border: 2px dashed var(--border-dashed); border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; overflow: hidden; transition: all 0.2s; position: relative; margin-bottom: 12px;}
+    .preview-upload-box:hover { border-color: var(--navy); background: #faf9f6; }
+    .preview-upload-box img { width: 100%; height: 100%; object-fit: cover; display: none; position: absolute; inset: 0;}
+    .upload-placeholder { font-size: 12px; color: var(--text-kicker); font-weight: 600; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+    .input-readonly { background-color: var(--input-shaded) !important; color: var(--text-muted) !important; cursor: not-allowed; font-weight: 700 !important; border: none !important; box-shadow: none !important; }
 
     /* Buttons */
-    .btn-add { width: 100%; min-height: 52px; background: transparent; color: var(--text-main); border: 1px dashed var(--border-dashed); border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; transition: 0.2s; font-family: 'Plus Jakarta Sans', sans-serif;}
+    .btn-add { width: 100%; min-height: 56px; background: transparent; color: var(--text-main); border: 1px dashed var(--border-dashed); border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; transition: 0.2s; font-family: 'Plus Jakarta Sans', sans-serif;}
     .btn-add:hover { background: #f9f8f6; border-color: #c7c4ba;}
     .btn-remove { color: var(--text-muted); font-size: 12px; font-weight: 600; background: transparent; border: none; cursor: pointer; padding: 6px 12px; border-radius: 6px;}
     .btn-remove:hover { color: var(--red); background: var(--red-soft); }
 
     /* Urgent Toggle Pill */
-    .urgent-pill { display: inline-flex; align-items: center; gap: 8px; margin-top: 4px; padding: 8px 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 20px; cursor: pointer; transition: all 0.2s;}
+    .urgent-pill { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 20px; cursor: pointer; transition: all 0.2s; margin-top: 8px;}
     .urgent-pill input[type="checkbox"] { width: 16px; min-height: 16px; accent-color: var(--red); cursor: pointer; margin: 0; padding: 0; }
     .urgent-pill span { color: var(--text-main); font-weight: 700; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;}
-    .urgent-pill:has(input:checked) { background: var(--red-soft); border-color: var(--red-border); }
+    .urgent-pill:has(input:checked) { background: #fdf0ef; border-color: #f5c6c2; }
     .urgent-pill:has(input:checked) span { color: var(--red); }
 
-    /* Sticky Bottom */
-    .sticky-bottom { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(245,244,240,0.95); backdrop-filter: blur(12px); padding: 20px; border-top: 1px solid var(--border); z-index: 100; display: flex; justify-content: center;}
-    .sticky-bottom button { max-width: 720px; width: 100%; background: var(--green); color: #fff; border: none; height: 52px; border-radius: 10px; font-size: 15px; font-weight: 600; cursor: pointer; font-family: 'Plus Jakarta Sans', sans-serif; transition: 0.2s;}
+    /* Sticky Bottom & Grand Total */
+    .sticky-bottom { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(245,244,240,0.95); backdrop-filter: blur(12px); padding: 16px 20px 24px; border-top: 1px solid var(--border); z-index: 100; display: flex; flex-direction: column; align-items: center;}
+    .grand-total-bar { width: 100%; max-width: 800px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding: 0 8px;}
+    .grand-total-label { font-size: 14px; font-weight: 600; color: var(--text-muted); }
+    .grand-total-value { font-size: 24px; font-weight: 700; color: var(--text-main); font-family: 'Playfair Display', serif;}
+    .sticky-bottom button { max-width: 800px; width: 100%; background: var(--green); color: #fff; border: none; height: 56px; border-radius: 12px; font-size: 16px; font-weight: 600; cursor: pointer; font-family: 'Plus Jakarta Sans', sans-serif; transition: 0.2s;}
     .sticky-bottom button:active { transform: scale(0.98); }
     .sticky-bottom button:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
-    /* Auth & Status Pages */
+    /* Pre-Submit Receipt Modal */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(26,31,46,0.6); display: flex; align-items: flex-end; justify-content: center; z-index: 200; opacity: 0; pointer-events: none; transition: opacity 0.3s; backdrop-filter: blur(4px);}
+    .modal-overlay.open { opacity: 1; pointer-events: auto; }
+    .modal-sheet { background: var(--surface); width: 100%; max-width: 600px; border-radius: 24px 24px 0 0; padding: 32px 24px 40px; transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.16,1,0.3,1); max-height: 85vh; display: flex; flex-direction: column; }
+    .modal-overlay.open .modal-sheet { transform: translateY(0); }
+    .modal-title { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; color: var(--text-main); margin-bottom: 8px;}
+    .modal-sub { font-size: 13px; color: var(--text-muted); margin-bottom: 24px; }
+    .modal-list { overflow-y: auto; flex: 1; border-top: 1px dashed var(--border); border-bottom: 1px dashed var(--border); margin-bottom: 24px; padding: 16px 0;}
+    .receipt-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; }
+    .receipt-item-left { display: flex; flex-direction: column; gap: 4px; }
+    .receipt-name { font-size: 15px; font-weight: 600; color: var(--text-main); }
+    .receipt-meta { font-size: 12px; color: var(--text-muted); }
+    .receipt-price { font-size: 15px; font-weight: 700; color: var(--text-main); }
+    .modal-btns { display: flex; gap: 12px; }
+    .btn-cancel { flex: 1; height: 56px; background: var(--bg); color: var(--text-main); border: 1px solid var(--border); border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; }
+    .btn-confirm-final { flex: 2; height: 56px; background: var(--navy); color: #fff; border: none; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; transition: 0.2s;}
+    .btn-confirm-final:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    /* Auth & Menus */
     #authSection { text-align: center; max-width: 380px; margin: 15vh auto; display: none; }
     #passcode { text-align: center; font-size: 32px; letter-spacing: 16px; font-weight: 700; padding: 24px; background: var(--surface); border: 1px solid var(--border); margin-bottom: 16px;}
     #authError { color: var(--red); font-size: 13px; display: none; margin-top: 16px; font-weight: 600;}
     #staffMenu, #oseForm, #adminDashboard, #staffStatusDashboard, #sharedNav { display: none; }
-    
     .menu-grid { display: grid; gap: 16px; margin-top: 40px;}
     .menu-btn { height: 86px; background: var(--surface); color: var(--text-main); border: 1px solid var(--border); font-size: 16px; font-weight: 600; justify-content: flex-start; padding-left: 24px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.02); transition: all 0.2s; text-align: left; cursor: pointer;}
     .menu-btn:hover { border-color: var(--navy); transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.04);}
@@ -107,39 +127,29 @@
     .admin-sticky-header { position: sticky; top: 0; z-index: 50; background: var(--bg); padding: 10px 0 16px 0; border-bottom: 1px solid var(--border); margin-bottom: 24px; }
     .admin-stats-bar { display: flex; gap: 10px; margin-bottom: 16px; }
     .stat-pill { padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; background: var(--surface); border: 1px solid var(--border); color: var(--text-main);}
-    .stat-urgent { background: var(--red); color: #fff; border-color: var(--red); }
     .admin-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    
     .order-batch { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 20px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,0,0,0.02);}
     .batch-head { padding: 20px; border-bottom: 1px solid var(--input-bg); display: flex; justify-content: space-between; align-items: center; background: #faf9f7;}
-    .batch-id-text { font-size: 15px; font-weight: 700; color: var(--text-main); font-family: monospace; letter-spacing: 0.5px;}
+    .batch-id-text { font-size: 15px; font-weight: 700; color: var(--text-main); font-family: monospace;}
     .batch-meta { font-size: 13px; color: var(--text-muted); margin-top: 4px; font-weight: 500;}
-    
-    .order-item-row { display: grid; grid-template-columns: 60px 1fr; gap: 20px; padding: 20px; border-bottom: 1px dashed var(--border-soft); }
+    .order-item-row { display: grid; grid-template-columns: 60px 1fr; gap: 20px; padding: 20px; border-bottom: 1px dashed var(--input-bg); }
     .order-item-row:last-child { border-bottom: none; }
     .prod-img { width: 60px; height: 60px; border-radius: 8px; object-fit: cover; background: var(--bg); border: 1px solid var(--border);}
     .admin-item-title { font-size: 15px; font-weight: 700; color: var(--text-main); }
     .admin-price { font-size: 13px; font-weight: 600; color: var(--text-muted); margin-top: 4px;}
     .item-desc { font-size: 13px; color: var(--text-muted); margin-top: 8px; line-height: 1.5; }
-    
-    .admin-actions { display: flex; gap: 12px; justify-content: flex-end; padding: 16px 20px; background: var(--bg); border-top: 1px solid var(--border-soft);}
+    .admin-actions { display: flex; gap: 12px; justify-content: flex-end; padding: 16px 20px; background: var(--bg); border-top: 1px solid var(--input-bg);}
     .btn-approve { background: #16a34a; color: #fff; border: none; min-height: 42px; font-size: 13px; width: 120px; border-radius: 8px; font-weight: 600; cursor: pointer;}
     .btn-reject { background: var(--surface); color: var(--text-main); border: 1px solid var(--border); min-height: 42px; font-size: 13px; width: 120px; border-radius: 8px; font-weight: 600; cursor: pointer;}
-    
-    /* Badges */
     .badge { display:inline-block; padding:6px 12px; border-radius:6px; font-size:10px; font-weight:700; margin-top:8px; letter-spacing: 0.5px; text-transform: uppercase;}
-    .badge-pending { background:var(--s-amber-bg); color:var(--s-amber); border: 1px solid var(--s-amber-border); }
-    .badge-approved { background:var(--s-green-bg); color:var(--s-green); border: 1px solid var(--s-green-border); }
-    .badge-rejected { background:var(--red-soft); color:var(--red); border: 1px solid var(--red-border); }
-    .badge-urgent { background: var(--red); color: #fff; padding: 4px 10px; border-radius: 4px; font-size: 10px; font-weight: 700; letter-spacing: 0.5px; display: inline-block; margin-left: 12px; border: none;}
+    .badge-pending { background:#fef3c7; color:#92570a; border: 1px solid #fcd34d; }
+    .badge-approved { background:#dcfce7; color:#166534; border: 1px solid #86efac; }
+    .badge-rejected { background:#fdf0ef; color:#d93025; border: 1px solid #f5c6c2; }
+    .badge-urgent { background: var(--red); color: #fff; padding: 4px 10px; border-radius: 4px; font-size: 10px; font-weight: 700; margin-left: 12px; border: none;}
 
-    /* Mobile Responsive adjustments */
-    @media (max-width: 600px) {
-      .grid-2, .grid-3 { grid-template-columns: 1fr; gap: 16px; }
-      .link-tax-grid { grid-template-columns: 1fr; }
-      .media-box { flex-direction: column; align-items: stretch; }
-      .preview-wrapper { width: 100%; }
-      .preview-sq { width: 100%; height: 140px; }
+    @media (max-width: 700px) {
+      .item-2col { grid-template-columns: 1fr; gap: 16px; }
+      .preview-upload-box { min-height: 200px; }
     }
   </style>
 </head>
@@ -192,25 +202,32 @@
         <!-- Routing Card -->
         <div class="card">
           <div class="card-title">Order Routing</div>
-          <div class="grid-2" style="margin-bottom: 8px;">
-            <div>
+          <div class="grid-2">
+            <div class="form-group">
               <label>Branch</label>
-              <select id="branch" required onchange="handleBranchChange()">
-                <option value="" disabled selected>Select Branch</option>
-                <option value="HQ">HQ</option>
-                <option value="LOVA GROUP">LOVA GROUP</option>
-                <option value="BIANCA EMSPHERE">BIANCA EMSPHERE</option>
-                <option value="BIANCA ONE BANGKOK">BIANCA ONE BANGKOK</option>
-                <option value="BIANCA SIAM PARAGON">BIANCA SIAM PARAGON</option>
-                <option value="BIANCA ICONSIAM">BIANCA ICONSIAM</option>
-                <option value="HOLYBELLY">HOLYBELLY</option>
-                <option value="LAVA">LAVA</option>
-                <option value="CK">CK</option>
-                <option value="DRIVER">DRIVER</option>
-                <option value="FINANCE">FINANCE</option>
-              </select>
+              <div class="subtle-select-wrapper">
+                <select id="branch" class="subtle-select" required onchange="handleBranchChange()">
+                  <option value="" disabled selected>Select Branch</option>
+                  <option value="HQ">HQ</option>
+                  <option value="LOVA GROUP">LOVA GROUP</option>
+                  <option value="BIANCA EMSPHERE">BIANCA EMSPHERE</option>
+                  <option value="BIANCA ONE BANGKOK">BIANCA ONE BANGKOK</option>
+                  <option value="BIANCA SIAM PARAGON">BIANCA SIAM PARAGON</option>
+                  <option value="BIANCA ICONSIAM">BIANCA ICONSIAM</option>
+                  <option value="HOLYBELLY">HOLYBELLY</option>
+                  <option value="LAVA">LAVA</option>
+                  <option value="CK">CK</option>
+                  <option value="DRIVER">DRIVER</option>
+                  <option value="FINANCE">FINANCE</option>
+                </select>
+              </div>
             </div>
-            <div><label>Section</label><select id="section" required><option value="" disabled selected>Select Section</option><option value="Kitchen">Kitchen</option><option value="Bar">Bar</option><option value="Service">Service</option></select></div>
+            <div class="form-group">
+                <label>Section</label>
+                <div class="subtle-select-wrapper">
+                    <select id="section" class="subtle-select" required><option value="" disabled selected>Select Section</option><option value="Kitchen">Kitchen</option><option value="Bar">Bar</option><option value="Service">Service</option></select>
+                </div>
+            </div>
           </div>
           
           <label class="urgent-pill">
@@ -223,7 +240,14 @@
         <div id="itemsContainer"></div>
 
         <button type="button" class="btn-add" onclick="addItemRow()">+ Add Another Item</button>
-        <div class="sticky-bottom"><button type="submit" id="submitBtn">Confirm & Send Order</button></div>
+        
+        <div class="sticky-bottom">
+            <div class="grand-total-bar">
+                <div class="grand-total-label">Grand Total</div>
+                <div class="grand-total-value" id="grandTotalDisplay">฿0.00</div>
+            </div>
+            <button type="button" id="initSubmitBtn" onclick="openReviewModal()">Review & Submit</button>
+        </div>
       </form>
     </div>
   </div>
@@ -248,9 +272,9 @@
       </div>
       <div class="admin-sticky-header">
         <div class="admin-stats-bar"><div class="stat-pill" id="statTotal">0 Pending</div><div class="stat-pill stat-urgent" id="statUrgent">0 Urgent</div></div>
-        <input type="text" id="searchOrderId" style="margin-bottom: 12px;" placeholder="Search Order ID (e.g. REQ-...)" onkeyup="renderAdminUI()">
+        <input type="text" id="searchOrderId" style="margin-bottom: 12px; width: 100%; border: 1px solid var(--border);" placeholder="Search Order ID (e.g. REQ-...)" onkeyup="renderAdminUI()">
         <div class="admin-controls">
-          <select id="filterLocation" onchange="renderAdminUI()">
+          <select id="filterLocation" onchange="renderAdminUI()" style="border: 1px solid var(--border);">
             <option value="All">All Locations</option>
             <option value="HQ">HQ</option>
             <option value="LOVA GROUP">LOVA GROUP</option>
@@ -262,31 +286,46 @@
             <option value="LAVA">LAVA</option>
             <option value="CK">CK</option>
           </select>
-          <select id="sortDate" onchange="renderAdminUI()"><option value="newest">Newest First</option><option value="oldest">Oldest First</option></select>
+          <select id="sortDate" onchange="renderAdminUI()" style="border: 1px solid var(--border);"><option value="newest">Newest First</option><option value="oldest">Oldest First</option></select>
         </div>
       </div>
       <div id="adminRequestsList"><div class="loading-text">Fetching pending orders...</div></div>
     </div>
   </div>
 
+  <!-- RECEIPT MODAL -->
+  <div class="modal-overlay" id="reviewModal">
+    <div class="modal-sheet">
+      <div class="modal-title">Review Order</div>
+      <div class="modal-sub" id="modalBranchSub">Please confirm your request details.</div>
+      <div class="modal-list" id="modalReceiptList"></div>
+      
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+        <span style="font-size: 14px; font-weight: 600; color: var(--text-muted);">Grand Total</span>
+        <span style="font-size: 24px; font-weight: 700; color: var(--navy); font-family: 'Playfair Display', serif;" id="modalGrandTotal">฿0.00</span>
+      </div>
+
+      <div class="modal-btns">
+        <button class="btn-cancel" onclick="closeReviewModal()">Cancel</button>
+        <button class="btn-confirm-final" id="finalSubmitBtn" onclick="executeOrderUpload()">Yes, Submit Order</button>
+      </div>
+    </div>
+  </div>
+
 <script>
   // =================================================================
-  // YOUR API & CLOUDINARY CONFIGURATION 
+  // API & CLOUDINARY CONFIGURATION 
   // =================================================================
   const API_URL = "https://script.google.com/macros/s/AKfycbxgxY6BXooYtMjMlV3wVfW1F7IikNRUWGv_Y89eCuJzlHk_k_2nl10nqvc3ATlk0vss/exec"; 
-  
-  // SECURE CLOUDINARY UPLOAD CREDENTIALS
   const CLOUD_NAME = "dynjnftnu";
   const UPLOAD_PRESET = "lova_staff_purchase_app"; 
   
-  // DICTIONARY 
   const T = {
-    en: { place_order: "External Purchase Form", active_orders: "My Order Status", inv: "Counting Inventory", qty: "QTY", unit: "UNIT", price: "PRICE/UNIT", photo: "PHOTO UPLOAD", tax: "TAX INVOICE", purpose: "PURPOSE OF USE", name: "ITEM NAME (EN)", preview: "PREVIEW" },
-    th: { place_order: "แบบฟอร์มสั่งซื้อภายนอก", active_orders: "สถานะออเดอร์ของฉัน", inv: "เช็คสต็อก (เร็วๆ นี้)", qty: "จำนวน", unit: "หน่วย", price: "ราคา/หน่วย", photo: "อัปโหลดรูปภาพ", tax: "ใบกำกับภาษี", purpose: "วัตถุประสงค์การใช้งาน", name: "ชื่อสินค้า (ภาษาอังกฤษ)", preview: "รูปภาพ" }
+    en: { place_order: "External Purchase Form", active_orders: "My Order Status", inv: "Counting Inventory", name: "ITEM NAME (EN)", purpose: "PURPOSE OF USE", qty: "QTY", unit: "UNIT", price: "PRICE/UNIT", tax: "TAX INVOICE", preview: "PREVIEW (PHOTO UPLOAD)", link: "EXTERNAL LINK", total: "TOTAL COST" },
+    th: { place_order: "แบบฟอร์มสั่งซื้อภายนอก", active_orders: "สถานะออเดอร์ของฉัน", inv: "เช็คสต็อก (เร็วๆ นี้)", name: "ชื่อสินค้า (ภาษาอังกฤษ)", purpose: "วัตถุประสงค์การใช้งาน", qty: "จำนวน", unit: "หน่วย", price: "ราคา/หน่วย", tax: "ใบกำกับภาษี", preview: "อัปโหลดรูปภาพ", link: "ลิงก์อ้างอิง", total: "ราคารวม" }
   };
   let currentLang = sessionStorage.getItem("lova_lang") || "en";
 
-  // FULL USER DIRECTORY WITH BRANCH ASSIGNMENTS
   const userDirectory = { 
     "1234": { name: "Tyme", role: "admin", branch: "HQ" },
     "2345": { name: "Foam", role: "admin", branch: "HQ" },
@@ -313,8 +352,8 @@
   
   let currentUser = {};
   let liveDataCache = []; 
+  let finalOrderPayload = []; // Holds data for the modal confirmation
 
-  // INITIALIZATION 
   window.onload = () => {
     showView('authSection'); 
     applyTranslations();
@@ -382,6 +421,34 @@
   }
 
   // ==========================================
+  // LIVE MATH & TOTALS ENGINE
+  // ==========================================
+  function calcTotal(inputElement) {
+    const card = inputElement.closest('.item-card');
+    const qty = parseFloat(card.querySelector('.quantity').value) || 0;
+    const price = parseFloat(card.querySelector('.price').value) || 0;
+    const totalInput = card.querySelector('.item-total-display');
+    
+    const total = qty * price;
+    totalInput.value = total > 0 ? `฿${total.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}` : "฿0.00";
+    
+    updateGrandTotal();
+  }
+
+  function updateGrandTotal() {
+    let grandTotal = 0;
+    document.querySelectorAll('.item-card').forEach(card => {
+      const qty = parseFloat(card.querySelector('.quantity').value) || 0;
+      const price = parseFloat(card.querySelector('.price').value) || 0;
+      grandTotal += (qty * price);
+    });
+    
+    const displayString = `฿${grandTotal.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+    document.getElementById('grandTotalDisplay').innerText = displayString;
+    document.getElementById('modalGrandTotal').innerText = displayString;
+  }
+
+  // ==========================================
   // SOLID API CONNECTION
   // ==========================================
   async function safeGoogleFetch(payloadObject) {
@@ -399,7 +466,7 @@
   }
 
   // ==========================================
-  // ADMIN: FETCH DATA
+  // ADMIN & STAFF HISTORY VIEWS
   // ==========================================
   function fetchLiveAdminData() {
     document.getElementById('adminRequestsList').innerHTML = '<div class="loading-text">Fetching pending orders from Database...</div>';
@@ -469,7 +536,6 @@
   function updateOrderStatus(rowNumber, newStatus) {
     const actionArea = document.getElementById('act-' + rowNumber);
     actionArea.innerHTML = `<div style="text-align:center; width:100%; padding: 10px 0; font-weight:600; font-size:13px; color:var(--navy);">Updating Database...</div>`;
-    
     safeGoogleFetch({ action: 'update_status', rowNumber: rowNumber, newStatus: newStatus })
     .then(response => {
       if(response.status === 'success') {
@@ -484,9 +550,6 @@
     .catch(err => { alert("Network error updating status."); renderAdminUI(); });
   }
 
-  // ==========================================
-  // STAFF: FETCH HISTORY
-  // ==========================================
   function fetchLiveStatusData() {
     document.getElementById('staffRequestsList').innerHTML = '<div class="loading-text">Fetching history from Database...</div>';
     safeGoogleFetch({ action: 'get_data', role: 'staff', userName: currentUser.name })
@@ -507,9 +570,7 @@
       if (!groupedOrders[item.orderId]) groupedOrders[item.orderId] = [];
       groupedOrders[item.orderId].push(item);
     });
-
     const sortedOrderIds = Object.keys(groupedOrders).sort((a, b) => new Date(groupedOrders[b][0].date) - new Date(groupedOrders[a][0].date));
-
     sortedOrderIds.forEach(orderId => {
       const items = groupedOrders[orderId];
       const primary = items[0];
@@ -539,7 +600,7 @@
   }
 
   // ==========================================
-  // STAFF: DYNAMIC UI BUILDER (CLOUDINARY READY)
+  // STAFF: DYNAMIC 2-COLUMN UI BUILDER
   // ==========================================
   function addItemRow() {
     const container = document.getElementById('itemsContainer');
@@ -553,128 +614,149 @@
         <button type="button" class="btn-remove" onclick="removeRow(this)" style="display:none;">✕ Remove</button>
       </div>
       
-      <div class="grid-2">
-        <div><label>${T[currentLang].name}</label><input type="text" class="itemName" placeholder="e.g. Copper Pan" required></div>
-        <div><label>${T[currentLang].purpose}</label><input type="text" class="purpose" placeholder="e.g. For new steak menu..." required></div>
-      </div>
-      
-      <div class="grid-3">
-        <div><label>${T[currentLang].qty}</label><input type="number" class="quantity" placeholder="0" min="1" required inputmode="numeric"></div>
-        <div><label>${T[currentLang].unit}</label><select class="unit" required><option value="" disabled selected>Select</option><option value="Piece">Piece</option><option value="Pack">Pack</option><option value="Box">Box</option><option value="Bottle">Bottle</option><option value="Dozen">Dozen</option><option value="Meter">Meter</option><option value="Kg">Kg</option></select></div>
-        <div><label>${T[currentLang].price}</label><input type="number" class="price" placeholder="THB" required inputmode="decimal"></div>
-      </div>
-      
-      <div class="media-box">
-        <div class="preview-wrapper">
-           <label>${T[currentLang].preview}</label>
-           <!-- Clickable Image Preview Box -->
-           <div class="preview-sq" onclick="document.getElementById('fileInput-${uniqueId}').click()">
-              <div class="preview-placeholder" id="text-${uniqueId}">
-                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
-                 <span style="margin-top:4px;">Tap to Upload</span>
-              </div>
-              <img id="${uniqueId}" src="" alt="Preview">
-           </div>
-           <!-- Hidden File Input -->
-           <input type="file" id="fileInput-${uniqueId}" accept="image/*" style="display:none;" onchange="handleLocalPreview(this, '${uniqueId}')" required>
+      <div class="item-2col">
+        <!-- LEFT COLUMN: DATA -->
+        <div class="col-left">
+          <div class="form-group"><label>${T[currentLang].name}</label><input type="text" class="itemName" placeholder="e.g. Copper Pan" required></div>
+          <div class="form-group"><label>${T[currentLang].purpose}</label><input type="text" class="purpose" placeholder="e.g. For new steak menu..." required></div>
+          <div class="grid-2">
+             <div class="form-group"><label>${T[currentLang].qty}</label><input type="number" class="quantity" placeholder="0" min="1" required inputmode="numeric" oninput="calcTotal(this)"></div>
+             <div class="form-group"><label>${T[currentLang].unit}</label><select class="unit" required><option value="" disabled selected>Select</option><option value="Piece">Piece</option><option value="Pack">Pack</option><option value="Box">Box</option><option value="Bottle">Bottle</option><option value="Dozen">Dozen</option><option value="Meter">Meter</option><option value="Kg">Kg</option></select></div>
+          </div>
+          <div class="grid-2">
+             <div class="form-group"><label>${T[currentLang].price}</label><input type="number" class="price" placeholder="THB" required inputmode="decimal" oninput="calcTotal(this)"></div>
+             <div class="form-group"><label>${T[currentLang].tax}</label><select class="taxInvoice" required><option value="No">No</option><option value="Yes">Yes</option></select></div>
+          </div>
         </div>
-        <div class="link-tax-grid">
-           <div>
-             <label>${T[currentLang].photo}</label>
-             <div class="photo-status-text" id="status-${uniqueId}">No photo selected</div>
-           </div>
-           <div><label>${T[currentLang].tax}</label><select class="taxInvoice" required><option value="No">No</option><option value="Yes">Yes</option></select></div>
+
+        <!-- RIGHT COLUMN: MEDIA & TOTALS -->
+        <div class="col-right">
+          <div class="form-group" style="flex:1; display:flex; flex-direction:column;">
+             <label>${T[currentLang].preview}</label>
+             <div class="preview-upload-box" onclick="document.getElementById('fileInput-${uniqueId}').click()">
+                <div class="upload-placeholder" id="text-${uniqueId}">
+                   <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                   <span>Tap to Upload</span>
+                </div>
+                <img id="${uniqueId}" src="" alt="Preview">
+             </div>
+             <input type="file" class="fileUploadInput" id="fileInput-${uniqueId}" accept="image/*" style="display:none;" onchange="handleLocalPreview(this, '${uniqueId}')" required>
+          </div>
+          <div class="form-group"><label>${T[currentLang].link}</label><input type="url" class="link" placeholder="Optional URL reference..."></div>
+          <div class="form-group"><label>${T[currentLang].total}</label><input type="text" class="item-total-display input-readonly" value="฿0.00" readonly></div>
         </div>
       </div>
     `;
     container.appendChild(row); 
     updateRemoveButtons();
+    updateGrandTotal();
   }
 
-  // Instantly show the photo they selected using local browser memory
   function handleLocalPreview(input, uniqueId) {
     const file = input.files[0];
     const previewBox = document.getElementById(uniqueId);
     const textEl = document.getElementById(`text-${uniqueId}`);
-    const statusEl = document.getElementById(`status-${uniqueId}`);
     
     if (file) {
       previewBox.src = URL.createObjectURL(file);
       previewBox.style.display = 'block';
       textEl.style.display = 'none';
-      statusEl.innerText = "✓ Ready to upload";
-      statusEl.classList.add("active");
     } else {
       previewBox.style.display = 'none';
       textEl.style.display = 'flex';
-      statusEl.innerText = "No photo selected";
-      statusEl.classList.remove("active");
     }
   }
+
+  function removeRow(btn) { btn.closest('.item-card').remove(); updateRemoveButtons(); updateGrandTotal(); }
+  function updateRemoveButtons() { const rows = document.querySelectorAll('.item-card'); rows.forEach(r => r.querySelector('.btn-remove').style.display = rows.length > 1 ? 'block' : 'none'); }
 
   // Cloudinary Upload Engine
   async function uploadToCloudinary(file) {
     const formData = new FormData();
     formData.append("file", file);
     formData.append("upload_preset", UPLOAD_PRESET);
-
-    const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, {
-      method: "POST",
-      body: formData
-    });
+    const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, { method: "POST", body: formData });
     const data = await res.json();
     return data.secure_url;
   }
 
-  function removeRow(btn) { btn.closest('.item-card').remove(); updateRemoveButtons(); }
-  function updateRemoveButtons() { const rows = document.querySelectorAll('.item-card'); rows.forEach(r => r.querySelector('.btn-remove').style.display = rows.length > 1 ? 'block' : 'none'); }
+  // ==========================================
+  // STAFF: PRE-SUBMIT RECEIPT & BATCH UPLOAD
+  // ==========================================
+  function openReviewModal() {
+    // 1. Force native HTML form validation
+    const form = document.getElementById('purchaseForm');
+    if (!form.checkValidity()) {
+        form.reportValidity();
+        return; 
+    }
 
-  // ==========================================
-  // STAFF: BATCH UPLOAD & SUBMIT ORDER
-  // ==========================================
-  document.getElementById('purchaseForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    
-    const btn = document.getElementById('submitBtn');
-    btn.innerText = "Uploading Photos... Please wait"; 
-    btn.disabled = true;
+    finalOrderPayload = [];
+    const itemCards = document.querySelectorAll('.item-card');
+    let receiptHtml = '';
+
+    itemCards.forEach((row, i) => {
+      const name = row.querySelector('.itemName').value;
+      const purpose = row.querySelector('.purpose').value;
+      const qty = parseFloat(row.querySelector('.quantity').value);
+      const unit = row.querySelector('.unit').value;
+      const price = parseFloat(row.querySelector('.price').value);
+      const link = row.querySelector('.link').value;
+      const tax = row.querySelector('.taxInvoice').value;
+      const fileInput = row.querySelector('.fileUploadInput');
+      
+      const total = (qty * price);
+      const totalStr = `฿${total.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+
+      receiptHtml += `
+        <div class="receipt-item">
+           <div class="receipt-item-left">
+              <span class="receipt-name">${name}</span>
+              <span class="receipt-meta">${qty} ${unit} @ ฿${price.toLocaleString()}</span>
+           </div>
+           <span class="receipt-price">${totalStr}</span>
+        </div>`;
+
+      finalOrderPayload.push({ rowElement: row, file: fileInput.files[0], name, purpose, qty, unit, price, link, tax });
+    });
+
+    document.getElementById('modalBranchSub').innerText = `Ordering for: ${document.getElementById('branch').value} (${document.getElementById('section').value})`;
+    document.getElementById('modalReceiptList').innerHTML = receiptHtml;
+    document.getElementById('reviewModal').classList.add('open');
+  }
+
+  function closeReviewModal() {
+    document.getElementById('reviewModal').classList.remove('open');
+  }
+
+  async function executeOrderUpload() {
+    const confirmBtn = document.getElementById('finalSubmitBtn');
+    confirmBtn.innerText = "Uploading Photos..."; 
+    confirmBtn.disabled = true;
     
     try {
       const generatedOrderId = generateOrderID();
-      const items = [];
-      const itemCards = document.querySelectorAll('.item-card');
+      const finalItemsList = [];
 
-      // Loop through each item and upload its photo to Cloudinary
-      for (let i = 0; i < itemCards.length; i++) {
-        const row = itemCards[i];
+      for (let i = 0; i < finalOrderPayload.length; i++) {
+        const item = finalOrderPayload[i];
         
-        let finalImageUrl = "";
-        const fileInput = row.querySelector('input[type="file"]');
-        const file = fileInput.files[0];
+        confirmBtn.innerText = `Uploading Photo ${i + 1} of ${finalOrderPayload.length}...`; 
+        const finalImageUrl = await uploadToCloudinary(item.file);
 
-        // Ensure they selected a photo
-        if (!file) {
-            throw new Error(`Please upload a photo for item ${i + 1}`);
-        }
-
-        // Upload to Cloudinary
-        btn.innerText = `Uploading Photo ${i + 1} of ${itemCards.length}...`; 
-        finalImageUrl = await uploadToCloudinary(file);
-
-        items.push({
-          itemNameEN: row.querySelector('.itemName').value,
-          purposeEN: row.querySelector('.purpose').value, 
-          qty: parseFloat(row.querySelector('.quantity').value),
-          unit: row.querySelector('.unit').value,
-          price: parseFloat(row.querySelector('.price').value),
-          link: "", // Removed the Shopee link entirely
-          imgUrl: finalImageUrl, // This is the clean Cloudinary URL
-          taxInvoice: row.querySelector('.taxInvoice').value
+        finalItemsList.push({
+          itemNameEN: item.name,
+          purposeEN: item.purpose, 
+          qty: item.qty,
+          unit: item.unit,
+          price: item.price,
+          link: item.link, 
+          imgUrl: finalImageUrl, 
+          taxInvoice: item.tax
         });
       }
 
-      // Now that all photos are safely in Cloudinary, save text to Google Sheets
-      btn.innerText = "Saving to Database..."; 
+      confirmBtn.innerText = "Saving Order..."; 
       
       const payload = {
         action: 'submit_order',
@@ -684,7 +766,7 @@
           branch: document.getElementById('branch').value, 
           section: document.getElementById('section').value,
           isUrgent: document.getElementById('isUrgent').checked,
-          items: items
+          items: finalItemsList
         }
       };
 
@@ -694,11 +776,12 @@
         alert(`SUCCESS!\n\nYour Request ID is: ${generatedOrderId}\nPlease save this ID for tracking.`);
         document.getElementById('purchaseForm').reset();
         
-        // Reset all image previews
         document.querySelectorAll('.preview-sq img').forEach(img => img.style.display = 'none');
-        document.querySelectorAll('.preview-placeholder').forEach(txt => txt.style.display = 'flex');
-        document.querySelectorAll('.photo-status-text').forEach(st => { st.innerText = "No photo selected"; st.classList.remove("active"); });
+        document.querySelectorAll('.upload-placeholder').forEach(txt => txt.style.display = 'flex');
+        document.querySelectorAll('.item-total-display').forEach(inp => inp.value = "฿0.00");
+        updateGrandTotal();
         
+        closeReviewModal();
         showView('staffMenu');
       } else { 
         alert("Database Error: \n" + response.error); 
@@ -707,10 +790,10 @@
     } catch (err) {
       alert("Error: " + err.message);
     } finally {
-      btn.innerText = "Confirm & Send Order"; 
-      btn.disabled = false;
+      confirmBtn.innerText = "Yes, Submit Order"; 
+      confirmBtn.disabled = false;
     }
-  });
+  }
 </script>
 </body>
 </html>
