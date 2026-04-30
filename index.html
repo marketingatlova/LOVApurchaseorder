@@ -44,19 +44,26 @@
     h2 { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; margin-bottom: 8px; color: var(--text-main);}
     p.subtitle { color: var(--text-muted); font-size: 14px; font-weight: 500; }
     
-    /* BREATHABLE HEADER GRID (2-Line Layout) */
-    .flat-routing { display: grid; grid-template-columns: 1fr 1fr; gap: 24px 32px; margin-top: 32px; margin-bottom: 32px; padding: 0 16px; align-items: end;}
-    .routing-col { display: flex; flex-direction: column; gap: 6px; }
-    .routing-col label { font-size: 10px; color: var(--text-kicker); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; margin: 0;}
-    .routing-val, .routing-select { font-size: 14px; font-weight: 500; color: var(--text-main); background: transparent; border: none; outline: none; padding: 0; appearance: none; font-family: 'Plus Jakarta Sans', sans-serif;}
-    .routing-select { border-bottom: 1px dashed var(--border-dashed); padding-bottom: 6px; border-radius: 0; cursor: pointer; width: 100%; transition: border-color 0.2s;}
+    /* BREATHABLE HEADER GRID (Perfectly Aligned 2x2) */
+    .flat-routing { display: grid; grid-template-columns: 1fr 1fr; gap: 32px 48px; margin-top: 40px; margin-bottom: 40px; padding: 0 16px;}
+    .routing-col { display: flex; flex-direction: column; justify-content: flex-end; }
+    .routing-label { font-size: 10px; color: var(--text-kicker); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 8px;}
+    .routing-val, .routing-select { font-size: 16px; font-weight: 700; color: var(--text-main); background: transparent; border: none; outline: none; padding: 0 0 8px 0; appearance: none; font-family: 'Plus Jakarta Sans', sans-serif; width: 100%; line-height: 1.2;}
+    .routing-val { border-bottom: 1px solid transparent; } /* Invisible border forces exact mathematical baseline alignment with dashed inputs */
+    .routing-select { border-bottom: 1px dashed var(--border-dashed); cursor: pointer; color: var(--navy); transition: border-color 0.2s; }
     .routing-select:focus, .routing-select:hover { border-color: var(--navy); }
-    .routing-val { padding-bottom: 7px; } 
     
-    /* Plumped Urgent Pill */
-    .urgent-pill { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; background: #fdf0ef; border: 1px solid #f5c6c2; border-radius: 20px; cursor: pointer; transition: all 0.2s; margin: 0; height: 36px;}
-    .urgent-pill input[type="checkbox"] { width: 16px; min-height: 16px; accent-color: var(--red); cursor: pointer; margin: 0; padding: 0; }
-    .urgent-pill span { color: var(--red); font-weight: 700; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;}
+    /* Custom, Glitch-Free Urgent Pill */
+    .urgent-pill-wrapper { padding-bottom: 6px; } 
+    .urgent-pill { display: inline-flex; align-items: center; gap: 8px; padding: 0 16px; height: 34px; background: var(--surface); border: 1px solid var(--border); border-radius: 17px; cursor: pointer; transition: all 0.2s;}
+    .urgent-pill input[type="checkbox"] { position: absolute; opacity: 0; width: 0; height: 0; }
+    .urgent-dot { width: 10px; height: 10px; border-radius: 50%; background: #d1cfc7; transition: all 0.2s; }
+    .urgent-text { color: var(--text-muted); font-weight: 700; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; transition: all 0.2s;}
+    
+    /* Urgent Pill Checked State */
+    .urgent-pill:has(input:checked) { background: #fdf0ef; border-color: #f5c6c2; }
+    .urgent-pill:has(input:checked) .urgent-dot { background: var(--red); box-shadow: 0 0 6px rgba(217, 48, 37, 0.4); }
+    .urgent-pill:has(input:checked) .urgent-text { color: var(--red); }
 
     /* Item Cards */
     .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
@@ -149,10 +156,10 @@
     .badge-urgent { background: var(--red); color: #fff; padding: 4px 10px; border-radius: 4px; font-size: 10px; font-weight: 700; margin-left: 12px; border: none;}
 
     @media (max-width: 650px) {
-      .flat-routing { grid-template-columns: 1fr; gap: 20px; }
+      .flat-routing { grid-template-columns: 1fr; gap: 24px; padding: 0;}
       .item-grid-master { grid-template-columns: 1fr; gap: 16px; }
       .row-span-2 { grid-row: auto; height: auto; }
-      .upload-box { min-height: 140px; margin-bottom: 8px;}
+      .upload-box { min-height: 160px; margin-bottom: 8px;}
     }
   </style>
 </head>
@@ -203,14 +210,15 @@
       
       <form id="purchaseForm">
         
-        <!-- Flat, Breathable Routing Section (2-Line Grid) -->
+        <!-- FLawless 2x2 Routing Grid -->
         <div class="flat-routing">
+           <!-- Row 1 -->
            <div class="routing-col">
-             <label>Requester Name</label>
+             <label class="routing-label">Requester Name</label>
              <div class="routing-val" id="routingRequester">-</div>
            </div>
            <div class="routing-col">
-             <label>Branch</label>
+             <label class="routing-label">Branch</label>
              <select id="branch" class="routing-select" required onchange="handleBranchChange()">
                 <option value="" disabled selected>Select Branch</option>
                 <option value="HQ">HQ</option>
@@ -226,8 +234,9 @@
                 <option value="FINANCE">FINANCE</option>
              </select>
            </div>
+           <!-- Row 2 -->
            <div class="routing-col">
-             <label>Section</label>
+             <label class="routing-label">Section</label>
              <select id="section" class="routing-select" required>
                 <option value="" disabled selected>Select Section</option>
                 <option value="Kitchen">Kitchen</option>
@@ -235,11 +244,14 @@
                 <option value="Service">Service</option>
              </select>
            </div>
-           <div class="routing-col" style="justify-content: flex-end; align-items: flex-start; padding-bottom: 4px;">
-              <label class="urgent-pill">
-                <input type="checkbox" id="isUrgent">
-                <span>URGENT 🔴</span>
-              </label>
+           <div class="routing-col">
+              <div class="urgent-pill-wrapper">
+                  <label class="urgent-pill">
+                    <input type="checkbox" id="isUrgent">
+                    <div class="urgent-dot"></div>
+                    <span class="urgent-text">URGENT</span>
+                  </label>
+              </div>
            </div>
         </div>
 
