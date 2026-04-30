@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root { 
-      --bg: #f3f1eb; 
+      --bg: #f0eee6; 
       --surface: #ffffff;
       --input-bg: #f4f3f0;
       --input-shaded: #ebe9e3;
@@ -44,46 +44,13 @@
     h2 { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; margin-bottom: 8px; color: var(--text-main);}
     p.subtitle { color: var(--text-muted); font-size: 14px; font-weight: 500; }
     
-    /* ------------------------------------------- */
     /* STRICT 2x2 ROUTING GRID */
-    /* ------------------------------------------- */
-    .flat-routing { 
-        display: grid; 
-        grid-template-columns: minmax(180px, 280px) minmax(180px, 280px); 
-        gap: 28px 64px;
-        justify-content: center; 
-        margin-top: 48px; 
-        margin-bottom: 48px; 
-        padding: 0 16px;
-    }
+    .flat-routing { display: grid; grid-template-columns: minmax(180px, 280px) minmax(180px, 280px); gap: 28px 64px; justify-content: center; margin-top: 48px; margin-bottom: 48px; padding: 0 16px;}
     .routing-col { display: flex; flex-direction: column; justify-content: flex-end; }
     .routing-label { font-size: 10px; color: var(--text-kicker); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 6px;}
-    
-    .routing-val, .routing-select { 
-        font-size: 15px; 
-        font-weight: 600; 
-        color: var(--text-main); 
-        background: transparent; 
-        border: none; 
-        outline: none; 
-        padding: 0 20px 6px 0; 
-        appearance: none; 
-        font-family: 'Plus Jakarta Sans', sans-serif; 
-        width: 100%; 
-        height: 30px; 
-        line-height: 20px;
-    }
+    .routing-val, .routing-select { font-size: 15px; font-weight: 600; color: var(--text-main); background: transparent; border: none; outline: none; padding: 0 20px 6px 0; appearance: none; font-family: 'Plus Jakarta Sans', sans-serif; width: 100%; height: 30px; line-height: 20px;}
     .routing-val { border-bottom: 1px solid transparent; cursor: default; } 
-    .routing-select { 
-        border-bottom: 1px dashed var(--border-dashed); 
-        cursor: pointer; 
-        color: var(--navy); 
-        transition: border-color 0.2s; 
-        border-radius: 0;
-        background-image: url('data:image/svg+xml;utf8,<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="%231a1f2e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>');
-        background-repeat: no-repeat;
-        background-position: right 0px center; 
-    }
+    .routing-select { border-bottom: 1px dashed var(--border-dashed); cursor: pointer; color: var(--navy); transition: border-color 0.2s; border-radius: 0; background-image: url('data:image/svg+xml;utf8,<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="%231a1f2e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>'); background-repeat: no-repeat; background-position: right 0px center; }
     .routing-select:focus, .routing-select:hover { border-color: var(--navy); }
     
     /* Glitch-Free Urgent Pill */
@@ -92,20 +59,18 @@
     .urgent-pill input[type="checkbox"] { position: absolute; opacity: 0; width: 0; height: 0; margin: 0; }
     .urgent-dot { width: 10px; height: 10px; border-radius: 50%; background: #d1cfc7; transition: all 0.2s; }
     .urgent-text { color: var(--text-muted); font-weight: 700; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; transition: all 0.2s;}
-    
-    /* Urgent Pill Checked State */
     .urgent-pill:has(input:checked) { background: #fdf0ef; border-color: #f5c6c2; }
     .urgent-pill:has(input:checked) .urgent-dot { background: var(--red); box-shadow: 0 0 6px rgba(217, 48, 37, 0.4); }
     .urgent-pill:has(input:checked) .urgent-text { color: var(--red); }
 
     /* Item Cards */
-    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 16px; box-shadow: 0 6px 20px rgba(0,0,0,0.04); }
     .card-title { font-size: 16px; font-weight: 700; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--input-bg); display: flex; justify-content: space-between; align-items: center;}
     
     /* Typography & Inputs */
     .form-group { width: 100%; display: flex; flex-direction: column;}
     .form-group label { font-size: 10px; color: var(--text-kicker); font-weight: 700; margin-bottom: 6px; letter-spacing: 0.5px; text-transform: uppercase; display: block; }
-    input[type="text"], input[type="number"], input[type="url"], select, textarea { width: 100%; height: 42px; padding: 0 14px; border: 1px solid transparent; border-radius: 8px; font-size: 14px; background-color: var(--input-bg); font-family: 'Plus Jakarta Sans', sans-serif; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); appearance: none; color: var(--text-main); font-weight: 500; box-sizing: border-box;}
+    input[type="text"], input[type="number"], input[type="url"], select, textarea { width: 100%; height: 42px; padding: 0 14px; border: 1px solid transparent; border-radius: 8px; font-size: 14px; background-color: var(--input-bg); font-family: 'Plus Jakarta Sans', sans-serif; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); appearance: none; color: var(--text-main); font-weight: 500;}
     input[type="text"]:focus, input[type="number"]:focus, input[type="url"]:focus, select:focus { outline: none; border-color: #d1cfc7; background-color: var(--surface); box-shadow: 0 0 0 3px rgba(26,31,46,0.04); }
     input::placeholder { color: #aaa69c; font-weight: 400; }
     .input-readonly { background-color: var(--input-shaded) !important; color: var(--navy) !important; cursor: not-allowed; font-weight: 700 !important; border: 1px dashed var(--border-dashed) !important; }
@@ -156,68 +121,57 @@
 
     /* Auth & Menus */
     #authSection { text-align: center; width: 100%; max-width: 360px; margin: 15vh auto; border-radius: 16px; padding: 40px 32px; background: var(--surface); box-shadow: 0 8px 32px rgba(0,0,0,0.04); box-sizing: border-box; }
-    
-    /* CORRECTED LOGIN INPUT */
-    #passcode { 
-        width: 100%; 
-        box-sizing: border-box;
-        text-align: center; 
-        font-size: 32px; 
-        letter-spacing: 16px; 
-        text-indent: 16px; /* Offsets the letter-spacing to prevent bounding box overflow */
-        font-weight: 700; 
-        padding: 10px; 
-        background: #faf9f7; 
-        border: 2px solid var(--border); 
-        margin-bottom: 16px; 
-        border-radius: 12px; 
-        height: 64px; 
-        color: var(--text-main);
-        outline: none;
-        transition: all 0.2s;
-    }
-    #passcode:focus {
-        border-color: #2563eb;
-        box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
-    }
-
+    #passcode { width: 100%; box-sizing: border-box; text-align: center; font-size: 32px; letter-spacing: 16px; text-indent: 16px; font-weight: 700; padding: 10px; background: #faf9f7; border: 2px solid var(--border); margin-bottom: 16px; border-radius: 12px; height: 64px; color: var(--text-main); outline: none; transition: all 0.2s;}
+    #passcode:focus { border-color: #2563eb; box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1); }
     #authError { color: var(--red); font-size: 13px; display: none; margin-top: 12px; font-weight: 600;}
     #staffMenu, #oseForm, #adminDashboard, #staffStatusDashboard, #sharedNav { display: none; }
     .menu-grid { display: grid; gap: 12px; margin-top: 32px;}
     .menu-btn { height: 76px; background: var(--surface); color: var(--text-main); border: 1px solid var(--border); font-size: 15px; font-weight: 600; justify-content: flex-start; padding-left: 20px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); transition: all 0.2s; text-align: left; cursor: pointer; font-family: 'Plus Jakarta Sans', sans-serif;}
     .menu-btn:hover { border-color: var(--navy); transform: translateY(-1px);}
-    .loading-text { text-align: center; color: var(--text-muted); font-size: 14px; margin-top: 40px; padding: 30px; background: var(--surface); border: 1px dashed var(--border); border-radius: 12px; font-weight: 500;}
 
-    /* Admin specific */
+    /* Admin UI */
     .admin-sticky-header { position: sticky; top: 0; z-index: 50; background: var(--bg); padding: 10px 0 16px 0; border-bottom: 1px solid var(--border); margin-bottom: 24px; }
     .admin-stats-bar { display: flex; gap: 10px; margin-bottom: 16px; }
     .stat-pill { padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; background: var(--surface); border: 1px solid var(--border); color: var(--text-main);}
-    .admin-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .order-batch { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 20px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,0,0,0.02);}
-    .batch-head { padding: 20px; border-bottom: 1px solid var(--input-bg); display: flex; justify-content: space-between; align-items: center; background: #faf9f7;}
+    .admin-controls { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 12px;}
+    
+    .multi-select-container { position: relative; width: 100%; font-family: 'Plus Jakarta Sans', sans-serif;}
+    .multi-select-btn { width: 100%; height: 42px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; display: flex; align-items: center; padding: 0 14px; font-size: 13px; font-weight: 600; cursor: pointer; justify-content: space-between; color: var(--text-main);}
+    .multi-select-btn:after { content: ""; width: 12px; height: 12px; background-image: url('data:image/svg+xml;utf8,<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="%23737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>'); background-repeat: no-repeat; background-position: center;}
+    .multi-select-menu { position: absolute; top: 100%; left: 0; right: 0; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; margin-top: 4px; z-index: 200; max-height: 250px; overflow-y: auto; box-shadow: 0 4px 16px rgba(0,0,0,0.08); display: none; }
+    .multi-select-menu.open { display: block; }
+    .multi-option { padding: 10px 14px; display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 13px; font-weight: 600; border-bottom: 1px solid var(--border-soft); color: var(--text-main);}
+    .multi-option:hover { background: var(--bg); }
+    .multi-option input { width: 16px; height: 16px; margin: 0; cursor: pointer; accent-color: var(--navy); }
+
+    .order-batch { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 24px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.04);}
+    .batch-head { padding: 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: #faf9f7;}
     .batch-id-text { font-size: 15px; font-weight: 700; color: var(--text-main); font-family: monospace;}
     .batch-meta { font-size: 13px; color: var(--text-muted); margin-top: 4px; font-weight: 500;}
-    .order-item-row { display: grid; grid-template-columns: 60px 1fr; gap: 20px; padding: 20px; border-bottom: 1px dashed var(--input-bg); }
+    
+    .order-item-row { display: flex; gap: 20px; padding: 20px; border-bottom: 1px dashed var(--border); transition: 0.3s opacity; }
     .order-item-row:last-child { border-bottom: none; }
-    .prod-img { width: 60px; height: 60px; border-radius: 8px; object-fit: cover; background: var(--bg); border: 1px solid var(--border);}
-    .admin-item-title { font-size: 15px; font-weight: 700; color: var(--text-main); }
+    .prod-img { width: 90px; height: 90px; min-width: 90px; border-radius: 8px; object-fit: cover; background: var(--input-bg); border: 1px solid var(--border);}
+    
+    .admin-item-title { font-size: 16px; font-weight: 700; color: var(--text-main); }
     .admin-price { font-size: 13px; font-weight: 600; color: var(--text-muted); margin-top: 4px;}
-    .item-desc { font-size: 13px; color: var(--text-muted); margin-top: 8px; line-height: 1.5; }
-    .admin-actions { display: flex; gap: 12px; justify-content: flex-end; padding: 16px 20px; background: var(--bg); border-top: 1px solid var(--input-bg);}
-    .btn-approve { background: #16a34a; color: #fff; border: none; min-height: 42px; font-size: 13px; width: 120px; border-radius: 8px; font-weight: 600; cursor: pointer;}
-    .btn-reject { background: var(--surface); color: var(--text-main); border: 1px solid var(--border); min-height: 42px; font-size: 13px; width: 120px; border-radius: 8px; font-weight: 600; cursor: pointer;}
-    .badge { display:inline-block; padding:6px 12px; border-radius:6px; font-size:10px; font-weight:700; margin-top:8px; letter-spacing: 0.5px; text-transform: uppercase;}
-    .badge-pending { background:#fef3c7; color:#92570a; border: 1px solid #fcd34d; }
-    .badge-approved { background:#dcfce7; color:#166534; border: 1px solid #86efac; }
-    .badge-rejected { background:#fdf0ef; color:#d93025; border: 1px solid #f5c6c2; }
-    .badge-urgent { background: var(--red); color: #fff; padding: 4px 10px; border-radius: 4px; font-size: 10px; font-weight: 700; margin-left: 12px; border: none;}
+    .item-desc { font-size: 13px; color: var(--text-muted); line-height: 1.4; margin-top: 4px;}
+    
+    .btn-approve-sm { background: #dcfce7; color: #166534; border: 1px solid #86efac; padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: 700; cursor: pointer; transition: 0.2s; font-family: 'Plus Jakarta Sans', sans-serif;}
+    .btn-reject-sm { background: var(--surface); color: var(--red); border: 1px solid #f5c6c2; padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: 700; cursor: pointer; transition: 0.2s; font-family: 'Plus Jakarta Sans', sans-serif;}
+
+    .admin-actions { display: flex; gap: 12px; justify-content: flex-end; padding: 16px 20px; background: var(--surface); border-top: 1px solid var(--border); border-radius: 0 0 12px 12px;}
+    .btn-approve { background: var(--green); color: #fff; border: none; min-height: 42px; font-size: 13px; padding: 0 24px; border-radius: 8px; font-weight: 600; cursor: pointer;}
+    .btn-reject { background: var(--surface); color: var(--text-main); border: 1px solid var(--border); min-height: 42px; font-size: 13px; padding: 0 24px; border-radius: 8px; font-weight: 600; cursor: pointer;}
+    
+    .loading-text { text-align: center; color: var(--text-muted); font-size: 14px; margin-top: 40px; padding: 30px; background: var(--surface); border: 1px dashed var(--border); border-radius: 12px; font-weight: 500;}
 
     @media (max-width: 650px) {
       .flat-routing { grid-template-columns: 1fr; gap: 24px; padding: 0;}
       .item-grid-master { grid-template-columns: 1fr; gap: 16px; }
       .row-span-2 { grid-row: auto; height: auto; }
       .upload-box { min-height: 140px; margin-bottom: 8px;}
-      .routing-col { align-items: flex-start; }
+      .admin-controls { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -245,11 +199,9 @@
     <button onclick="authenticateUser()" style="width: 100%; height: 52px; background: var(--navy); color: #fff; border-radius: 10px; font-weight: 600; border: none; cursor: pointer; font-family: 'Plus Jakarta Sans', sans-serif;">Secure Login</button>
   </div>
 
-  <!-- PORTAL 1: STAFF MENU -->
+  <!-- STAFF MENU -->
   <div class="container" id="staffMenu">
-    <div class="header-area">
-        <h2>Staff Operations</h2>
-    </div>
+    <div class="header-area"><h2>Staff Operations</h2></div>
     <div class="menu-grid">
       <button class="menu-btn" onclick="showView('oseForm')">🛒 <span id="btnTextForm" style="margin-left:12px;">External Purchase Form</span></button>
       <button class="menu-btn" onclick="showView('staffStatusDashboard'); fetchLiveStatusData();">📦 <span id="btnTextStatus" style="margin-left:12px;">My Order Status</span></button>
@@ -257,7 +209,7 @@
     </div>
   </div>
 
-  <!-- PORTAL 1.5: STAFF PURCHASE FORM -->
+  <!-- PURCHASE FORM -->
   <div id="oseForm">
     <div class="container">
       <div class="header-area">
@@ -267,55 +219,34 @@
       </div>
       
       <form id="purchaseForm">
-        
-        <!-- FLawless 2x2 Routing Grid -->
         <div class="flat-routing">
-           <!-- Row 1 -->
-           <div class="routing-col">
-             <label class="routing-label">Requester Name</label>
-             <div class="routing-val" id="routingRequester">-</div>
-           </div>
+           <div class="routing-col"><label class="routing-label">Requester Name</label><div class="routing-val" id="routingRequester">-</div></div>
            <div class="routing-col">
              <label class="routing-label">Branch</label>
              <select id="branch" class="routing-select" required onchange="handleBranchChange()">
                 <option value="" disabled selected>Select Branch</option>
-                <option value="HQ">HQ</option>
-                <option value="LOVA GROUP">LOVA GROUP</option>
-                <option value="BIANCA EMSPHERE">BIANCA EMSPHERE</option>
-                <option value="BIANCA ONE BANGKOK">BIANCA ONE BANGKOK</option>
-                <option value="BIANCA SIAM PARAGON">BIANCA SIAM PARAGON</option>
-                <option value="BIANCA ICONSIAM">BIANCA ICONSIAM</option>
-                <option value="HOLYBELLY">HOLYBELLY</option>
-                <option value="LAVA">LAVA</option>
-                <option value="CK">CK</option>
-                <option value="DRIVER">DRIVER</option>
-                <option value="FINANCE">FINANCE</option>
+                <option value="HQ">HQ</option><option value="LOVA GROUP">LOVA GROUP</option><option value="BIANCA EMSPHERE">BIANCA EMSPHERE</option>
+                <option value="BIANCA ONE BANGKOK">BIANCA ONE BANGKOK</option><option value="BIANCA SIAM PARAGON">BIANCA SIAM PARAGON</option>
+                <option value="BIANCA ICONSIAM">BIANCA ICONSIAM</option><option value="HOLYBELLY">HOLYBELLY</option>
+                <option value="LAVA">LAVA</option><option value="CK">CK</option><option value="DRIVER">DRIVER</option><option value="FINANCE">FINANCE</option>
              </select>
            </div>
-           <!-- Row 2 -->
            <div class="routing-col">
              <label class="routing-label">Section</label>
              <select id="section" class="routing-select" required>
-                <option value="" disabled selected>Select Section</option>
-                <option value="Kitchen">Kitchen</option>
-                <option value="Bar">Bar</option>
-                <option value="Service">Service</option>
+                <option value="" disabled selected>Select Section</option><option value="Kitchen">Kitchen</option><option value="Bar">Bar</option><option value="Service">Service</option>
              </select>
            </div>
            <div class="routing-col" style="align-items: flex-start;">
               <div class="urgent-pill-wrapper">
                   <label class="urgent-pill">
-                    <input type="checkbox" id="isUrgent">
-                    <div class="urgent-dot"></div>
-                    <span class="urgent-text">URGENT</span>
+                    <input type="checkbox" id="isUrgent"><div class="urgent-dot"></div><span class="urgent-text">URGENT</span>
                   </label>
               </div>
            </div>
         </div>
 
-        <!-- Items Container -->
         <div id="itemsContainer"></div>
-
         <button type="button" class="btn-add" onclick="addItemRow()">+ Add Another Item</button>
         
         <div class="sticky-bottom">
@@ -329,70 +260,63 @@
     </div>
   </div>
 
-  <!-- PORTAL 1.8: STAFF ORDER STATUS DASHBOARD -->
+  <!-- STAFF STATUS -->
   <div id="staffStatusDashboard">
     <div class="container">
-      <div class="header-area">
-        <button class="btn-back" onclick="showView('staffMenu')">← Back to Menu</button>
-        <h2>My Order Status</h2>
-        <p class="subtitle">Live tracking from Database</p>
-      </div>
-      <div id="staffRequestsList"><div class="loading-text">Connecting to Database...</div></div>
+      <div class="header-area"><button class="btn-back" onclick="showView('staffMenu')">← Back to Menu</button><h2>My Order Status</h2></div>
+      <div id="staffRequestsList"></div>
     </div>
   </div>
 
-  <!-- PORTAL 2: ADMIN DASHBOARD -->
+  <!-- ADMIN DASHBOARD -->
   <div id="adminDashboard">
     <div class="container">
-      <div class="header-area" style="margin-top: 20px;">
-        <h2>Approval Center</h2>
-      </div>
+      <div class="header-area" style="margin-top: 20px;"><h2>Approval Center</h2></div>
       <div class="admin-sticky-header">
         <div class="admin-stats-bar"><div class="stat-pill" id="statTotal">0 Pending</div><div class="stat-pill stat-urgent" id="statUrgent">0 Urgent</div></div>
-        <input type="text" id="searchOrderId" style="margin-bottom: 12px; width: 100%; border: 1px solid var(--border);" placeholder="Search Order ID (e.g. REQ-...)" onkeyup="renderAdminUI()">
+        <input type="text" id="searchOrderId" style="width: 100%; border: 1px solid var(--border);" placeholder="Search Order ID or Item..." onkeyup="renderAdminUI()">
         <div class="admin-controls">
-          <select id="filterLocation" onchange="renderAdminUI()" style="border: 1px solid var(--border);">
-            <option value="All">All Locations</option>
-            <option value="HQ">HQ</option>
-            <option value="LOVA GROUP">LOVA GROUP</option>
-            <option value="BIANCA EMSPHERE">BIANCA EMSPHERE</option>
-            <option value="BIANCA ONE BANGKOK">BIANCA ONE BANGKOK</option>
-            <option value="BIANCA SIAM PARAGON">BIANCA SIAM PARAGON</option>
-            <option value="BIANCA ICONSIAM">BIANCA ICONSIAM</option>
-            <option value="HOLYBELLY">HOLYBELLY</option>
-            <option value="LAVA">LAVA</option>
-            <option value="CK">CK</option>
-          </select>
+          <div class="multi-select-container">
+            <div class="multi-select-btn" onclick="toggleMultiSelect('branchMenu')"><span id="branchBtnText">All Branches</span></div>
+            <div class="multi-select-menu" id="branchMenu">
+               <label class="multi-option"><input type="checkbox" value="HQ" onchange="applyAdminFilters()"> HQ</label>
+               <label class="multi-option"><input type="checkbox" value="LOVA GROUP" onchange="applyAdminFilters()"> LOVA GROUP</label>
+               <label class="multi-option"><input type="checkbox" value="BIANCA EMSPHERE" onchange="applyAdminFilters()"> BIANCA EMSPHERE</label>
+               <label class="multi-option"><input type="checkbox" value="BIANCA ONE BANGKOK" onchange="applyAdminFilters()"> BIANCA ONE BANGKOK</label>
+               <label class="multi-option"><input type="checkbox" value="BIANCA SIAM PARAGON" onchange="applyAdminFilters()"> BIANCA SIAM PARAGON</label>
+               <label class="multi-option"><input type="checkbox" value="BIANCA ICONSIAM" onchange="applyAdminFilters()"> BIANCA ICONSIAM</label>
+               <label class="multi-option"><input type="checkbox" value="HOLYBELLY" onchange="applyAdminFilters()"> HOLYBELLY</label>
+               <label class="multi-option"><input type="checkbox" value="LAVA" onchange="applyAdminFilters()"> LAVA</label>
+               <label class="multi-option"><input type="checkbox" value="CK" onchange="applyAdminFilters()"> CK</label>
+            </div>
+          </div>
+          <div class="multi-select-container">
+            <div class="multi-select-btn" onclick="toggleMultiSelect('sectionMenu')"><span id="sectionBtnText">All Sections</span></div>
+            <div class="multi-select-menu" id="sectionMenu">
+               <label class="multi-option"><input type="checkbox" value="Kitchen" onchange="applyAdminFilters()"> Kitchen</label>
+               <label class="multi-option"><input type="checkbox" value="Bar" onchange="applyAdminFilters()"> Bar</label>
+               <label class="multi-option"><input type="checkbox" value="Service" onchange="applyAdminFilters()"> Service</label>
+            </div>
+          </div>
           <select id="sortDate" onchange="renderAdminUI()" style="border: 1px solid var(--border);"><option value="newest">Newest First</option><option value="oldest">Oldest First</option></select>
         </div>
       </div>
-      <div id="adminRequestsList"><div class="loading-text">Fetching pending orders...</div></div>
+      <div id="adminRequestsList"></div>
     </div>
   </div>
 
-  <!-- RECEIPT MODAL -->
+  <!-- MODAL -->
   <div class="modal-overlay" id="reviewModal">
     <div class="modal-sheet">
       <div class="modal-title">Review Order</div>
       <div class="modal-sub" id="modalBranchSub">Please confirm your request details.</div>
       <div class="modal-list" id="modalReceiptList"></div>
-      
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
-        <span style="font-size: 14px; font-weight: 600; color: var(--text-muted);">Grand Total</span>
-        <span style="font-size: 24px; font-weight: 700; color: var(--navy); font-family: 'Playfair Display', serif;" id="modalGrandTotal">฿0.00</span>
-      </div>
-
-      <div class="modal-btns">
-        <button class="btn-cancel" onclick="closeReviewModal()">Cancel</button>
-        <button class="btn-confirm-final" id="finalSubmitBtn" onclick="executeOrderUpload()">Yes, Submit Order</button>
-      </div>
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;"><span style="font-size: 14px; font-weight: 600; color: var(--text-muted);">Grand Total</span><span style="font-size: 24px; font-weight: 700; color: var(--navy); font-family: 'Playfair Display', serif;" id="modalGrandTotal">฿0.00</span></div>
+      <div class="modal-btns"><button class="btn-cancel" onclick="closeReviewModal()">Cancel</button><button class="btn-confirm-final" id="finalSubmitBtn" onclick="executeOrderUpload()">Yes, Submit Order</button></div>
     </div>
   </div>
 
 <script>
-  // =================================================================
-  // API & CLOUDINARY CONFIGURATION 
-  // =================================================================
   const API_URL = "https://script.google.com/macros/s/AKfycbxgxY6BXooYtMjMlV3wVfW1F7IikNRUWGv_Y89eCuJzlHk_k_2nl10nqvc3ATlk0vss/exec"; 
   const CLOUD_NAME = "dynjnftnu";
   const UPLOAD_PRESET = "lova_staff_purchase_app"; 
@@ -403,7 +327,7 @@
   };
 
   let currentLang = "en";
-  try { currentLang = sessionStorage.getItem("lova_lang") || "en"; } catch(e) { console.warn("Storage restricted."); }
+  try { currentLang = sessionStorage.getItem("lova_lang") || "en"; } catch(e) {}
 
   const userDirectory = { 
     "1234": { name: "Tyme", role: "admin", branch: "HQ" },
@@ -435,6 +359,7 @@
 
   document.addEventListener("DOMContentLoaded", () => {
     applyTranslations();
+    document.addEventListener('click', (e) => { if (!e.target.closest('.multi-select-container')) document.querySelectorAll('.multi-select-menu').forEach(m => m.classList.remove('open')); });
   });
 
   function applyTranslations() {
@@ -453,57 +378,23 @@
       currentUser = user;
       document.getElementById('displayUser').innerText = `${user.name} (${user.role})`;
       document.getElementById('routingRequester').innerText = user.name; 
-      
-      if(user.role === 'admin') { 
-        showView('adminDashboard'); fetchLiveAdminData(); 
-      } else { 
-        showView('staffMenu'); 
-        document.getElementById('itemsContainer').innerHTML = ''; addItemRow(); 
-        
-        if(user.branch) { document.getElementById('branch').value = user.branch; } 
-        else { document.getElementById('branch').value = ""; }
-      }
-      document.getElementById('authError').style.display = 'none'; 
-    } else {
-      document.getElementById('authError').style.display = 'block'; document.getElementById('passcode').value = '';
-    }
+      if(user.role === 'admin') { showView('adminDashboard'); fetchLiveAdminData(); } 
+      else { showView('staffMenu'); document.getElementById('itemsContainer').innerHTML = ''; addItemRow(); if(user.branch) document.getElementById('branch').value = user.branch; }
+    } else { document.getElementById('authError').style.display = 'block'; }
   }
 
-  function logout() { 
-    currentUser = {}; 
-    document.getElementById('passcode').value = ''; 
-    showView('authSection'); 
-    document.getElementById('sharedNav').style.display = 'none';
-  }
+  function logout() { currentUser = {}; document.getElementById('passcode').value = ''; showView('authSection'); }
 
   function showView(viewId) {
-    ['authSection', 'staffMenu', 'oseForm', 'adminDashboard', 'staffStatusDashboard'].forEach(id => {
-       const el = document.getElementById(id);
-       if(el) el.style.display = 'none';
-    });
-    
-    const target = document.getElementById(viewId);
-    if(target) target.style.display = 'block';
-    
-    const nav = document.getElementById('sharedNav');
-    if(nav) nav.style.display = (viewId !== 'authSection') ? 'flex' : 'none';
-    
+    ['authSection', 'staffMenu', 'oseForm', 'adminDashboard', 'staffStatusDashboard'].forEach(id => document.getElementById(id).style.display = 'none');
+    document.getElementById(viewId).style.display = 'block';
+    document.getElementById('sharedNav').style.display = (viewId !== 'authSection') ? 'flex' : 'none';
     window.scrollTo(0,0);
   }
 
-  function generateOrderID() {
-    const d = new Date();
-    const dateStr = (d.getMonth() + 1).toString().padStart(2, '0') + d.getDate().toString().padStart(2, '0');
-    return `REQ-${dateStr}-${Math.random().toString(36).substring(2, 6).toUpperCase()}`;
-  }
-
   function handleBranchChange() {
-    const selector = document.getElementById('branch');
-    const newBranch = selector.value;
-    if(currentUser && currentUser.branch && newBranch !== currentUser.branch && currentUser.role !== "admin") {
-      if(!confirm(`⚠️ Branch Override Warning\n\nYour home branch is ${currentUser.branch}.\nYou are about to order for: ${newBranch}\n\nDo you want to continue?`)) {
-        selector.value = currentUser.branch; 
-      }
+    if(currentUser.branch && document.getElementById('branch').value !== currentUser.branch && currentUser.role !== 'admin') {
+      if(!confirm("Branch mismatch. Continue?")) document.getElementById('branch').value = currentUser.branch;
     }
   }
 
@@ -511,390 +402,187 @@
     const card = inputElement.closest('.item-card');
     const qty = parseFloat(card.querySelector('.quantity').value) || 0;
     const price = parseFloat(card.querySelector('.price').value) || 0;
-    const totalInput = card.querySelector('.item-total-display');
-    
-    const total = qty * price;
-    totalInput.value = total > 0 ? `฿${total.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}` : "฿0.00";
-    
+    card.querySelector('.item-total-display').value = (qty * price) > 0 ? `฿${(qty * price).toLocaleString(undefined, {minimumFractionDigits: 2})}` : "฿0.00";
     updateGrandTotal();
   }
 
   function updateGrandTotal() {
     let grandTotal = 0;
     document.querySelectorAll('.item-card').forEach(card => {
-      const qty = parseFloat(card.querySelector('.quantity').value) || 0;
-      const price = parseFloat(card.querySelector('.price').value) || 0;
-      grandTotal += (qty * price);
+      grandTotal += (parseFloat(card.querySelector('.quantity').value) || 0) * (parseFloat(card.querySelector('.price').value) || 0);
     });
-    
-    const displayString = `฿${grandTotal.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
-    document.getElementById('grandTotalDisplay').innerText = displayString;
-    document.getElementById('modalGrandTotal').innerText = displayString;
+    const s = `฿${grandTotal.toLocaleString(undefined, {minimumFractionDigits: 2})}`;
+    document.getElementById('grandTotalDisplay').innerText = s;
+    document.getElementById('modalGrandTotal').innerText = s;
   }
 
-  async function safeGoogleFetch(payloadObject) {
-    return fetch(API_URL, {
-      method: 'POST',
-      redirect: 'follow',
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify(payloadObject)
-    })
-    .then(res => res.text())
-    .then(text => {
-      try { return JSON.parse(text); } 
-      catch(e) { throw new Error("Google Security Block. Ensure Web App is deployed as 'New version'."); }
-    });
+  async function safeGoogleFetch(payload) {
+    return fetch(API_URL, { method: 'POST', body: JSON.stringify(payload) }).then(res => res.json());
+  }
+
+  function toggleMultiSelect(id) {
+    const m = document.getElementById(id); const open = m.classList.contains('open');
+    document.querySelectorAll('.multi-select-menu').forEach(x => x.classList.remove('open'));
+    if(!open) m.classList.add('open');
+  }
+
+  function applyAdminFilters() {
+    const bc = Array.from(document.querySelectorAll('#branchMenu input:checked')).map(x => x.value);
+    document.getElementById('branchBtnText').innerText = bc.length === 0 ? "All Branches" : (bc.length === 1 ? bc[0] : bc.length + " Selected");
+    const sc = Array.from(document.querySelectorAll('#sectionMenu input:checked')).map(x => x.value);
+    document.getElementById('sectionBtnText').innerText = sc.length === 0 ? "All Sections" : (sc.length === 1 ? sc[0] : sc.length + " Selected");
+    renderAdminUI();
   }
 
   function fetchLiveAdminData() {
-    document.getElementById('adminRequestsList').innerHTML = '<div class="loading-text">Fetching pending orders from Database...</div>';
-    safeGoogleFetch({ action: 'get_data', role: 'admin' })
-    .then(response => {
-      if(response.status === 'success') { liveDataCache = response.data; renderAdminUI(); } 
-      else { document.getElementById('adminRequestsList').innerHTML = `<div class="loading-text" style="color:var(--red);">Error: ${response.error}</div>`; }
-    })
-    .catch(err => { document.getElementById('adminRequestsList').innerHTML = `<div class="loading-text" style="color:var(--red);">Network Error: ${err.message}</div>`; });
+    document.getElementById('adminRequestsList').innerHTML = '<div class="loading-text">Fetching...</div>';
+    safeGoogleFetch({ action: 'get_data', role: 'admin' }).then(res => { if(res.status === 'success') { liveDataCache = res.data; renderAdminUI(); } });
   }
 
   function renderAdminUI() {
     const container = document.getElementById('adminRequestsList');
-    const filterLoc = document.getElementById('filterLocation').value;
-    const sortOrder = document.getElementById('sortDate').value;
-    const searchTxt = document.getElementById('searchOrderId').value.toUpperCase().trim();
+    const search = document.getElementById('searchOrderId').value.toUpperCase();
+    const bc = Array.from(document.querySelectorAll('#branchMenu input:checked')).map(x => x.value);
+    const sc = Array.from(document.querySelectorAll('#sectionMenu input:checked')).map(x => x.value);
     
-    let filteredData = liveDataCache; 
-    if (searchTxt) filteredData = filteredData.filter(req => req.orderId.includes(searchTxt));
-    if (filterLoc !== 'All') filteredData = filteredData.filter(req => req.branch === filterLoc);
-    filteredData.sort((a, b) => sortOrder === 'newest' ? new Date(b.date) - new Date(a.date) : new Date(a.date) - new Date(b.date));
-
-    const urgentCount = filteredData.filter(req => req.isUrgent).length;
-    document.getElementById('statTotal').innerText = `${filteredData.length} Items Pending`;
-    document.getElementById('statUrgent').innerText = `${urgentCount} Urgent`;
-    document.getElementById('statUrgent').style.display = urgentCount > 0 ? 'block' : 'none';
+    let data = liveDataCache;
+    if(bc.length > 0) data = data.filter(r => bc.includes(r.branch));
+    if(sc.length > 0) data = data.filter(r => sc.includes(r.section));
+    if(search) data = data.filter(r => r.orderId.includes(search) || (r.itemTitle && r.itemTitle.toUpperCase().includes(search)));
 
     container.innerHTML = '';
-    if (filteredData.length === 0) { container.innerHTML = '<p style="text-align:center; color:var(--text-3); margin-top:40px;">No pending items found.</p>'; return; }
+    const grouped = {};
+    data.forEach(r => { if(!grouped[r.orderId]) grouped[r.orderId] = []; grouped[r.orderId].push(r); });
 
-    const groupedOrders = {};
-    filteredData.forEach(item => {
-      if (!groupedOrders[item.orderId]) groupedOrders[item.orderId] = [];
-      groupedOrders[item.orderId].push(item);
-    });
-
-    for (const [orderId, items] of Object.entries(groupedOrders)) {
-      const primary = items[0]; 
-      const dateStr = new Date(primary.date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', hour: '2-digit', minute:'2-digit' });
-      const hasUrgent = items.some(i => i.isUrgent);
-
-      let groupHTML = `<div class="order-batch"><div class="batch-head"><div><div class="batch-id-text">${orderId} ${hasUrgent ? '<span class="badge-urgent">URGENT</span>' : ''}</div><div class="batch-meta">By <b>${primary.requester}</b> • ${primary.branch} (${primary.section})</div><div class="batch-meta">${dateStr}</div></div></div>`;
-
+    for (const [id, items] of Object.entries(grouped)) {
+      const p = items[0];
+      const rNums = items.map(x => x.rowNumber).join(',');
+      let html = `<div class="order-batch" id="batch-${id}"><div class="batch-head"><div><div class="batch-id-text">${id} ${items.some(x=>x.isUrgent)?'<span class="badge-urgent">URGENT</span>':''}</div><div class="batch-meta">By ${p.requester} • ${p.branch}</div></div></div>`;
+      
       items.forEach(req => {
-        // Safe Photo Render Fix
-        const safePhoto = req.photo || req.imgUrl;
-        const photoHtml = safePhoto ? `<a href="${safePhoto}" target="_blank"><img src="${safePhoto}" class="prod-img"></a>` : `<div class="prod-img" style="display:flex; align-items:center; justify-content:center; font-size:10px; color:var(--text-3); text-align:center;">No Img</div>`;
+        const photo = req.photo || req.imgUrl;
         
-        // Safe Math Fix
-        const safeQty = req.qty || '-';
-        let safePrice = 0;
-        if (req.totalPrice && req.qty) safePrice = req.totalPrice / req.qty;
-        else if (req.price) safePrice = req.price;
-        const priceStr = safePrice ? `฿${Number(safePrice).toLocaleString()}` : '-';
+        // --- BULLETPROOF MATH ENGINE ---
+        const q = parseFloat(String(req.quantity || req.qty || 0).replace(/[^0-9.-]+/g, "")) || 0;
+        let pr = parseFloat(String(req.price || 0).replace(/[^0-9.-]+/g, "")) || 0;
+        let sum = parseFloat(String(req.summary || req.totalPrice || 0).replace(/[^0-9.-]+/g, "")) || 0;
 
-        groupHTML += `
-          <div class="order-item-row" id="row-${req.rowNumber}">
-            ${photoHtml}
-            <div>
-              <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-                 <div class="admin-item-title">${req.itemTitle}</div>
-                 <div class="admin-price">${safeQty} ${req.unit || ''} @ ${priceStr}</div>
+        // Auto-calculate missing prices from legacy sheets
+        if (pr === 0 && sum > 0 && q > 0) { pr = sum / q; } 
+        else if (sum === 0 && pr > 0 && q > 0) { sum = pr * q; }
+
+        html += `<div class="order-item-row" id="row-${req.rowNumber}">
+          ${photo ? `<a href="${photo}" target="_blank"><img src="${photo}" class="prod-img"></a>` : `<div class="prod-img" style="display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--text-muted);background:var(--input-bg);">No Img</div>`}
+          
+          <div style="flex:1; display: flex; flex-direction: column;">
+            
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; width: 100%;">
+              <div style="display:flex; flex-direction: column; max-width: 60%;">
+                <div class="admin-item-title">${req.itemTitle || req.name || 'Untitled Item'}</div>
+                <div class="item-desc" style="margin-top: 4px;">${req.purpose || ''}</div>
               </div>
-              <div class="item-desc">${req.purpose}</div>
+              
+              <div style="text-align:right; display:flex; flex-direction: column; gap: 4px;">
+                <div style="font-size: 16px; font-weight: 700; color: var(--text-main);">฿${sum.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 2})}</div>
+                <div class="admin-price">${q} ${req.unit || ''} @ ฿${pr.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 2})}</div>
+              </div>
             </div>
+            
+            <div style="display:flex; justify-content:flex-end; align-items:center; margin-top:16px;">
+              <div style="display:flex; gap:8px;" id="item-act-${req.rowNumber}">
+                 <button class="btn-reject-sm" onclick="updateItemStatus('${id}',${req.rowNumber},'Rejected')">Reject</button>
+                 <button class="btn-approve-sm" onclick="updateItemStatus('${id}',${req.rowNumber},'Approved')">Approve</button>
+              </div>
+            </div>
+            
           </div>
-          <div class="admin-actions" id="act-${req.rowNumber}">
-            <button class="btn-reject" onclick="updateOrderStatus(${req.rowNumber}, 'Rejected')">Reject</button>
-            <button class="btn-approve" onclick="updateOrderStatus(${req.rowNumber}, 'Approved')">Approve</button>
-          </div>`;
-      });
-      groupHTML += `</div>`;
-      container.innerHTML += groupHTML;
-    }
-  }
-
-  function updateOrderStatus(rowNumber, newStatus) {
-    const actionArea = document.getElementById('act-' + rowNumber);
-    actionArea.innerHTML = `<div style="text-align:center; width:100%; padding: 10px 0; font-weight:600; font-size:13px; color:var(--navy);">Updating Database...</div>`;
-    safeGoogleFetch({ action: 'update_status', rowNumber: rowNumber, newStatus: newStatus })
-    .then(response => {
-      if(response.status === 'success') {
-        actionArea.innerHTML = `<div style="text-align:center; width:100%; padding: 10px 0; font-weight:600; font-size:13px; color:var(--s-green);">Item ${newStatus} ✓</div>`;
-        setTimeout(() => { 
-          document.getElementById('row-' + rowNumber).style.display = 'none';
-          actionArea.style.display = 'none';
-          liveDataCache = liveDataCache.filter(item => item.rowNumber !== rowNumber);
-        }, 1000);
-      } else { actionArea.innerHTML = `<div style="color:red; font-size:12px;">Error: ${response.error}</div>`; }
-    })
-    .catch(err => { alert("Network error updating status."); renderAdminUI(); });
-  }
-
-  function fetchLiveStatusData() {
-    document.getElementById('staffRequestsList').innerHTML = '<div class="loading-text">Fetching history from Database...</div>';
-    safeGoogleFetch({ action: 'get_data', role: 'staff', userName: currentUser.name })
-    .then(response => {
-      if(response.status === 'success') { renderStaffStatusUI(response.data); } 
-      else { document.getElementById('staffRequestsList').innerHTML = `<div class="loading-text" style="color:var(--red);">Error: ${response.error}</div>`; }
-    })
-    .catch(err => { document.getElementById('staffRequestsList').innerHTML = `<div class="loading-text" style="color:var(--red);">Network error.</div>`; });
-  }
-
-  function renderStaffStatusUI(myRequests) {
-    const container = document.getElementById('staffRequestsList');
-    container.innerHTML = '';
-    if (myRequests.length === 0) { container.innerHTML = '<p style="text-align:center; color:var(--text-3); margin-top:40px;">You have no order history.</p>'; return; }
-
-    const groupedOrders = {};
-    myRequests.forEach(item => {
-      if (!groupedOrders[item.orderId]) groupedOrders[item.orderId] = [];
-      groupedOrders[item.orderId].push(item);
-    });
-    const sortedOrderIds = Object.keys(groupedOrders).sort((a, b) => new Date(groupedOrders[b][0].date) - new Date(groupedOrders[a][0].date));
-    sortedOrderIds.forEach(orderId => {
-      const items = groupedOrders[orderId];
-      const primary = items[0];
-      const dateStr = new Date(primary.date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', hour: '2-digit', minute:'2-digit' });
-
-      let groupHTML = `<div class="card" style="padding:0; overflow:hidden;"><div style="padding: 16px 20px; background: #faf9f7; border-bottom: 1px solid var(--border); display:flex; justify-content:space-between; align-items:center;"><div><div style="font-weight:700; font-size:14px; font-family:monospace;">${orderId}</div><div style="font-size:12px; color:var(--text-muted); margin-top:4px;">${primary.branch} (${primary.section})</div></div><div style="font-size:12px; color:var(--text-muted); text-align:right;">${dateStr}</div></div>`;
-
-      items.forEach(req => {
-        const safePhoto = req.photo || req.imgUrl;
-        const photoHtml = safePhoto ? `<img src="${safePhoto}" class="prod-img" style="width:48px; height:48px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">` : `<div style="width:48px; height:48px; border-radius:6px; background:var(--bg); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:9px; color:var(--text-3); text-align:center;">No Img</div>`;
-        let statusClass = req.status.includes('Pending') ? 'badge-pending' : (req.status === 'Approved' ? 'badge-approved' : 'badge-rejected');
-
-        groupHTML += `
-          <div style="padding: 16px 20px; border-bottom: 1px dashed var(--input-bg); display:flex; gap:16px;">
-            ${photoHtml}
-            <div style="flex:1;">
-              <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-                  <div style="font-size:14px; font-weight:700; color:var(--text-main);">${req.itemTitle}</div>
-                  <span class="badge ${statusClass}" style="margin-top:0;">${req.status.toUpperCase()}</span>
-              </div>
-              <div style="font-size:12px; color:var(--text-muted); margin-top:4px;">${req.qty || '-'} ${req.unit || ''}</div>
-            </div>
-          </div>`;
-      });
-      groupHTML += `</div>`;
-      container.innerHTML += groupHTML;
-    });
-  }
-
-  // ==========================================
-  // STAFF: DYNAMIC 2-COLUMN UI BUILDER
-  // ==========================================
-  function addItemRow() {
-    const container = document.getElementById('itemsContainer');
-    const row = document.createElement('div');
-    row.className = 'card item-card';
-    const uniqueId = 'img-' + Date.now();
-    
-    row.innerHTML = `
-      <div class="card-title">
-        <span>Item Details</span>
-        <button type="button" class="btn-remove" onclick="removeRow(this)" style="display:none;">✕ Remove</button>
-      </div>
-      
-      <div class="item-grid-master">
-        <!-- LEFT COLUMN: DATA -->
-        <div class="form-group"><label>${T[currentLang].name}</label><input type="text" class="itemName" placeholder="e.g. Copper Pan" required></div>
-        
-        <!-- RIGHT COLUMN: MEDIA SPAN -->
-        <div class="form-group row-span-2">
-           <label>${T[currentLang].preview}</label>
-           <div class="upload-box" onclick="document.getElementById('fileInput-${uniqueId}').click()">
-              <div class="upload-placeholder" id="text-${uniqueId}">
-                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
-                 <span style="margin-top:4px;">Tap to Upload</span>
-              </div>
-              <img id="${uniqueId}" src="" alt="Preview">
-           </div>
-           <input type="file" class="fileUploadInput" id="fileInput-${uniqueId}" accept="image/*" style="display:none;" onchange="handleLocalPreview(this, '${uniqueId}')">
-        </div>
-
-        <div class="form-group"><label>${T[currentLang].purpose}</label><input type="text" class="purpose" placeholder="e.g. For new steak menu..." required></div>
-        
-        <div class="split-2">
-           <div class="form-group"><label>${T[currentLang].qty}</label><input type="number" class="quantity" placeholder="0" min="1" required inputmode="numeric" oninput="calcTotal(this)"></div>
-           <div class="form-group"><label>${T[currentLang].unit}</label><select class="unit" required><option value="" disabled selected>Select</option><option value="Piece">Piece</option><option value="Pack">Pack</option><option value="Box">Box</option><option value="Bottle">Bottle</option><option value="Dozen">Dozen</option><option value="Meter">Meter</option><option value="Kg">Kg</option></select></div>
-        </div>
-        
-        <div class="form-group"><label>${T[currentLang].link}</label><input type="url" class="link" placeholder="Paste Shopee/External URL..." required></div>
-        
-        <div class="split-2">
-           <div class="form-group"><label>${T[currentLang].price}</label><input type="number" class="price" placeholder="THB" required inputmode="decimal" oninput="calcTotal(this)"></div>
-           <div class="form-group"><label>${T[currentLang].tax}</label><select class="taxInvoice" required><option value="No">No</option><option value="Yes">Yes</option></select></div>
-        </div>
-        
-        <div class="form-group"><label>${T[currentLang].total}</label><input type="text" class="item-total-display input-readonly" value="฿0.00" readonly></div>
-      </div>
-    `;
-    container.appendChild(row); 
-    updateRemoveButtons();
-    updateGrandTotal();
-  }
-
-  function handleLocalPreview(input, uniqueId) {
-    const file = input.files[0];
-    const previewBox = document.getElementById(uniqueId);
-    const textEl = document.getElementById(`text-${uniqueId}`);
-    
-    if (file) {
-      previewBox.src = URL.createObjectURL(file);
-      previewBox.style.display = 'block';
-      textEl.style.display = 'none';
-    } else {
-      previewBox.style.display = 'none';
-      textEl.style.display = 'flex';
-    }
-  }
-
-  function removeRow(btn) { btn.closest('.item-card').remove(); updateRemoveButtons(); updateGrandTotal(); }
-  function updateRemoveButtons() { const rows = document.querySelectorAll('.item-card'); rows.forEach(r => r.querySelector('.btn-remove').style.display = rows.length > 1 ? 'block' : 'none'); }
-
-  // Cloudinary Safe Upload Engine
-  async function uploadToCloudinary(file) {
-    if (!file) return "";
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("upload_preset", UPLOAD_PRESET);
-    try {
-      const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, { method: "POST", body: formData });
-      const data = await res.json();
-      return data.secure_url || "";
-    } catch(e) {
-      return "";
-    }
-  }
-
-  // ==========================================
-  // STAFF: PRE-SUBMIT RECEIPT & BATCH UPLOAD
-  // ==========================================
-  function openReviewModal() {
-    const form = document.getElementById('purchaseForm');
-    if (!form.checkValidity()) {
-        form.reportValidity();
-        return; 
-    }
-
-    finalOrderPayload = [];
-    const itemCards = document.querySelectorAll('.item-card');
-    let receiptHtml = '';
-    let missingPhoto = false;
-
-    itemCards.forEach((row, i) => {
-      const fileInput = row.querySelector('.fileUploadInput');
-      if (!fileInput.files[0]) missingPhoto = true;
-
-      const name = row.querySelector('.itemName').value;
-      const purpose = row.querySelector('.purpose').value;
-      const qty = parseFloat(row.querySelector('.quantity').value);
-      const unit = row.querySelector('.unit').value;
-      const price = parseFloat(row.querySelector('.price').value);
-      const link = row.querySelector('.link').value;
-      const tax = row.querySelector('.taxInvoice').value;
-      
-      const total = (qty * price);
-      const totalStr = `฿${total.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
-
-      receiptHtml += `
-        <div class="receipt-item">
-           <div class="receipt-item-left">
-              <span class="receipt-name">${name}</span>
-              <span class="receipt-meta">${qty} ${unit} @ ฿${price.toLocaleString()}</span>
-           </div>
-           <span class="receipt-price">${totalStr}</span>
         </div>`;
-
-      finalOrderPayload.push({ rowElement: row, file: fileInput.files[0], name, purpose, qty, unit, price, link, tax });
-    });
-
-    if (missingPhoto) {
-        alert("Action Required: Please upload a photo for every item before submitting.");
-        return;
+      });
+      html += `<div class="admin-actions" id="act-${id}"><button class="btn-reject" onclick="updateBatchStatus('${id}',[${rNums}],'Rejected')">Reject All</button><button class="btn-approve" onclick="updateBatchStatus('${id}',[${rNums}],'Approved')">Approve All</button></div></div>`;
+      container.innerHTML += html;
     }
+  }
 
-    document.getElementById('modalBranchSub').innerText = `Ordering for: ${document.getElementById('branch').value} (${document.getElementById('section').value})`;
-    document.getElementById('modalReceiptList').innerHTML = receiptHtml;
+  function updateItemStatus(id, row, stat) {
+    safeGoogleFetch({ action: 'update_status', rowNumber: row, newStatus: stat }).then(() => {
+      document.getElementById('row-'+row).style.display = 'none';
+      liveDataCache = liveDataCache.filter(x => x.rowNumber !== row);
+      if(!document.querySelector(`#batch-${id} .order-item-row:not([style*="display: none"])`)) document.getElementById('batch-'+id).style.display='none';
+    });
+  }
+
+  function updateBatchStatus(id, rows, stat) {
+    Promise.all(rows.map(r => safeGoogleFetch({ action: 'update_status', rowNumber: r, newStatus: stat }))).then(() => {
+      document.getElementById('batch-'+id).style.display='none';
+      liveDataCache = liveDataCache.filter(x => !rows.includes(x.rowNumber));
+    });
+  }
+
+  function addItemRow() {
+    const id = Date.now();
+    const div = document.createElement('div'); div.className = 'card item-card';
+    div.innerHTML = `<div class="card-title"><span>Item Details</span><button type="button" class="btn-remove" onclick="this.closest('.item-card').remove(); updateGrandTotal();">✕ Remove</button></div>
+      <div class="item-grid-master">
+        <div class="form-group"><label>Item Name</label><input type="text" class="itemName" required></div>
+        <div class="form-group row-span-2"><label>Preview</label><div class="upload-box" onclick="this.nextElementSibling.click()"><div class="upload-placeholder">Tap to Upload</div><img src=""></div><input type="file" class="fileInput" style="display:none" onchange="const f=this.files[0]; if(f){this.previousElementSibling.querySelector('img').src=URL.createObjectURL(f); this.previousElementSibling.querySelector('img').style.display='block';}"></div>
+        <div class="form-group"><label>Purpose</label><input type="text" class="purpose" required></div>
+        <div class="split-2"><div class="form-group"><label>Qty</label><input type="number" class="quantity" oninput="calcTotal(this)" required></div><div class="form-group"><label>Unit</label><select class="unit" required><option>Piece</option><option>Pack</option><option>Box</option><option>Kg</option></select></div></div>
+        <div class="form-group"><label>Link</label><input type="url" class="link" required></div>
+        <div class="split-2"><div class="form-group"><label>Price</label><input type="number" class="price" oninput="calcTotal(this)" required></div><div class="form-group"><label>Tax</label><select class="tax"><option>No</option><option>Yes</option></select></div></div>
+        <div class="form-group"><label>Total</label><input type="text" class="item-total-display input-readonly" readonly value="฿0.00"></div>
+      </div>`;
+    document.getElementById('itemsContainer').appendChild(div);
+  }
+
+  async function upload(file) {
+    const fd = new FormData(); fd.append("file", file); fd.append("upload_preset", UPLOAD_PRESET);
+    return fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, { method: "POST", body: fd }).then(r => r.json()).then(d => d.secure_url);
+  }
+
+  function openReviewModal() {
+    if(!document.getElementById('purchaseForm').checkValidity()) return document.getElementById('purchaseForm').reportValidity();
+    let h = '';
+    document.querySelectorAll('.item-card').forEach(c => {
+      h += `<div class="receipt-item"><span>${c.querySelector('.itemName').value}</span><span>${c.querySelector('.item-total-display').value}</span></div>`;
+    });
+    document.getElementById('modalReceiptList').innerHTML = h;
     document.getElementById('reviewModal').classList.add('open');
   }
 
-  function closeReviewModal() {
-    document.getElementById('reviewModal').classList.remove('open');
-  }
+  function closeReviewModal() { document.getElementById('reviewModal').classList.remove('open'); }
 
   async function executeOrderUpload() {
-    const confirmBtn = document.getElementById('finalSubmitBtn');
-    confirmBtn.innerText = "Uploading Photos..."; 
-    confirmBtn.disabled = true;
-    
-    try {
-      const generatedOrderId = generateOrderID();
-      const finalItemsList = [];
-
-      for (let i = 0; i < finalOrderPayload.length; i++) {
-        const item = finalOrderPayload[i];
-        
-        confirmBtn.innerText = `Uploading Photo ${i + 1} of ${finalOrderPayload.length}...`; 
-        const finalImageUrl = await uploadToCloudinary(item.file);
-
-        finalItemsList.push({
-          itemNameEN: item.name,
-          purposeEN: item.purpose, 
-          qty: item.qty,
-          unit: item.unit,
-          price: item.price,
-          link: item.link, 
-          imgUrl: finalImageUrl, 
-          taxInvoice: item.tax
-        });
-      }
-
-      confirmBtn.innerText = "Saving Order..."; 
-      
-      const payload = {
-        action: 'submit_order',
-        payload: {
-          orderId: generatedOrderId, 
-          requester: currentUser.name,
-          branch: document.getElementById('branch').value, 
-          section: document.getElementById('section').value,
-          isUrgent: document.getElementById('isUrgent').checked,
-          items: finalItemsList
-        }
-      };
-
-      const response = await safeGoogleFetch(payload);
-      
-      if (response.status === 'success') {
-        alert(`SUCCESS!\n\nYour Request ID is: ${generatedOrderId}\nPlease save this ID for tracking.`);
-        document.getElementById('purchaseForm').reset();
-        
-        document.querySelectorAll('.upload-box img').forEach(img => img.style.display = 'none');
-        document.querySelectorAll('.upload-placeholder').forEach(txt => txt.style.display = 'flex');
-        document.querySelectorAll('.item-total-display').forEach(inp => inp.value = "฿0.00");
-        updateGrandTotal();
-        
-        closeReviewModal();
-        showView('staffMenu');
-      } else { 
-        alert("Database Error: \n" + response.error); 
-      }
-      
-    } catch (err) {
-      alert("Error: " + err.message);
-    } finally {
-      confirmBtn.innerText = "Yes, Submit Order"; 
-      confirmBtn.disabled = false;
+    const btn = document.getElementById('finalSubmitBtn'); btn.disabled = true; btn.innerText = "Sending...";
+    const items = [];
+    const cards = document.querySelectorAll('.item-card');
+    for(const c of cards) {
+      const img = await upload(c.querySelector('.fileInput').files[0]);
+      const q = parseFloat(c.querySelector('.quantity').value);
+      const p = parseFloat(c.querySelector('.price').value);
+      items.push({
+        name: c.querySelector('.itemName').value,
+        purpose: c.querySelector('.purpose').value,
+        quantity: q,
+        unit: c.querySelector('.unit').value,
+        price: p,
+        summary: q * p, 
+        link: c.querySelector('.link').value,
+        tax: c.querySelector('.tax').value,
+        imgUrl: img
+      });
     }
+    const payload = {
+      action: 'submit_order',
+      payload: {
+        orderId: "REQ-"+Date.now().toString().slice(-6),
+        requester: currentUser.name,
+        branch: document.getElementById('branch').value,
+        section: document.getElementById('section').value,
+        isUrgent: document.getElementById('isUrgent').checked,
+        items: items
+      }
+    };
+    safeGoogleFetch(payload).then(res => { if(res.status==='success') { alert("Success!"); location.reload(); } });
   }
 </script>
 </body>
