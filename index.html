@@ -9,11 +9,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root { 
-      --bg: #f5f4f0; 
+      --bg: #f3f1eb; 
       --surface: #ffffff;
       --input-bg: #f4f3f0;
-      --input-shaded: #e9e8e2;
-      --border: #e6e4de; 
+      --input-shaded: #ebe9e3;
+      --border: #e4e2da; 
       --border-dashed: #dcd9d0;
       --navy: #1a1f2e; 
       --green: #196835;
@@ -27,129 +27,105 @@
     body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); min-height: 100vh; padding-bottom: 120px; color: var(--text-main); }
     
     /* Navigation */
-    .top-nav { background: var(--navy); padding: 18px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+    .top-nav { background: var(--navy); padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
     .nav-left { display: flex; align-items: baseline; gap: 8px; }
-    .nav-wordmark { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: #fff; letter-spacing: 1.5px; }
-    .nav-tag { font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.4); letter-spacing: 1.5px; text-transform: uppercase; }
+    .nav-wordmark { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: #fff; letter-spacing: 1.5px; }
+    .nav-tag { font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.4); letter-spacing: 1px; text-transform: uppercase; }
     .nav-right { display: flex; align-items: center; gap: 16px; }
     .nav-user { font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.9); white-space: nowrap; text-transform: uppercase; letter-spacing: 0.5px;}
-    .btn-logout { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.25); padding: 8px 16px; border-radius: 6px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+    .btn-logout { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.25); padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s; white-space: nowrap; font-family: 'Plus Jakarta Sans', sans-serif;}
     .btn-logout:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.5); }
     
     /* Core Layout */
-    .container { max-width: 800px; margin: 0 auto; padding: 0 16px; }
-    .header-area { display: flex; flex-direction: column; align-items: center; margin: 40px 0 24px 0; text-align: center; }
-    .btn-back { background: #ffffff; color: var(--text-muted); border: 1px solid var(--border); padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: 600; cursor: pointer; margin-bottom: 24px; transition: 0.2s; display: inline-flex; align-items: center;}
-    .btn-back:hover { background: var(--input-bg); color: var(--text-main); }
+    .container { max-width: 760px; margin: 0 auto; padding: 0 16px; }
+    .header-area { display: flex; flex-direction: column; align-items: center; margin: 32px 0 32px 0; text-align: center; }
+    .btn-back { background: transparent; color: var(--text-muted); border: 1px solid var(--border); padding: 6px 16px; border-radius: 20px; font-size: 12px; font-weight: 600; cursor: pointer; margin-bottom: 24px; transition: 0.2s; display: inline-flex; align-items: center; font-family: 'Plus Jakarta Sans', sans-serif;}
+    .btn-back:hover { background: var(--surface); color: var(--text-main); }
     h2 { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; margin-bottom: 8px; color: var(--text-main);}
     p.subtitle { color: var(--text-muted); font-size: 14px; font-weight: 500; }
     
-    /* Cards */
-    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 32px; margin-bottom: 20px; box-shadow: 0 4px 24px rgba(0,0,0,0.02); }
-    .card-title { font-size: 18px; font-weight: 700; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--input-bg); display: flex; justify-content: space-between; align-items: center;}
+    /* Flat Routing Section */
+    .flat-routing { display: flex; flex-wrap: wrap; gap: 24px; margin-bottom: 24px; padding: 0 8px; align-items: flex-end;}
+    .routing-col { display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 140px;}
+    .routing-val, .routing-select { font-size: 16px; font-weight: 700; color: var(--text-main); background: transparent; border: none; outline: none; padding: 0; appearance: none; font-family: 'Plus Jakarta Sans', sans-serif;}
+    .routing-select { border-bottom: 1px dashed var(--border-dashed); padding-bottom: 4px; border-radius: 0; cursor: pointer; color: var(--navy);}
+    
+    /* Urgent Pill */
+    .urgent-pill { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; background: #fdf0ef; border: 1px solid #f5c6c2; border-radius: 20px; cursor: pointer; transition: all 0.2s; margin-bottom: 4px;}
+    .urgent-pill input[type="checkbox"] { width: 16px; min-height: 16px; accent-color: var(--red); cursor: pointer; margin: 0; padding: 0; }
+    .urgent-pill span { color: var(--red); font-weight: 700; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;}
+
+    /* Item Cards */
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
+    .card-title { font-size: 16px; font-weight: 700; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--input-bg); display: flex; justify-content: space-between; align-items: center;}
     
     /* Typography & Inputs */
-    label { font-size: 10px; color: var(--text-kicker); font-weight: 700; margin-bottom: 8px; letter-spacing: 0.5px; text-transform: uppercase; display: block; }
-    .form-group { margin-bottom: 16px; width: 100%; }
-    input, select, textarea { width: 100%; min-height: 48px; padding: 12px 16px; border: 1px solid transparent; border-radius: 8px; font-size: 15px; background-color: var(--input-bg); font-family: 'Plus Jakarta Sans', sans-serif; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); appearance: none; color: var(--text-main); font-weight: 500;}
-    input:focus, select:focus { outline: none; border-color: #d1cfc7; background-color: var(--surface); box-shadow: 0 0 0 4px rgba(26,31,46,0.04); }
-    input::placeholder { color: #a3a097; font-weight: 400; }
+    label { font-size: 10px; color: var(--text-kicker); font-weight: 700; margin-bottom: 6px; letter-spacing: 0.5px; text-transform: uppercase; display: block; }
+    .form-group { width: 100%; display: flex; flex-direction: column;}
+    input, select, textarea { width: 100%; height: 42px; padding: 0 14px; border: 1px solid transparent; border-radius: 8px; font-size: 14px; background-color: var(--input-bg); font-family: 'Plus Jakarta Sans', sans-serif; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); appearance: none; color: var(--text-main); font-weight: 500;}
+    input:focus, select:focus { outline: none; border-color: #d1cfc7; background-color: var(--surface); box-shadow: 0 0 0 3px rgba(26,31,46,0.04); }
+    input::placeholder { color: #aaa69c; font-weight: 400; }
+    .input-readonly { background-color: var(--input-shaded) !important; color: var(--navy) !important; cursor: not-allowed; font-weight: 700 !important; border: 1px dashed var(--border-dashed) !important; }
+
+    /* PERFECT GRID ALIGNMENT */
+    .item-grid-master { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 24px; align-items: start; }
+    .split-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .row-span-2 { grid-row: span 2; height: 100%; }
     
-    /* The "Subtle" Routing Dropdowns */
-    .subtle-select { background-color: transparent !important; padding: 0 !important; font-size: 16px !important; font-weight: 600 !important; min-height: 32px !important; border: none !important; color: var(--text-main) !important; cursor: pointer;}
-    .subtle-select:focus { box-shadow: none !important; border: none !important;}
-    .subtle-select-wrapper { background: var(--bg); border-radius: 8px; padding: 12px 16px; display: flex; align-items: center;}
-
-    /* 2-Column Item Grid */
-    .item-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: stretch; }
-    .col-left { display: flex; flex-direction: column; gap: 4px; }
-    .col-right { display: flex; flex-direction: column; gap: 4px; }
-    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-
-    /* Right Column Specifics */
-    .preview-upload-box { flex: 1; min-height: 140px; background: var(--surface); border: 2px dashed var(--border-dashed); border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; overflow: hidden; transition: all 0.2s; position: relative; margin-bottom: 12px;}
-    .preview-upload-box:hover { border-color: var(--navy); background: #faf9f6; }
-    .preview-upload-box img { width: 100%; height: 100%; object-fit: cover; display: none; position: absolute; inset: 0;}
-    .upload-placeholder { font-size: 12px; color: var(--text-kicker); font-weight: 600; display: flex; flex-direction: column; align-items: center; gap: 8px; }
-    .input-readonly { background-color: var(--input-shaded) !important; color: var(--text-muted) !important; cursor: not-allowed; font-weight: 700 !important; border: none !important; box-shadow: none !important; }
+    /* Right Column Upload Box */
+    .upload-box { flex: 1; width: 100%; height: calc(100% - 18px); min-height: 106px; background: var(--surface); border: 1px dashed #c4c1b5; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; position: relative; overflow: hidden; transition: 0.2s;}
+    .upload-box:hover { border-color: var(--navy); background: #faf9f6; }
+    .upload-box img { width: 100%; height: 100%; object-fit: cover; display: none; position: absolute; inset: 0;}
+    .upload-placeholder { font-size: 11px; color: var(--text-kicker); font-weight: 600; display: flex; flex-direction: column; align-items: center; gap: 6px; }
 
     /* Buttons */
-    .btn-add { width: 100%; min-height: 56px; background: transparent; color: var(--text-main); border: 1px dashed var(--border-dashed); border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; transition: 0.2s; font-family: 'Plus Jakarta Sans', sans-serif;}
+    .btn-add { width: 100%; min-height: 48px; background: transparent; color: var(--text-main); border: 1px dashed var(--border-dashed); border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; transition: 0.2s; font-family: 'Plus Jakarta Sans', sans-serif;}
     .btn-add:hover { background: #f9f8f6; border-color: #c7c4ba;}
-    .btn-remove { color: var(--text-muted); font-size: 12px; font-weight: 600; background: transparent; border: none; cursor: pointer; padding: 6px 12px; border-radius: 6px;}
+    .btn-remove { color: var(--text-muted); font-size: 12px; font-weight: 600; background: transparent; border: none; cursor: pointer; padding: 4px 8px; border-radius: 6px; font-family: 'Plus Jakarta Sans', sans-serif;}
     .btn-remove:hover { color: var(--red); background: var(--red-soft); }
 
-    /* Urgent Toggle Pill */
-    .urgent-pill { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 20px; cursor: pointer; transition: all 0.2s; margin-top: 8px;}
-    .urgent-pill input[type="checkbox"] { width: 16px; min-height: 16px; accent-color: var(--red); cursor: pointer; margin: 0; padding: 0; }
-    .urgent-pill span { color: var(--text-main); font-weight: 700; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;}
-    .urgent-pill:has(input:checked) { background: #fdf0ef; border-color: #f5c6c2; }
-    .urgent-pill:has(input:checked) span { color: var(--red); }
-
     /* Sticky Bottom & Grand Total */
-    .sticky-bottom { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(245,244,240,0.95); backdrop-filter: blur(12px); padding: 16px 20px 24px; border-top: 1px solid var(--border); z-index: 100; display: flex; flex-direction: column; align-items: center;}
-    .grand-total-bar { width: 100%; max-width: 800px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding: 0 8px;}
-    .grand-total-label { font-size: 14px; font-weight: 600; color: var(--text-muted); }
-    .grand-total-value { font-size: 24px; font-weight: 700; color: var(--text-main); font-family: 'Playfair Display', serif;}
-    .sticky-bottom button { max-width: 800px; width: 100%; background: var(--green); color: #fff; border: none; height: 56px; border-radius: 12px; font-size: 16px; font-weight: 600; cursor: pointer; font-family: 'Plus Jakarta Sans', sans-serif; transition: 0.2s;}
+    .sticky-bottom { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(243,241,235,0.95); backdrop-filter: blur(12px); padding: 16px 20px 24px; border-top: 1px solid var(--border); z-index: 100; display: flex; flex-direction: column; align-items: center;}
+    .grand-total-bar { width: 100%; max-width: 760px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding: 0 8px;}
+    .grand-total-label { font-size: 14px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;}
+    .grand-total-value { font-size: 24px; font-weight: 700; color: var(--navy); font-family: 'Playfair Display', serif;}
+    .sticky-bottom button { max-width: 760px; width: 100%; background: var(--green); color: #fff; border: none; height: 52px; border-radius: 10px; font-size: 15px; font-weight: 600; cursor: pointer; font-family: 'Plus Jakarta Sans', sans-serif; transition: 0.2s; box-shadow: 0 4px 12px rgba(25,104,53,0.2);}
     .sticky-bottom button:active { transform: scale(0.98); }
-    .sticky-bottom button:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .sticky-bottom button:disabled { opacity: 0.5; cursor: not-allowed; box-shadow: none; }
 
     /* Pre-Submit Receipt Modal */
     .modal-overlay { position: fixed; inset: 0; background: rgba(26,31,46,0.6); display: flex; align-items: flex-end; justify-content: center; z-index: 200; opacity: 0; pointer-events: none; transition: opacity 0.3s; backdrop-filter: blur(4px);}
     .modal-overlay.open { opacity: 1; pointer-events: auto; }
-    .modal-sheet { background: var(--surface); width: 100%; max-width: 600px; border-radius: 24px 24px 0 0; padding: 32px 24px 40px; transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.16,1,0.3,1); max-height: 85vh; display: flex; flex-direction: column; }
+    .modal-sheet { background: var(--surface); width: 100%; max-width: 600px; border-radius: 20px 20px 0 0; padding: 32px 24px 40px; transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.16,1,0.3,1); max-height: 85vh; display: flex; flex-direction: column; }
     .modal-overlay.open .modal-sheet { transform: translateY(0); }
-    .modal-title { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; color: var(--text-main); margin-bottom: 8px;}
-    .modal-sub { font-size: 13px; color: var(--text-muted); margin-bottom: 24px; }
-    .modal-list { overflow-y: auto; flex: 1; border-top: 1px dashed var(--border); border-bottom: 1px dashed var(--border); margin-bottom: 24px; padding: 16px 0;}
+    .modal-title { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; color: var(--text-main); margin-bottom: 4px;}
+    .modal-sub { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; font-weight: 500;}
+    .modal-list { overflow-y: auto; flex: 1; border-top: 1px dashed var(--border); border-bottom: 1px dashed var(--border); margin-bottom: 20px; padding: 12px 0;}
     .receipt-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; }
     .receipt-item-left { display: flex; flex-direction: column; gap: 4px; }
-    .receipt-name { font-size: 15px; font-weight: 600; color: var(--text-main); }
-    .receipt-meta { font-size: 12px; color: var(--text-muted); }
+    .receipt-name { font-size: 14px; font-weight: 700; color: var(--text-main); }
+    .receipt-meta { font-size: 12px; color: var(--text-muted); font-weight: 500; }
     .receipt-price { font-size: 15px; font-weight: 700; color: var(--text-main); }
     .modal-btns { display: flex; gap: 12px; }
-    .btn-cancel { flex: 1; height: 56px; background: var(--bg); color: var(--text-main); border: 1px solid var(--border); border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; }
-    .btn-confirm-final { flex: 2; height: 56px; background: var(--navy); color: #fff; border: none; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; transition: 0.2s;}
+    .btn-cancel { flex: 1; height: 52px; background: var(--bg); color: var(--text-main); border: 1px solid var(--border); border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: 'Plus Jakarta Sans', sans-serif;}
+    .btn-confirm-final { flex: 2; height: 52px; background: var(--navy); color: #fff; border: none; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; transition: 0.2s; font-family: 'Plus Jakarta Sans', sans-serif;}
     .btn-confirm-final:disabled { opacity: 0.5; cursor: not-allowed; }
 
-    /* Auth & Menus */
-    #authSection { text-align: center; max-width: 380px; margin: 15vh auto; display: none; }
-    #passcode { text-align: center; font-size: 32px; letter-spacing: 16px; font-weight: 700; padding: 24px; background: var(--surface); border: 1px solid var(--border); margin-bottom: 16px;}
-    #authError { color: var(--red); font-size: 13px; display: none; margin-top: 16px; font-weight: 600;}
+    /* Other Core Views */
+    #authSection { text-align: center; max-width: 360px; margin: 15vh auto; display: none; }
+    #passcode { text-align: center; font-size: 32px; letter-spacing: 16px; font-weight: 700; padding: 20px; background: var(--surface); border: 1px solid var(--border); margin-bottom: 12px; border-radius: 12px;}
+    #authError { color: var(--red); font-size: 13px; display: none; margin-top: 12px; font-weight: 600;}
     #staffMenu, #oseForm, #adminDashboard, #staffStatusDashboard, #sharedNav { display: none; }
-    .menu-grid { display: grid; gap: 16px; margin-top: 40px;}
-    .menu-btn { height: 86px; background: var(--surface); color: var(--text-main); border: 1px solid var(--border); font-size: 16px; font-weight: 600; justify-content: flex-start; padding-left: 24px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.02); transition: all 0.2s; text-align: left; cursor: pointer;}
-    .menu-btn:hover { border-color: var(--navy); transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.04);}
+    .menu-grid { display: grid; gap: 12px; margin-top: 32px;}
+    .menu-btn { height: 76px; background: var(--surface); color: var(--text-main); border: 1px solid var(--border); font-size: 15px; font-weight: 600; justify-content: flex-start; padding-left: 20px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); transition: all 0.2s; text-align: left; cursor: pointer; font-family: 'Plus Jakarta Sans', sans-serif;}
+    .menu-btn:hover { border-color: var(--navy); transform: translateY(-1px);}
     .loading-text { text-align: center; color: var(--text-muted); font-size: 14px; margin-top: 40px; padding: 30px; background: var(--surface); border: 1px dashed var(--border); border-radius: 12px; font-weight: 500;}
 
-    /* Admin specific */
-    .admin-sticky-header { position: sticky; top: 0; z-index: 50; background: var(--bg); padding: 10px 0 16px 0; border-bottom: 1px solid var(--border); margin-bottom: 24px; }
-    .admin-stats-bar { display: flex; gap: 10px; margin-bottom: 16px; }
-    .stat-pill { padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; background: var(--surface); border: 1px solid var(--border); color: var(--text-main);}
-    .admin-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .order-batch { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 20px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,0,0,0.02);}
-    .batch-head { padding: 20px; border-bottom: 1px solid var(--input-bg); display: flex; justify-content: space-between; align-items: center; background: #faf9f7;}
-    .batch-id-text { font-size: 15px; font-weight: 700; color: var(--text-main); font-family: monospace;}
-    .batch-meta { font-size: 13px; color: var(--text-muted); margin-top: 4px; font-weight: 500;}
-    .order-item-row { display: grid; grid-template-columns: 60px 1fr; gap: 20px; padding: 20px; border-bottom: 1px dashed var(--input-bg); }
-    .order-item-row:last-child { border-bottom: none; }
-    .prod-img { width: 60px; height: 60px; border-radius: 8px; object-fit: cover; background: var(--bg); border: 1px solid var(--border);}
-    .admin-item-title { font-size: 15px; font-weight: 700; color: var(--text-main); }
-    .admin-price { font-size: 13px; font-weight: 600; color: var(--text-muted); margin-top: 4px;}
-    .item-desc { font-size: 13px; color: var(--text-muted); margin-top: 8px; line-height: 1.5; }
-    .admin-actions { display: flex; gap: 12px; justify-content: flex-end; padding: 16px 20px; background: var(--bg); border-top: 1px solid var(--input-bg);}
-    .btn-approve { background: #16a34a; color: #fff; border: none; min-height: 42px; font-size: 13px; width: 120px; border-radius: 8px; font-weight: 600; cursor: pointer;}
-    .btn-reject { background: var(--surface); color: var(--text-main); border: 1px solid var(--border); min-height: 42px; font-size: 13px; width: 120px; border-radius: 8px; font-weight: 600; cursor: pointer;}
-    .badge { display:inline-block; padding:6px 12px; border-radius:6px; font-size:10px; font-weight:700; margin-top:8px; letter-spacing: 0.5px; text-transform: uppercase;}
-    .badge-pending { background:#fef3c7; color:#92570a; border: 1px solid #fcd34d; }
-    .badge-approved { background:#dcfce7; color:#166534; border: 1px solid #86efac; }
-    .badge-rejected { background:#fdf0ef; color:#d93025; border: 1px solid #f5c6c2; }
-    .badge-urgent { background: var(--red); color: #fff; padding: 4px 10px; border-radius: 4px; font-size: 10px; font-weight: 700; margin-left: 12px; border: none;}
-
-    @media (max-width: 700px) {
-      .item-2col { grid-template-columns: 1fr; gap: 16px; }
-      .preview-upload-box { min-height: 200px; }
+    /* Mobile Responsive */
+    @media (max-width: 650px) {
+      .item-grid-master { grid-template-columns: 1fr; gap: 16px; }
+      .row-span-2 { grid-row: auto; height: auto; }
+      .upload-box { min-height: 140px; margin-bottom: 16px;}
     }
   </style>
 </head>
@@ -169,12 +145,12 @@
 
   <!-- AUTHENTICATION -->
   <div id="authSection" class="card container" style="margin-top: 15vh;">
-    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin: 0 auto 24px auto; display: block;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin: 0 auto 20px auto; display: block;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
     <h2>LOVA Hub</h2>
     <p class="subtitle" style="margin-bottom: 24px;">Enter your secure PIN to access</p>
     <input type="password" id="passcode" maxlength="4" placeholder="••••" autocomplete="off" onkeypress="handleEnter(event)" inputmode="numeric">
     <p id="authError">Incorrect PIN. Please try again.</p>
-    <button onclick="authenticateUser()" style="width: 100%; min-height: 52px; background: var(--navy); color: #fff; border-radius: 10px; font-weight: 600; border: none; margin-top: 16px; cursor: pointer;">Secure Login</button>
+    <button onclick="authenticateUser()" style="width: 100%; height: 48px; background: var(--navy); color: #fff; border-radius: 8px; font-weight: 600; border: none; margin-top: 16px; cursor: pointer; font-family: 'Plus Jakarta Sans';">Secure Login</button>
   </div>
 
   <!-- PORTAL 1: STAFF MENU -->
@@ -199,41 +175,45 @@
       </div>
       
       <form id="purchaseForm">
-        <!-- Routing Card -->
-        <div class="card">
-          <div class="card-title">Order Routing</div>
-          <div class="grid-2">
-            <div class="form-group">
-              <label>Branch</label>
-              <div class="subtle-select-wrapper">
-                <select id="branch" class="subtle-select" required onchange="handleBranchChange()">
-                  <option value="" disabled selected>Select Branch</option>
-                  <option value="HQ">HQ</option>
-                  <option value="LOVA GROUP">LOVA GROUP</option>
-                  <option value="BIANCA EMSPHERE">BIANCA EMSPHERE</option>
-                  <option value="BIANCA ONE BANGKOK">BIANCA ONE BANGKOK</option>
-                  <option value="BIANCA SIAM PARAGON">BIANCA SIAM PARAGON</option>
-                  <option value="BIANCA ICONSIAM">BIANCA ICONSIAM</option>
-                  <option value="HOLYBELLY">HOLYBELLY</option>
-                  <option value="LAVA">LAVA</option>
-                  <option value="CK">CK</option>
-                  <option value="DRIVER">DRIVER</option>
-                  <option value="FINANCE">FINANCE</option>
-                </select>
-              </div>
-            </div>
-            <div class="form-group">
-                <label>Section</label>
-                <div class="subtle-select-wrapper">
-                    <select id="section" class="subtle-select" required><option value="" disabled selected>Select Section</option><option value="Kitchen">Kitchen</option><option value="Bar">Bar</option><option value="Service">Service</option></select>
-                </div>
-            </div>
-          </div>
-          
-          <label class="urgent-pill">
-            <input type="checkbox" id="isUrgent">
-            <span>Mark request as URGENT 🔴</span>
-          </label>
+        
+        <!-- Flat Routing Section (Replaced the White Box) -->
+        <div class="flat-routing">
+           <div class="routing-col">
+             <label>Requester Name</label>
+             <div class="routing-val" id="routingRequester">-</div>
+           </div>
+           <div class="routing-col">
+             <label>Branch</label>
+             <select id="branch" class="routing-select" required onchange="handleBranchChange()">
+                <option value="" disabled selected>Select Branch</option>
+                <option value="HQ">HQ</option>
+                <option value="LOVA GROUP">LOVA GROUP</option>
+                <option value="BIANCA EMSPHERE">BIANCA EMSPHERE</option>
+                <option value="BIANCA ONE BANGKOK">BIANCA ONE BANGKOK</option>
+                <option value="BIANCA SIAM PARAGON">BIANCA SIAM PARAGON</option>
+                <option value="BIANCA ICONSIAM">BIANCA ICONSIAM</option>
+                <option value="HOLYBELLY">HOLYBELLY</option>
+                <option value="LAVA">LAVA</option>
+                <option value="CK">CK</option>
+                <option value="DRIVER">DRIVER</option>
+                <option value="FINANCE">FINANCE</option>
+             </select>
+           </div>
+           <div class="routing-col">
+             <label>Section</label>
+             <select id="section" class="routing-select" required>
+                <option value="" disabled selected>Select Section</option>
+                <option value="Kitchen">Kitchen</option>
+                <option value="Bar">Bar</option>
+                <option value="Service">Service</option>
+             </select>
+           </div>
+           <div class="routing-col" style="align-items: flex-end; justify-content: flex-end; flex: 0.5;">
+              <label class="urgent-pill">
+                <input type="checkbox" id="isUrgent">
+                <span>URGENT 🔴</span>
+              </label>
+           </div>
         </div>
 
         <!-- Items Container -->
@@ -264,35 +244,6 @@
     </div>
   </div>
 
-  <!-- PORTAL 2: ADMIN DASHBOARD -->
-  <div id="adminDashboard">
-    <div class="container">
-      <div class="header-area" style="margin-top: 20px;">
-        <h2>Approval Center</h2>
-      </div>
-      <div class="admin-sticky-header">
-        <div class="admin-stats-bar"><div class="stat-pill" id="statTotal">0 Pending</div><div class="stat-pill stat-urgent" id="statUrgent">0 Urgent</div></div>
-        <input type="text" id="searchOrderId" style="margin-bottom: 12px; width: 100%; border: 1px solid var(--border);" placeholder="Search Order ID (e.g. REQ-...)" onkeyup="renderAdminUI()">
-        <div class="admin-controls">
-          <select id="filterLocation" onchange="renderAdminUI()" style="border: 1px solid var(--border);">
-            <option value="All">All Locations</option>
-            <option value="HQ">HQ</option>
-            <option value="LOVA GROUP">LOVA GROUP</option>
-            <option value="BIANCA EMSPHERE">BIANCA EMSPHERE</option>
-            <option value="BIANCA ONE BANGKOK">BIANCA ONE BANGKOK</option>
-            <option value="BIANCA SIAM PARAGON">BIANCA SIAM PARAGON</option>
-            <option value="BIANCA ICONSIAM">BIANCA ICONSIAM</option>
-            <option value="HOLYBELLY">HOLYBELLY</option>
-            <option value="LAVA">LAVA</option>
-            <option value="CK">CK</option>
-          </select>
-          <select id="sortDate" onchange="renderAdminUI()" style="border: 1px solid var(--border);"><option value="newest">Newest First</option><option value="oldest">Oldest First</option></select>
-        </div>
-      </div>
-      <div id="adminRequestsList"><div class="loading-text">Fetching pending orders...</div></div>
-    </div>
-  </div>
-
   <!-- RECEIPT MODAL -->
   <div class="modal-overlay" id="reviewModal">
     <div class="modal-sheet">
@@ -301,13 +252,13 @@
       <div class="modal-list" id="modalReceiptList"></div>
       
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
-        <span style="font-size: 14px; font-weight: 600; color: var(--text-muted);">Grand Total</span>
+        <span style="font-size: 14px; font-weight: 700; color: var(--text-kicker); text-transform: uppercase; letter-spacing: 0.5px;">Grand Total</span>
         <span style="font-size: 24px; font-weight: 700; color: var(--navy); font-family: 'Playfair Display', serif;" id="modalGrandTotal">฿0.00</span>
       </div>
 
       <div class="modal-btns">
-        <button class="btn-cancel" onclick="closeReviewModal()">Cancel</button>
-        <button class="btn-confirm-final" id="finalSubmitBtn" onclick="executeOrderUpload()">Yes, Submit Order</button>
+        <button type="button" class="btn-cancel" onclick="closeReviewModal()">Cancel</button>
+        <button type="button" class="btn-confirm-final" id="finalSubmitBtn" onclick="executeOrderUpload()">Yes, Submit Order</button>
       </div>
     </div>
   </div>
@@ -351,8 +302,7 @@
   };
   
   let currentUser = {};
-  let liveDataCache = []; 
-  let finalOrderPayload = []; // Holds data for the modal confirmation
+  let finalOrderPayload = []; 
 
   window.onload = () => {
     showView('authSection'); 
@@ -374,6 +324,7 @@
     if (user) {
       currentUser = user;
       document.getElementById('displayUser').innerText = `${user.name} (${user.role})`;
+      document.getElementById('routingRequester').innerText = user.name; 
       
       if(user.role === 'admin') { 
         showView('adminDashboard'); fetchLiveAdminData(); 
@@ -431,7 +382,6 @@
     
     const total = qty * price;
     totalInput.value = total > 0 ? `฿${total.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}` : "฿0.00";
-    
     updateGrandTotal();
   }
 
@@ -442,7 +392,6 @@
       const price = parseFloat(card.querySelector('.price').value) || 0;
       grandTotal += (qty * price);
     });
-    
     const displayString = `฿${grandTotal.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
     document.getElementById('grandTotalDisplay').innerText = displayString;
     document.getElementById('modalGrandTotal').innerText = displayString;
@@ -463,91 +412,6 @@
       try { return JSON.parse(text); } 
       catch(e) { throw new Error("Google Security Block. Ensure Web App is deployed as 'New version'."); }
     });
-  }
-
-  // ==========================================
-  // ADMIN & STAFF HISTORY VIEWS
-  // ==========================================
-  function fetchLiveAdminData() {
-    document.getElementById('adminRequestsList').innerHTML = '<div class="loading-text">Fetching pending orders from Database...</div>';
-    safeGoogleFetch({ action: 'get_data', role: 'admin' })
-    .then(response => {
-      if(response.status === 'success') { liveDataCache = response.data; renderAdminUI(); } 
-      else { document.getElementById('adminRequestsList').innerHTML = `<div class="loading-text" style="color:var(--red);">Error: ${response.error}</div>`; }
-    })
-    .catch(err => { document.getElementById('adminRequestsList').innerHTML = `<div class="loading-text" style="color:var(--red);">Network Error: ${err.message}</div>`; });
-  }
-
-  function renderAdminUI() {
-    const container = document.getElementById('adminRequestsList');
-    const filterLoc = document.getElementById('filterLocation').value;
-    const sortOrder = document.getElementById('sortDate').value;
-    const searchTxt = document.getElementById('searchOrderId').value.toUpperCase().trim();
-    
-    let filteredData = liveDataCache; 
-    if (searchTxt) filteredData = filteredData.filter(req => req.orderId.includes(searchTxt));
-    if (filterLoc !== 'All') filteredData = filteredData.filter(req => req.branch === filterLoc);
-    filteredData.sort((a, b) => sortOrder === 'newest' ? new Date(b.date) - new Date(a.date) : new Date(a.date) - new Date(b.date));
-
-    const urgentCount = filteredData.filter(req => req.isUrgent).length;
-    document.getElementById('statTotal').innerText = `${filteredData.length} Items Pending`;
-    document.getElementById('statUrgent').innerText = `${urgentCount} Urgent`;
-    document.getElementById('statUrgent').style.display = urgentCount > 0 ? 'block' : 'none';
-
-    container.innerHTML = '';
-    if (filteredData.length === 0) { container.innerHTML = '<p style="text-align:center; color:var(--text-3); margin-top:40px;">No pending items found.</p>'; return; }
-
-    const groupedOrders = {};
-    filteredData.forEach(item => {
-      if (!groupedOrders[item.orderId]) groupedOrders[item.orderId] = [];
-      groupedOrders[item.orderId].push(item);
-    });
-
-    for (const [orderId, items] of Object.entries(groupedOrders)) {
-      const primary = items[0]; 
-      const dateStr = new Date(primary.date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', hour: '2-digit', minute:'2-digit' });
-      const hasUrgent = items.some(i => i.isUrgent);
-
-      let groupHTML = `<div class="order-batch"><div class="batch-head"><div><div class="batch-id-text">${orderId} ${hasUrgent ? '<span class="badge-urgent">URGENT</span>' : ''}</div><div class="batch-meta">By <b>${primary.requester}</b> • ${primary.branch} (${primary.section})</div><div class="batch-meta">${dateStr}</div></div></div>`;
-
-      items.forEach(req => {
-        const photoHtml = req.photo ? `<a href="${req.photo}" target="_blank"><img src="${req.photo}" class="prod-img"></a>` : `<div class="prod-img" style="display:flex; align-items:center; justify-content:center; font-size:10px; color:var(--text-3);">No Img</div>`;
-        groupHTML += `
-          <div class="order-item-row" id="row-${req.rowNumber}">
-            ${photoHtml}
-            <div>
-              <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-                 <div class="admin-item-title">${req.itemTitle}</div>
-                 <div class="admin-price">${req.qty} ${req.unit} @ ฿${(req.totalPrice / req.qty).toLocaleString()}</div>
-              </div>
-              <div class="item-desc">${req.purpose}</div>
-            </div>
-          </div>
-          <div class="admin-actions" id="act-${req.rowNumber}">
-            <button class="btn-reject" onclick="updateOrderStatus(${req.rowNumber}, 'Rejected')">Reject</button>
-            <button class="btn-approve" onclick="updateOrderStatus(${req.rowNumber}, 'Approved')">Approve</button>
-          </div>`;
-      });
-      groupHTML += `</div>`;
-      container.innerHTML += groupHTML;
-    }
-  }
-
-  function updateOrderStatus(rowNumber, newStatus) {
-    const actionArea = document.getElementById('act-' + rowNumber);
-    actionArea.innerHTML = `<div style="text-align:center; width:100%; padding: 10px 0; font-weight:600; font-size:13px; color:var(--navy);">Updating Database...</div>`;
-    safeGoogleFetch({ action: 'update_status', rowNumber: rowNumber, newStatus: newStatus })
-    .then(response => {
-      if(response.status === 'success') {
-        actionArea.innerHTML = `<div style="text-align:center; width:100%; padding: 10px 0; font-weight:600; font-size:13px; color:var(--s-green);">Item ${newStatus} ✓</div>`;
-        setTimeout(() => { 
-          document.getElementById('row-' + rowNumber).style.display = 'none';
-          actionArea.style.display = 'none';
-          liveDataCache = liveDataCache.filter(item => item.rowNumber !== rowNumber);
-        }, 1000);
-      } else { actionArea.innerHTML = `<div style="color:red; font-size:12px;">Error: ${response.error}</div>`; }
-    })
-    .catch(err => { alert("Network error updating status."); renderAdminUI(); });
   }
 
   function fetchLiveStatusData() {
@@ -576,21 +440,21 @@
       const primary = items[0];
       const dateStr = new Date(primary.date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', hour: '2-digit', minute:'2-digit' });
 
-      let groupHTML = `<div class="order-batch"><div class="batch-head"><div><div class="batch-id-text">${orderId}</div><div class="batch-meta">${primary.branch} (${primary.section})</div><div class="batch-meta">${dateStr}</div></div></div>`;
+      let groupHTML = `<div class="card" style="padding:0; overflow:hidden;"><div style="padding: 16px 20px; background: #faf9f7; border-bottom: 1px solid var(--border); display:flex; justify-content:space-between; align-items:center;"><div><div style="font-weight:700; font-size:14px; font-family:monospace;">${orderId}</div><div style="font-size:12px; color:var(--text-muted); margin-top:4px;">${primary.branch} (${primary.section})</div></div><div style="font-size:12px; color:var(--text-muted); text-align:right;">${dateStr}</div></div>`;
 
       items.forEach(req => {
-        const photoHtml = req.photo ? `<img src="${req.photo}" class="prod-img">` : `<div class="prod-img" style="display:flex; align-items:center; justify-content:center; font-size:10px; color:var(--text-3);">No Img</div>`;
+        const photoHtml = req.photo ? `<img src="${req.photo}" style="width:48px; height:48px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">` : `<div style="width:48px; height:48px; border-radius:6px; background:var(--bg); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:9px; color:var(--text-3);">No Img</div>`;
         let statusClass = req.status.includes('Pending') ? 'badge-pending' : (req.status === 'Approved' ? 'badge-approved' : 'badge-rejected');
 
         groupHTML += `
-          <div class="order-item-row">
+          <div style="padding: 16px 20px; border-bottom: 1px dashed var(--input-bg); display:flex; gap:16px;">
             ${photoHtml}
-            <div>
+            <div style="flex:1;">
               <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-                  <div class="admin-item-title">${req.itemTitle}</div>
-                  <span class="badge ${statusClass}">${req.status.toUpperCase()}</span>
+                  <div style="font-size:14px; font-weight:700; color:var(--text-main);">${req.itemTitle}</div>
+                  <span class="badge ${statusClass}" style="margin-top:0;">${req.status.toUpperCase()}</span>
               </div>
-              <div class="item-desc">${req.qty} ${req.unit}</div>
+              <div style="font-size:12px; color:var(--text-muted); margin-top:4px;">${req.qty} ${req.unit}</div>
             </div>
           </div>`;
       });
@@ -614,37 +478,38 @@
         <button type="button" class="btn-remove" onclick="removeRow(this)" style="display:none;">✕ Remove</button>
       </div>
       
-      <div class="item-2col">
+      <div class="item-grid-master">
         <!-- LEFT COLUMN: DATA -->
-        <div class="col-left">
-          <div class="form-group"><label>${T[currentLang].name}</label><input type="text" class="itemName" placeholder="e.g. Copper Pan" required></div>
-          <div class="form-group"><label>${T[currentLang].purpose}</label><input type="text" class="purpose" placeholder="e.g. For new steak menu..." required></div>
-          <div class="grid-2">
-             <div class="form-group"><label>${T[currentLang].qty}</label><input type="number" class="quantity" placeholder="0" min="1" required inputmode="numeric" oninput="calcTotal(this)"></div>
-             <div class="form-group"><label>${T[currentLang].unit}</label><select class="unit" required><option value="" disabled selected>Select</option><option value="Piece">Piece</option><option value="Pack">Pack</option><option value="Box">Box</option><option value="Bottle">Bottle</option><option value="Dozen">Dozen</option><option value="Meter">Meter</option><option value="Kg">Kg</option></select></div>
-          </div>
-          <div class="grid-2">
-             <div class="form-group"><label>${T[currentLang].price}</label><input type="number" class="price" placeholder="THB" required inputmode="decimal" oninput="calcTotal(this)"></div>
-             <div class="form-group"><label>${T[currentLang].tax}</label><select class="taxInvoice" required><option value="No">No</option><option value="Yes">Yes</option></select></div>
-          </div>
+        <div class="form-group"><label>${T[currentLang].name}</label><input type="text" class="itemName" placeholder="e.g. Copper Pan" required></div>
+        
+        <!-- RIGHT COLUMN: MEDIA SPAN -->
+        <div class="form-group row-span-2">
+           <label>${T[currentLang].preview}</label>
+           <div class="upload-box" onclick="document.getElementById('fileInput-${uniqueId}').click()">
+              <div class="upload-placeholder" id="text-${uniqueId}">
+                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                 <span style="margin-top:4px;">Tap to Upload</span>
+              </div>
+              <img id="${uniqueId}" src="" alt="Preview">
+           </div>
+           <input type="file" class="fileUploadInput" id="fileInput-${uniqueId}" accept="image/*" style="display:none;" onchange="handleLocalPreview(this, '${uniqueId}')" required>
         </div>
 
-        <!-- RIGHT COLUMN: MEDIA & TOTALS -->
-        <div class="col-right">
-          <div class="form-group" style="flex:1; display:flex; flex-direction:column;">
-             <label>${T[currentLang].preview}</label>
-             <div class="preview-upload-box" onclick="document.getElementById('fileInput-${uniqueId}').click()">
-                <div class="upload-placeholder" id="text-${uniqueId}">
-                   <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
-                   <span>Tap to Upload</span>
-                </div>
-                <img id="${uniqueId}" src="" alt="Preview">
-             </div>
-             <input type="file" class="fileUploadInput" id="fileInput-${uniqueId}" accept="image/*" style="display:none;" onchange="handleLocalPreview(this, '${uniqueId}')" required>
-          </div>
-          <div class="form-group"><label>${T[currentLang].link}</label><input type="url" class="link" placeholder="Optional URL reference..."></div>
-          <div class="form-group"><label>${T[currentLang].total}</label><input type="text" class="item-total-display input-readonly" value="฿0.00" readonly></div>
+        <div class="form-group"><label>${T[currentLang].purpose}</label><input type="text" class="purpose" placeholder="e.g. For new steak menu..." required></div>
+        
+        <div class="split-2">
+           <div class="form-group"><label>${T[currentLang].qty}</label><input type="number" class="quantity" placeholder="0" min="1" required inputmode="numeric" oninput="calcTotal(this)"></div>
+           <div class="form-group"><label>${T[currentLang].unit}</label><select class="unit" required><option value="" disabled selected>Select</option><option value="Piece">Piece</option><option value="Pack">Pack</option><option value="Box">Box</option><option value="Bottle">Bottle</option><option value="Dozen">Dozen</option><option value="Meter">Meter</option><option value="Kg">Kg</option></select></div>
         </div>
+        
+        <div class="form-group"><label>${T[currentLang].link}</label><input type="url" class="link" placeholder="Optional URL reference..."></div>
+        
+        <div class="split-2">
+           <div class="form-group"><label>${T[currentLang].price}</label><input type="number" class="price" placeholder="THB" required inputmode="decimal" oninput="calcTotal(this)"></div>
+           <div class="form-group"><label>${T[currentLang].tax}</label><select class="taxInvoice" required><option value="No">No</option><option value="Yes">Yes</option></select></div>
+        </div>
+        
+        <div class="form-group"><label>${T[currentLang].total}</label><input type="text" class="item-total-display input-readonly" value="฿0.00" readonly></div>
       </div>
     `;
     container.appendChild(row); 
@@ -684,7 +549,6 @@
   // STAFF: PRE-SUBMIT RECEIPT & BATCH UPLOAD
   // ==========================================
   function openReviewModal() {
-    // 1. Force native HTML form validation
     const form = document.getElementById('purchaseForm');
     if (!form.checkValidity()) {
         form.reportValidity();
