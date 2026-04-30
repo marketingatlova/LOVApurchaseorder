@@ -9,11 +9,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root { 
-      --bg: #f5f4f0; 
+      --bg: #f3f1eb; 
       --surface: #ffffff;
       --input-bg: #f4f3f0;
-      --input-shaded: #e9e8e2;
-      --border: #e6e4de; 
+      --input-shaded: #ebe9e3;
+      --border: #e4e2da; 
       --border-dashed: #dcd9d0;
       --navy: #1a1f2e; 
       --green: #196835;
@@ -27,70 +27,100 @@
     body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); min-height: 100vh; padding-bottom: 120px; color: var(--text-main); }
     
     /* Navigation */
-    .top-nav { background: var(--navy); padding: 18px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+    .top-nav { background: var(--navy); padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
     .nav-left { display: flex; align-items: baseline; gap: 8px; }
-    .nav-wordmark { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: #fff; letter-spacing: 1.5px; }
-    .nav-tag { font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.4); letter-spacing: 1.5px; text-transform: uppercase; }
+    .nav-wordmark { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: #fff; letter-spacing: 1.5px; }
+    .nav-tag { font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.4); letter-spacing: 1px; text-transform: uppercase; }
     .nav-right { display: flex; align-items: center; gap: 16px; }
     .nav-user { font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.9); white-space: nowrap; text-transform: uppercase; letter-spacing: 0.5px;}
-    .btn-logout { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.25); padding: 8px 16px; border-radius: 6px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+    .btn-logout { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.25); padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s; white-space: nowrap; font-family: 'Plus Jakarta Sans', sans-serif;}
     .btn-logout:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.5); }
     
     /* Core Layout */
-    .container { max-width: 800px; margin: 0 auto; padding: 0 16px; }
-    .header-area { display: flex; flex-direction: column; align-items: center; margin: 40px 0 24px 0; text-align: center; }
-    .btn-back { background: #ffffff; color: var(--text-muted); border: 1px solid var(--border); padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: 600; cursor: pointer; margin-bottom: 24px; transition: 0.2s; display: inline-flex; align-items: center;}
-    .btn-back:hover { background: var(--input-bg); color: var(--text-main); }
+    .container { max-width: 760px; margin: 0 auto; padding: 0 16px; }
+    .header-area { display: flex; flex-direction: column; align-items: center; margin: 32px 0 24px 0; text-align: center; }
+    .btn-back { background: transparent; color: var(--text-muted); border: 1px solid var(--border); padding: 6px 16px; border-radius: 20px; font-size: 12px; font-weight: 600; cursor: pointer; margin-bottom: 24px; transition: 0.2s; display: inline-flex; align-items: center; font-family: 'Plus Jakarta Sans', sans-serif;}
+    .btn-back:hover { background: var(--surface); color: var(--text-main); }
     h2 { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; margin-bottom: 8px; color: var(--text-main);}
     p.subtitle { color: var(--text-muted); font-size: 14px; font-weight: 500; }
     
-    /* Cards */
-    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 20px; box-shadow: 0 4px 24px rgba(0,0,0,0.02); }
+    /* BREATHABLE HEADER GRID */
+    .flat-routing { display: grid; grid-template-columns: 1fr 1fr 1fr auto; gap: 32px; margin-top: 40px; margin-bottom: 40px; padding: 0 16px; align-items: end;}
+    .routing-col { display: flex; flex-direction: column; gap: 8px; }
+    .routing-col label { font-size: 11px; color: var(--text-kicker); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; margin: 0;}
+    .routing-val, .routing-select { font-size: 16px; font-weight: 700; color: var(--text-main); background: transparent; border: none; outline: none; padding: 0; appearance: none; font-family: 'Plus Jakarta Sans', sans-serif;}
+    .routing-select { border-bottom: 1px dashed var(--border-dashed); padding-bottom: 6px; border-radius: 0; cursor: pointer; color: var(--navy);}
+    .routing-val { padding-bottom: 7px; } /* perfectly matches the visual baseline of the dashed select fields */
+    
+    /* Plumped Urgent Pill */
+    .urgent-pill { display: inline-flex; align-items: center; gap: 10px; padding: 10px 18px; background: #fdf0ef; border: 1px solid #f5c6c2; border-radius: 24px; cursor: pointer; transition: all 0.2s; margin-bottom: 2px;}
+    .urgent-pill input[type="checkbox"] { width: 16px; min-height: 16px; accent-color: var(--red); cursor: pointer; margin: 0; padding: 0; }
+    .urgent-pill span { color: var(--red); font-weight: 700; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;}
+
+    /* Item Cards */
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
+    .card-title { font-size: 16px; font-weight: 700; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--input-bg); display: flex; justify-content: space-between; align-items: center;}
     
     /* Typography & Inputs */
-    label { font-size: 10px; color: var(--text-kicker); font-weight: 700; margin-bottom: 8px; letter-spacing: 0.5px; text-transform: uppercase; display: block; }
-    .form-group { margin-bottom: 16px; width: 100%; }
-    input, select, textarea { width: 100%; min-height: 42px; padding: 10px 14px; border: 1px solid transparent; border-radius: 8px; font-size: 14px; background-color: var(--input-bg); font-family: 'Plus Jakarta Sans', sans-serif; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); appearance: none; color: var(--text-main); font-weight: 500;}
-    input:focus, select:focus { outline: none; border-color: #d1cfc7; background-color: var(--surface); box-shadow: 0 0 0 4px rgba(26,31,46,0.04); }
-    input::placeholder { color: #a3a097; font-weight: 400; }
+    .form-group { width: 100%; display: flex; flex-direction: column;}
+    .form-group label { font-size: 10px; color: var(--text-kicker); font-weight: 700; margin-bottom: 6px; letter-spacing: 0.5px; text-transform: uppercase; display: block; }
+    input, select, textarea { width: 100%; height: 42px; padding: 0 14px; border: 1px solid transparent; border-radius: 8px; font-size: 14px; background-color: var(--input-bg); font-family: 'Plus Jakarta Sans', sans-serif; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); appearance: none; color: var(--text-main); font-weight: 500;}
+    input:focus, select:focus { outline: none; border-color: #d1cfc7; background-color: var(--surface); box-shadow: 0 0 0 3px rgba(26,31,46,0.04); }
+    input::placeholder { color: #aaa69c; font-weight: 400; }
+    .input-readonly { background-color: var(--input-shaded) !important; color: var(--navy) !important; cursor: not-allowed; font-weight: 700 !important; border: 1px dashed var(--border-dashed) !important; }
+
+    /* Grid Alignment */
+    .item-grid-master { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 24px; align-items: start; }
+    .split-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .row-span-2 { grid-row: span 2; height: 100%; }
     
-    /* Buttons */
-    .btn-add { width: 100%; min-height: 48px; background: transparent; color: var(--text-main); border: 1px dashed var(--border-dashed); border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; transition: 0.2s; font-family: 'Plus Jakarta Sans', sans-serif;}
+    /* Right Column Upload Box */
+    .upload-box { flex: 1; width: 100%; height: calc(100% - 18px); min-height: 106px; background: var(--surface); border: 1px dashed #c4c1b5; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; position: relative; overflow: hidden; transition: 0.2s;}
+    .upload-box:hover { border-color: var(--navy); background: #faf9f6; }
+    .upload-box img { width: 100%; height: 100%; object-fit: cover; display: none; position: absolute; inset: 0;}
+    .upload-placeholder { font-size: 11px; color: var(--text-kicker); font-weight: 600; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+
+    /* Add/Remove Buttons */
+    .btn-add { width: 100%; min-height: 48px; background: transparent; color: var(--text-main); border: 1px dashed var(--border-dashed); border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; transition: 0.2s; font-family: 'Plus Jakarta Sans', sans-serif;}
     .btn-add:hover { background: #f9f8f6; border-color: #c7c4ba;}
+    .btn-remove { color: var(--text-muted); font-size: 12px; font-weight: 600; background: transparent; border: none; cursor: pointer; padding: 4px 8px; border-radius: 6px; font-family: 'Plus Jakarta Sans', sans-serif;}
+    .btn-remove:hover { color: var(--red); background: var(--red-soft); }
 
     /* Sticky Bottom & Grand Total */
-    .sticky-bottom { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(245,244,240,0.95); backdrop-filter: blur(12px); padding: 16px 20px 24px; border-top: 1px solid var(--border); z-index: 100; display: flex; flex-direction: column; align-items: center;}
-    .grand-total-bar { width: 100%; max-width: 800px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding: 0 8px;}
+    .sticky-bottom { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(243,241,235,0.95); backdrop-filter: blur(12px); padding: 16px 20px 24px; border-top: 1px solid var(--border); z-index: 100; display: flex; flex-direction: column; align-items: center;}
+    .grand-total-bar { width: 100%; max-width: 760px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding: 0 8px;}
     .grand-total-label { font-size: 14px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;}
-    .grand-total-value { font-size: 24px; font-weight: 700; color: var(--text-main); font-family: 'Playfair Display', serif;}
-    .sticky-bottom button { max-width: 800px; width: 100%; background: var(--green); color: #fff; border: none; height: 56px; border-radius: 12px; font-size: 16px; font-weight: 600; cursor: pointer; font-family: 'Plus Jakarta Sans', sans-serif; transition: 0.2s;}
+    .grand-total-value { font-size: 24px; font-weight: 700; color: var(--navy); font-family: 'Playfair Display', serif;}
+    .sticky-bottom button { max-width: 760px; width: 100%; background: var(--green); color: #fff; border: none; height: 52px; border-radius: 10px; font-size: 15px; font-weight: 600; cursor: pointer; font-family: 'Plus Jakarta Sans', sans-serif; transition: 0.2s; box-shadow: 0 4px 12px rgba(25,104,53,0.2);}
     .sticky-bottom button:active { transform: scale(0.98); }
-    .sticky-bottom button:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .sticky-bottom button:disabled { opacity: 0.5; cursor: not-allowed; box-shadow: none; }
 
     /* Pre-Submit Receipt Modal */
     .modal-overlay { position: fixed; inset: 0; background: rgba(26,31,46,0.6); display: flex; align-items: flex-end; justify-content: center; z-index: 200; opacity: 0; pointer-events: none; transition: opacity 0.3s; backdrop-filter: blur(4px);}
     .modal-overlay.open { opacity: 1; pointer-events: auto; }
-    .modal-sheet { background: var(--surface); width: 100%; max-width: 600px; border-radius: 24px 24px 0 0; padding: 32px 24px 40px; transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.16,1,0.3,1); max-height: 85vh; display: flex; flex-direction: column; }
+    .modal-sheet { background: var(--surface); width: 100%; max-width: 600px; border-radius: 20px 20px 0 0; padding: 32px 24px 40px; transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.16,1,0.3,1); max-height: 85vh; display: flex; flex-direction: column; }
     .modal-overlay.open .modal-sheet { transform: translateY(0); }
-    .modal-title { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; color: var(--text-main); margin-bottom: 8px;}
-    .modal-sub { font-size: 13px; color: var(--text-muted); margin-bottom: 24px; }
-    .modal-list { overflow-y: auto; flex: 1; border-top: 1px dashed var(--border); border-bottom: 1px dashed var(--border); margin-bottom: 24px; padding: 16px 0;}
+    .modal-title { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; color: var(--text-main); margin-bottom: 4px;}
+    .modal-sub { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; font-weight: 500;}
+    .modal-list { overflow-y: auto; flex: 1; border-top: 1px dashed var(--border); border-bottom: 1px dashed var(--border); margin-bottom: 20px; padding: 12px 0;}
     .receipt-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; }
     .receipt-item-left { display: flex; flex-direction: column; gap: 4px; }
-    .receipt-name { font-size: 15px; font-weight: 600; color: var(--text-main); }
-    .receipt-meta { font-size: 12px; color: var(--text-muted); }
+    .receipt-name { font-size: 14px; font-weight: 700; color: var(--text-main); }
+    .receipt-meta { font-size: 12px; color: var(--text-muted); font-weight: 500; }
     .receipt-price { font-size: 15px; font-weight: 700; color: var(--text-main); }
     .modal-btns { display: flex; gap: 12px; }
-    .btn-cancel { flex: 1; height: 56px; background: var(--bg); color: var(--text-main); border: 1px solid var(--border); border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; }
-    .btn-confirm-final { flex: 2; height: 56px; background: var(--navy); color: #fff; border: none; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; transition: 0.2s;}
+    .btn-cancel { flex: 1; height: 52px; background: var(--bg); color: var(--text-main); border: 1px solid var(--border); border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: 'Plus Jakarta Sans', sans-serif;}
+    .btn-confirm-final { flex: 2; height: 52px; background: var(--navy); color: #fff; border: none; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; transition: 0.2s; font-family: 'Plus Jakarta Sans', sans-serif;}
     .btn-confirm-final:disabled { opacity: 0.5; cursor: not-allowed; }
 
     /* Auth & Menus */
-    #authSection { text-align: center; max-width: 380px; margin: 15vh auto; border-radius: 16px; padding: 40px 24px; }
+    #authSection { text-align: center; max-width: 360px; margin: 15vh auto; border-radius: 16px; padding: 40px 24px;}
+    #passcode { text-align: center; font-size: 32px; letter-spacing: 16px; font-weight: 700; padding: 20px; background: var(--surface); border: 1px solid var(--border); margin-bottom: 12px; border-radius: 12px;}
+    #authError { color: var(--red); font-size: 13px; display: none; margin-top: 12px; font-weight: 600;}
     #staffMenu, #oseForm, #adminDashboard, #staffStatusDashboard, #sharedNav { display: none; }
-    .menu-grid { display: grid; gap: 16px; margin-top: 40px;}
-    .menu-btn { height: 86px; background: var(--surface); color: var(--text-main); border: 1px solid var(--border); font-size: 16px; font-weight: 600; justify-content: flex-start; padding-left: 24px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.02); transition: all 0.2s; text-align: left; cursor: pointer;}
-    .menu-btn:hover { border-color: var(--navy); transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.04);}
+    .menu-grid { display: grid; gap: 12px; margin-top: 32px;}
+    .menu-btn { height: 76px; background: var(--surface); color: var(--text-main); border: 1px solid var(--border); font-size: 15px; font-weight: 600; justify-content: flex-start; padding-left: 20px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); transition: all 0.2s; text-align: left; cursor: pointer; font-family: 'Plus Jakarta Sans', sans-serif;}
+    .menu-btn:hover { border-color: var(--navy); transform: translateY(-1px);}
     .loading-text { text-align: center; color: var(--text-muted); font-size: 14px; margin-top: 40px; padding: 30px; background: var(--surface); border: 1px dashed var(--border); border-radius: 12px; font-weight: 500;}
 
     /* Admin specific */
@@ -116,10 +146,13 @@
     .badge-approved { background:#dcfce7; color:#166534; border: 1px solid #86efac; }
     .badge-rejected { background:#fdf0ef; color:#d93025; border: 1px solid #f5c6c2; }
     .badge-urgent { background: var(--red); color: #fff; padding: 4px 10px; border-radius: 4px; font-size: 10px; font-weight: 700; margin-left: 12px; border: none;}
-    
+
     @media (max-width: 650px) {
-      .responsive-grid { grid-template-columns: 1fr !important; gap: 16px !important; }
-      .responsive-span { grid-row: auto !important; height: auto !important; }
+      .flat-routing { grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+      .flat-routing .routing-col:last-child { grid-column: 1 / -1; align-items: flex-start;}
+      .item-grid-master { grid-template-columns: 1fr; gap: 16px; }
+      .row-span-2 { grid-row: auto; height: auto; }
+      .upload-box { min-height: 160px; margin-bottom: 8px;}
     }
   </style>
 </head>
@@ -138,13 +171,12 @@
   </nav>
 
   <!-- AUTHENTICATION -->
-  <!-- Note: Removing "display: none" from CSS and inline style fixes the white screen bug -->
   <div id="authSection" class="card container">
     <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin: 0 auto 16px auto; display: block;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
     <h2 style="font-size: 32px; font-weight: 700; margin-bottom: 8px;">LOVA Hub</h2>
     <p class="subtitle" style="margin-bottom: 24px;">Enter your secure PIN to access</p>
-    <input type="password" id="passcode" maxlength="4" placeholder="••••" autocomplete="off" onkeypress="handleEnter(event)" inputmode="numeric" style="text-align: center; font-size: 32px; letter-spacing: 16px; font-weight: 700; padding: 16px; background: var(--surface); border: 1px solid var(--border); margin-bottom: 16px; border-radius: 12px; height: auto;">
-    <p id="authError" style="color: var(--red); font-size: 13px; display: none; margin-bottom: 16px; font-weight: 600;">Incorrect PIN. Please try again.</p>
+    <input type="password" id="passcode" maxlength="4" placeholder="••••" autocomplete="off" onkeypress="handleEnter(event)" inputmode="numeric">
+    <p id="authError">Incorrect PIN. Please try again.</p>
     <button onclick="authenticateUser()" style="width: 100%; height: 52px; background: var(--navy); color: #fff; border-radius: 10px; font-weight: 600; border: none; cursor: pointer; font-family: 'Plus Jakarta Sans', sans-serif;">Secure Login</button>
   </div>
 
@@ -171,15 +203,15 @@
       
       <form id="purchaseForm">
         
-        <!-- Flat Routing Section -->
-        <div style="display: flex; flex-wrap: wrap; gap: 24px; margin-bottom: 24px; padding: 0 8px; align-items: flex-end;">
-           <div style="display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 140px;">
-             <label style="font-size: 10px; color: var(--text-kicker); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">Requester Name</label>
-             <div id="routingRequester" style="font-size: 16px; font-weight: 700; color: var(--text-main);">-</div>
+        <!-- Flat, Breathable Routing Section -->
+        <div class="flat-routing">
+           <div class="routing-col">
+             <label>Requester Name</label>
+             <div class="routing-val" id="routingRequester">-</div>
            </div>
-           <div style="display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 140px;">
-             <label style="font-size: 10px; color: var(--text-kicker); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">Branch</label>
-             <select id="branch" required onchange="handleBranchChange()" style="font-size: 16px; font-weight: 700; color: var(--navy); background: transparent; border: none; border-bottom: 1px dashed var(--border-dashed); outline: none; padding: 0 0 4px 0; min-height: auto; border-radius: 0; cursor: pointer;">
+           <div class="routing-col">
+             <label>Branch</label>
+             <select id="branch" class="routing-select" required onchange="handleBranchChange()">
                 <option value="" disabled selected>Select Branch</option>
                 <option value="HQ">HQ</option>
                 <option value="LOVA GROUP">LOVA GROUP</option>
@@ -194,19 +226,19 @@
                 <option value="FINANCE">FINANCE</option>
              </select>
            </div>
-           <div style="display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 140px;">
-             <label style="font-size: 10px; color: var(--text-kicker); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">Section</label>
-             <select id="section" required style="font-size: 16px; font-weight: 700; color: var(--navy); background: transparent; border: none; border-bottom: 1px dashed var(--border-dashed); outline: none; padding: 0 0 4px 0; min-height: auto; border-radius: 0; cursor: pointer;">
+           <div class="routing-col">
+             <label>Section</label>
+             <select id="section" class="routing-select" required>
                 <option value="" disabled selected>Select Section</option>
                 <option value="Kitchen">Kitchen</option>
                 <option value="Bar">Bar</option>
                 <option value="Service">Service</option>
              </select>
            </div>
-           <div style="display: flex; align-items: flex-end; justify-content: flex-end; flex: 0.5;">
-              <label style="display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; background: #fdf0ef; border: 1px solid #f5c6c2; border-radius: 20px; cursor: pointer; transition: all 0.2s; margin-bottom: 4px;">
-                <input type="checkbox" id="isUrgent" style="width: 16px; min-height: 16px; accent-color: var(--red); cursor: pointer; margin: 0; padding: 0;">
-                <span style="color: var(--red); font-weight: 700; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;">URGENT 🔴</span>
+           <div class="routing-col" style="align-items: flex-end;">
+              <label class="urgent-pill">
+                <input type="checkbox" id="isUrgent">
+                <span>URGENT 🔴</span>
               </label>
            </div>
         </div>
@@ -300,7 +332,6 @@
     th: { place_order: "แบบฟอร์มสั่งซื้อภายนอก", active_orders: "สถานะออเดอร์ของฉัน", inv: "เช็คสต็อก (เร็วๆ นี้)", name: "ชื่อสินค้า (ภาษาอังกฤษ)", purpose: "วัตถุประสงค์การใช้งาน", qty: "จำนวน", unit: "หน่วย", price: "ราคา/หน่วย", tax: "ใบกำกับภาษี", preview: "อัปโหลดรูปภาพ", link: "ลิงก์อ้างอิง", total: "ราคารวม" }
   };
 
-  // Safe Language Toggle to prevent white-screen crashes
   let currentLang = "en";
   try { currentLang = sessionStorage.getItem("lova_lang") || "en"; } catch(e) { console.warn("Storage restricted."); }
 
@@ -332,7 +363,6 @@
   let liveDataCache = []; 
   let finalOrderPayload = []; 
 
-  // Initialize
   document.addEventListener("DOMContentLoaded", () => {
     applyTranslations();
   });
@@ -407,9 +437,6 @@
     }
   }
 
-  // ==========================================
-  // LIVE MATH & TOTALS ENGINE
-  // ==========================================
   function calcTotal(inputElement) {
     const card = inputElement.closest('.item-card');
     const qty = parseFloat(card.querySelector('.quantity').value) || 0;
@@ -435,9 +462,6 @@
     document.getElementById('modalGrandTotal').innerText = displayString;
   }
 
-  // ==========================================
-  // SOLID API CONNECTION
-  // ==========================================
   async function safeGoogleFetch(payloadObject) {
     return fetch(API_URL, {
       method: 'POST',
@@ -452,9 +476,6 @@
     });
   }
 
-  // ==========================================
-  // ADMIN & STAFF HISTORY VIEWS
-  // ==========================================
   function fetchLiveAdminData() {
     document.getElementById('adminRequestsList').innerHTML = '<div class="loading-text">Fetching pending orders from Database...</div>';
     safeGoogleFetch({ action: 'get_data', role: 'admin' })
@@ -563,21 +584,21 @@
       const primary = items[0];
       const dateStr = new Date(primary.date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', hour: '2-digit', minute:'2-digit' });
 
-      let groupHTML = `<div class="order-batch"><div class="batch-head"><div><div class="batch-id-text">${orderId}</div><div class="batch-meta">${primary.branch} (${primary.section})</div><div class="batch-meta">${dateStr}</div></div></div>`;
+      let groupHTML = `<div class="card" style="padding:0; overflow:hidden;"><div style="padding: 16px 20px; background: #faf9f7; border-bottom: 1px solid var(--border); display:flex; justify-content:space-between; align-items:center;"><div><div style="font-weight:700; font-size:14px; font-family:monospace;">${orderId}</div><div style="font-size:12px; color:var(--text-muted); margin-top:4px;">${primary.branch} (${primary.section})</div></div><div style="font-size:12px; color:var(--text-muted); text-align:right;">${dateStr}</div></div>`;
 
       items.forEach(req => {
-        const photoHtml = req.photo ? `<img src="${req.photo}" class="prod-img">` : `<div class="prod-img" style="display:flex; align-items:center; justify-content:center; font-size:10px; color:var(--text-3);">No Img</div>`;
+        const photoHtml = req.photo ? `<img src="${req.photo}" style="width:48px; height:48px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">` : `<div style="width:48px; height:48px; border-radius:6px; background:var(--bg); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:9px; color:var(--text-3);">No Img</div>`;
         let statusClass = req.status.includes('Pending') ? 'badge-pending' : (req.status === 'Approved' ? 'badge-approved' : 'badge-rejected');
 
         groupHTML += `
-          <div class="order-item-row">
+          <div style="padding: 16px 20px; border-bottom: 1px dashed var(--input-bg); display:flex; gap:16px;">
             ${photoHtml}
-            <div>
+            <div style="flex:1;">
               <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-                  <div class="admin-item-title">${req.itemTitle}</div>
-                  <span class="badge ${statusClass}">${req.status.toUpperCase()}</span>
+                  <div style="font-size:14px; font-weight:700; color:var(--text-main);">${req.itemTitle}</div>
+                  <span class="badge ${statusClass}" style="margin-top:0;">${req.status.toUpperCase()}</span>
               </div>
-              <div class="item-desc">${req.qty} ${req.unit}</div>
+              <div style="font-size:12px; color:var(--text-muted); margin-top:4px;">${req.qty} ${req.unit}</div>
             </div>
           </div>`;
       });
@@ -587,7 +608,7 @@
   }
 
   // ==========================================
-  // STAFF: DYNAMIC TIGHT GRID UI BUILDER
+  // STAFF: DYNAMIC 2-COLUMN UI BUILDER
   // ==========================================
   function addItemRow() {
     const container = document.getElementById('itemsContainer');
@@ -596,76 +617,44 @@
     const uniqueId = 'img-' + Date.now();
     
     row.innerHTML = `
-      <div style="font-size: 16px; font-weight: 700; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--input-bg); display: flex; justify-content: space-between; align-items: center;">
+      <div class="card-title">
         <span>Item Details</span>
         <button type="button" class="btn-remove" onclick="removeRow(this)" style="display:none;">✕ Remove</button>
       </div>
       
-      <div class="responsive-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px 24px; align-items: start;">
+      <div class="item-grid-master">
+        <!-- LEFT COLUMN: DATA -->
+        <div class="form-group"><label>${T[currentLang].name}</label><input type="text" class="itemName" placeholder="e.g. Copper Pan" required></div>
         
-        <!-- LEFT COLUMN -->
-        <div style="display: flex; flex-direction: column; gap: 16px;">
-           <div style="width: 100%;">
-             <label>${T[currentLang].name}</label>
-             <input type="text" class="itemName" placeholder="e.g. Copper Pan" required>
-           </div>
-           
-           <div style="width: 100%;">
-             <label>${T[currentLang].purpose}</label>
-             <input type="text" class="purpose" placeholder="e.g. For new steak menu..." required>
-           </div>
-           
-           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-              <div>
-                <label>${T[currentLang].qty}</label>
-                <input type="number" class="quantity" placeholder="0" min="1" required inputmode="numeric" oninput="calcTotal(this)">
+        <!-- RIGHT COLUMN: MEDIA SPAN -->
+        <div class="form-group row-span-2">
+           <label>${T[currentLang].preview}</label>
+           <div class="upload-box" onclick="document.getElementById('fileInput-${uniqueId}').click()">
+              <div class="upload-placeholder" id="text-${uniqueId}">
+                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                 <span style="margin-top:4px;">Tap to Upload</span>
               </div>
-              <div>
-                <label>${T[currentLang].unit}</label>
-                <select class="unit" required>
-                  <option value="" disabled selected>Select</option><option value="Piece">Piece</option><option value="Pack">Pack</option><option value="Box">Box</option><option value="Bottle">Bottle</option><option value="Dozen">Dozen</option><option value="Meter">Meter</option><option value="Kg">Kg</option>
-                </select>
-              </div>
+              <img id="${uniqueId}" src="" alt="Preview">
            </div>
-           
-           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-              <div>
-                <label>${T[currentLang].price}</label>
-                <input type="number" class="price" placeholder="THB" required inputmode="decimal" oninput="calcTotal(this)">
-              </div>
-              <div>
-                <label>${T[currentLang].tax}</label>
-                <select class="taxInvoice" required>
-                  <option value="No">No</option><option value="Yes">Yes</option>
-                </select>
-              </div>
-           </div>
+           <input type="file" class="fileUploadInput" id="fileInput-${uniqueId}" accept="image/*" style="display:none;" onchange="handleLocalPreview(this, '${uniqueId}')" required>
         </div>
 
-        <!-- RIGHT COLUMN -->
-        <div style="display: flex; flex-direction: column; gap: 16px; height: 100%;">
-           <div class="responsive-span" style="flex: 1; display: flex; flex-direction: column; grid-row: span 2;">
-              <label>${T[currentLang].preview}</label>
-              <div class="upload-box" onclick="document.getElementById('fileInput-${uniqueId}').click()" style="flex: 1; width: 100%; min-height: 110px; background: var(--surface); border: 1px dashed #c4c1b5; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; position: relative; overflow: hidden; transition: 0.2s;">
-                 <div id="text-${uniqueId}" style="font-size: 11px; color: var(--text-kicker); font-weight: 600; display: flex; flex-direction: column; align-items: center; gap: 6px;">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
-                    <span style="margin-top:4px;">Tap to Upload</span>
-                 </div>
-                 <img id="${uniqueId}" src="" alt="Preview" style="width: 100%; height: 100%; object-fit: cover; display: none; position: absolute; inset: 0;">
-              </div>
-              <input type="file" class="fileUploadInput" id="fileInput-${uniqueId}" accept="image/*" style="display:none;" onchange="handleLocalPreview(this, '${uniqueId}')" required>
-           </div>
-           
-           <div style="width: 100%;">
-             <label>${T[currentLang].link}</label>
-             <input type="url" class="link" placeholder="Optional URL reference...">
-           </div>
-           
-           <div style="width: 100%;">
-             <label>${T[currentLang].total}</label>
-             <input type="text" class="item-total-display input-readonly" value="฿0.00" readonly>
-           </div>
+        <div class="form-group"><label>${T[currentLang].purpose}</label><input type="text" class="purpose" placeholder="e.g. For new steak menu..." required></div>
+        
+        <div class="split-2">
+           <div class="form-group"><label>${T[currentLang].qty}</label><input type="number" class="quantity" placeholder="0" min="1" required inputmode="numeric" oninput="calcTotal(this)"></div>
+           <div class="form-group"><label>${T[currentLang].unit}</label><select class="unit" required><option value="" disabled selected>Select</option><option value="Piece">Piece</option><option value="Pack">Pack</option><option value="Box">Box</option><option value="Bottle">Bottle</option><option value="Dozen">Dozen</option><option value="Meter">Meter</option><option value="Kg">Kg</option></select></div>
         </div>
+        
+        <!-- LINK NOW REQUIRED -->
+        <div class="form-group"><label>${T[currentLang].link}</label><input type="url" class="link" placeholder="Paste Shopee/External URL..." required></div>
+        
+        <div class="split-2">
+           <div class="form-group"><label>${T[currentLang].price}</label><input type="number" class="price" placeholder="THB" required inputmode="decimal" oninput="calcTotal(this)"></div>
+           <div class="form-group"><label>${T[currentLang].tax}</label><select class="taxInvoice" required><option value="No">No</option><option value="Yes">Yes</option></select></div>
+        </div>
+        
+        <div class="form-group"><label>${T[currentLang].total}</label><input type="text" class="item-total-display input-readonly" value="฿0.00" readonly></div>
       </div>
     `;
     container.appendChild(row); 
@@ -796,9 +785,8 @@
         alert(`SUCCESS!\n\nYour Request ID is: ${generatedOrderId}\nPlease save this ID for tracking.`);
         document.getElementById('purchaseForm').reset();
         
-        // Clear thumbnails manually
         document.querySelectorAll('.upload-box img').forEach(img => img.style.display = 'none');
-        document.querySelectorAll('.upload-box > div').forEach(txt => txt.style.display = 'flex');
+        document.querySelectorAll('.upload-placeholder').forEach(txt => txt.style.display = 'flex');
         document.querySelectorAll('.item-total-display').forEach(inp => inp.value = "฿0.00");
         updateGrandTotal();
         
