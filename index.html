@@ -70,7 +70,7 @@
     /* Typography & Inputs */
     .form-group { width: 100%; display: flex; flex-direction: column;}
     .form-group label { font-size: 10px; color: var(--text-kicker); font-weight: 700; margin-bottom: 6px; letter-spacing: 0.5px; text-transform: uppercase; display: block; }
-    input[type="text"], input[type="number"], input[type="url"], select, textarea { width: 100%; height: 42px; padding: 0 14px; border: 1px solid transparent; border-radius: 8px; font-size: 14px; background-color: var(--input-bg); font-family: 'Plus Jakarta Sans', sans-serif; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); appearance: none; color: var(--text-main); font-weight: 500;}
+    input[type="text"], input[type="number"], input[type="url"], select, textarea { width: 100%; height: 42px; padding: 0 14px; border: 1px solid transparent; border-radius: 8px; font-size: 14px; background-color: var(--input-bg); font-family: 'Plus Jakarta Sans', sans-serif; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); appearance: none; color: var(--text-main); font-weight: 500; box-sizing: border-box;}
     input[type="text"]:focus, input[type="number"]:focus, input[type="url"]:focus, select:focus { outline: none; border-color: #d1cfc7; background-color: var(--surface); box-shadow: 0 0 0 3px rgba(26,31,46,0.04); }
     input::placeholder { color: #aaa69c; font-weight: 400; }
     .input-readonly { background-color: var(--input-shaded) !important; color: var(--navy) !important; cursor: not-allowed; font-weight: 700 !important; border: 1px dashed var(--border-dashed) !important; }
@@ -128,13 +128,15 @@
     .menu-grid { display: grid; gap: 12px; margin-top: 32px;}
     .menu-btn { height: 76px; background: var(--surface); color: var(--text-main); border: 1px solid var(--border); font-size: 15px; font-weight: 600; justify-content: flex-start; padding-left: 20px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); transition: all 0.2s; text-align: left; cursor: pointer; font-family: 'Plus Jakarta Sans', sans-serif;}
     .menu-btn:hover { border-color: var(--navy); transform: translateY(-1px);}
-
-    /* Admin UI */
+    
+    /* ADMIN & STAFF SHARED */
+    .loading-text { text-align: center; color: var(--text-muted); font-size: 14px; margin-top: 40px; padding: 30px; background: var(--surface); border: 1px dashed var(--border); border-radius: 12px; font-weight: 500;}
     .admin-sticky-header { position: sticky; top: 0; z-index: 50; background: var(--bg); padding: 10px 0 16px 0; border-bottom: 1px solid var(--border); margin-bottom: 24px; }
     .admin-stats-bar { display: flex; gap: 10px; margin-bottom: 16px; }
     .stat-pill { padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; background: var(--surface); border: 1px solid var(--border); color: var(--text-main);}
     .admin-controls { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 12px;}
     
+    /* Multi Select */
     .multi-select-container { position: relative; width: 100%; font-family: 'Plus Jakarta Sans', sans-serif;}
     .multi-select-btn { width: 100%; height: 42px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; display: flex; align-items: center; padding: 0 14px; font-size: 13px; font-weight: 600; cursor: pointer; justify-content: space-between; color: var(--text-main);}
     .multi-select-btn:after { content: ""; width: 12px; height: 12px; background-image: url('data:image/svg+xml;utf8,<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="%23737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>'); background-repeat: no-repeat; background-position: center;}
@@ -144,15 +146,14 @@
     .multi-option:hover { background: var(--bg); }
     .multi-option input { width: 16px; height: 16px; margin: 0; cursor: pointer; accent-color: var(--navy); }
 
+    /* Admin Order Cards */
     .order-batch { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 24px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.04);}
     .batch-head { padding: 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: #faf9f7;}
     .batch-id-text { font-size: 15px; font-weight: 700; color: var(--text-main); font-family: monospace;}
     .batch-meta { font-size: 13px; color: var(--text-muted); margin-top: 4px; font-weight: 500;}
-    
     .order-item-row { display: flex; gap: 20px; padding: 20px; border-bottom: 1px dashed var(--border); transition: 0.3s opacity; }
     .order-item-row:last-child { border-bottom: none; }
     .prod-img { width: 90px; height: 90px; min-width: 90px; border-radius: 8px; object-fit: cover; background: var(--input-bg); border: 1px solid var(--border);}
-    
     .admin-item-title { font-size: 16px; font-weight: 700; color: var(--text-main); }
     .admin-price { font-size: 13px; font-weight: 600; color: var(--text-muted); margin-top: 4px;}
     .item-desc { font-size: 13px; color: var(--text-muted); line-height: 1.4; margin-top: 4px;}
@@ -161,10 +162,14 @@
     .btn-reject-sm { background: var(--surface); color: var(--red); border: 1px solid #f5c6c2; padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: 700; cursor: pointer; transition: 0.2s; font-family: 'Plus Jakarta Sans', sans-serif;}
 
     .admin-actions { display: flex; gap: 12px; justify-content: flex-end; padding: 16px 20px; background: var(--surface); border-top: 1px solid var(--border); border-radius: 0 0 12px 12px;}
-    .btn-approve { background: var(--green); color: #fff; border: none; min-height: 42px; font-size: 13px; padding: 0 24px; border-radius: 8px; font-weight: 600; cursor: pointer;}
-    .btn-reject { background: var(--surface); color: var(--text-main); border: 1px solid var(--border); min-height: 42px; font-size: 13px; padding: 0 24px; border-radius: 8px; font-weight: 600; cursor: pointer;}
+    .btn-approve { background: var(--green); color: #fff; border: none; min-height: 42px; font-size: 13px; padding: 0 24px; border-radius: 8px; font-weight: 600; cursor: pointer; font-family: 'Plus Jakarta Sans', sans-serif;}
+    .btn-reject { background: var(--surface); color: var(--text-main); border: 1px solid var(--border); min-height: 42px; font-size: 13px; padding: 0 24px; border-radius: 8px; font-weight: 600; cursor: pointer; font-family: 'Plus Jakarta Sans', sans-serif;}
     
-    .loading-text { text-align: center; color: var(--text-muted); font-size: 14px; margin-top: 40px; padding: 30px; background: var(--surface); border: 1px dashed var(--border); border-radius: 12px; font-weight: 500;}
+    .badge { display:inline-block; padding:4px 10px; border-radius:6px; font-size:10px; font-weight:700; margin-top:8px; letter-spacing: 0.5px; text-transform: uppercase;}
+    .badge-pending { background:#fef3c7; color:#92570a; border: 1px solid #fcd34d; }
+    .badge-approved { background:#dcfce7; color:#166534; border: 1px solid #86efac; }
+    .badge-rejected { background:#fdf0ef; color:#d93025; border: 1px solid #f5c6c2; }
+    .badge-urgent { background: var(--red); color: #fff; padding: 4px 10px; border-radius: 4px; font-size: 10px; font-weight: 700; margin-left: 12px; border: none;}
 
     @media (max-width: 650px) {
       .flat-routing { grid-template-columns: 1fr; gap: 24px; padding: 0;}
@@ -457,19 +462,25 @@
     for (const [id, items] of Object.entries(grouped)) {
       const p = items[0];
       const rNums = items.map(x => x.rowNumber).join(',');
-      let html = `<div class="order-batch" id="batch-${id}"><div class="batch-head"><div><div class="batch-id-text">${id} ${items.some(x=>x.isUrgent)?'<span class="badge-urgent">URGENT</span>':''}</div><div class="batch-meta">By ${p.requester} • ${p.branch}</div></div></div>`;
+      
+      // Fixed Header String (Added Section Support Back In)
+      const headerStr = `By <b>${p.requester || 'Unknown'}</b> • ${p.branch || 'Unknown'} ${p.section ? `(${p.section})` : ''}`;
+      
+      let html = `<div class="order-batch" id="batch-${id}"><div class="batch-head"><div><div class="batch-id-text">${id} ${items.some(x=>x.isUrgent)?'<span class="badge-urgent">URGENT</span>':''}</div><div class="batch-meta">${headerStr}</div></div></div>`;
       
       items.forEach(req => {
         const photo = req.photo || req.imgUrl;
         
-        // --- BULLETPROOF MATH ENGINE ---
+        // Bulletproof Math
         const q = parseFloat(String(req.quantity || req.qty || 0).replace(/[^0-9.-]+/g, "")) || 0;
         let pr = parseFloat(String(req.price || 0).replace(/[^0-9.-]+/g, "")) || 0;
         let sum = parseFloat(String(req.summary || req.totalPrice || 0).replace(/[^0-9.-]+/g, "")) || 0;
 
-        // Auto-calculate missing prices from legacy sheets
         if (pr === 0 && sum > 0 && q > 0) { pr = sum / q; } 
         else if (sum === 0 && pr > 0 && q > 0) { sum = pr * q; }
+        
+        // Bulletproof Legacy Purpose Fetch
+        const safePurpose = req.purpose || req.purposeEN || req.desc || req.description || '<span style="color:#aaa; font-style:italic;">No purpose provided</span>';
 
         html += `<div class="order-item-row" id="row-${req.rowNumber}">
           ${photo ? `<a href="${photo}" target="_blank"><img src="${photo}" class="prod-img"></a>` : `<div class="prod-img" style="display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--text-muted);background:var(--input-bg);">No Img</div>`}
@@ -478,13 +489,13 @@
             
             <div style="display:flex; justify-content:space-between; align-items:flex-start; width: 100%;">
               <div style="display:flex; flex-direction: column; max-width: 60%;">
-                <div class="admin-item-title">${req.itemTitle || req.name || 'Untitled Item'}</div>
-                <div class="item-desc" style="margin-top: 4px;">${req.purpose || ''}</div>
+                <div class="admin-item-title">${req.itemTitle || req.name || req.itemNameEN || 'Untitled Item'}</div>
+                <div class="item-desc" style="margin-top: 4px;">${safePurpose}</div>
               </div>
               
               <div style="text-align:right; display:flex; flex-direction: column; gap: 4px;">
                 <div style="font-size: 16px; font-weight: 700; color: var(--text-main);">฿${sum.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 2})}</div>
-                <div class="admin-price">${q} ${req.unit || ''} @ ฿${pr.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 2})}</div>
+                <div class="admin-price">${q > 0 ? q : '-'} ${req.unit || ''} @ ฿${pr > 0 ? pr.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 2}) : '0'}</div>
               </div>
             </div>
             
@@ -515,6 +526,49 @@
     Promise.all(rows.map(r => safeGoogleFetch({ action: 'update_status', rowNumber: r, newStatus: stat }))).then(() => {
       document.getElementById('batch-'+id).style.display='none';
       liveDataCache = liveDataCache.filter(x => !rows.includes(x.rowNumber));
+    });
+  }
+
+  function fetchLiveStatusData() {
+    document.getElementById('staffRequestsList').innerHTML = '<div class="loading-text">Fetching...</div>';
+    safeGoogleFetch({ action: 'get_data', role: 'staff', userName: currentUser.name }).then(res => { if(res.status === 'success') { renderStaffStatusUI(res.data); } });
+  }
+
+  function renderStaffStatusUI(data) {
+    const container = document.getElementById('staffRequestsList');
+    container.innerHTML = '';
+    if (data.length === 0) { container.innerHTML = '<p style="text-align:center; color:var(--text-3); margin-top:40px;">You have no order history.</p>'; return; }
+
+    const grouped = {};
+    data.forEach(r => { if(!grouped[r.orderId]) grouped[r.orderId] = []; grouped[r.orderId].push(r); });
+    
+    Object.keys(grouped).sort((a, b) => new Date(grouped[b][0].date) - new Date(grouped[a][0].date)).forEach(id => {
+      const items = grouped[id];
+      const p = items[0];
+      const dateStr = new Date(p.date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', hour: '2-digit', minute:'2-digit' });
+      
+      const headerStr = `${p.branch || 'Unknown'} ${p.section ? `(${p.section})` : ''}`;
+
+      let html = `<div class="card" style="padding:0; overflow:hidden;"><div style="padding: 16px 20px; background: #faf9f7; border-bottom: 1px solid var(--border); display:flex; justify-content:space-between; align-items:center;"><div><div style="font-weight:700; font-size:14px; font-family:monospace;">${id}</div><div style="font-size:12px; color:var(--text-muted); margin-top:4px;">${headerStr}</div></div><div style="font-size:12px; color:var(--text-muted); text-align:right;">${dateStr}</div></div>`;
+
+      items.forEach(req => {
+        const photo = req.photo || req.imgUrl;
+        const photoHtml = photo ? `<img src="${photo}" style="width:48px; height:48px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">` : `<div style="width:48px; height:48px; border-radius:6px; background:var(--bg); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:9px; color:var(--text-3); text-align:center;">No Img</div>`;
+        let statusClass = req.status.includes('Pending') ? 'badge-pending' : (req.status === 'Approved' ? 'badge-approved' : 'badge-rejected');
+
+        html += `
+          <div style="padding: 16px 20px; border-bottom: 1px dashed var(--input-bg); display:flex; gap:16px;">
+            ${photoHtml}
+            <div style="flex:1;">
+              <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                  <div style="font-size:14px; font-weight:700; color:var(--text-main);">${req.itemTitle || req.name || req.itemNameEN || 'Untitled Item'}</div>
+                  <span class="badge ${statusClass}" style="margin-top:0;">${req.status.toUpperCase()}</span>
+              </div>
+              <div style="font-size:12px; color:var(--text-muted); margin-top:4px;">${req.qty || req.quantity || '-'} ${req.unit || ''}</div>
+            </div>
+          </div>`;
+      });
+      container.innerHTML += html + `</div>`;
     });
   }
 
@@ -555,20 +609,29 @@
     const btn = document.getElementById('finalSubmitBtn'); btn.disabled = true; btn.innerText = "Sending...";
     const items = [];
     const cards = document.querySelectorAll('.item-card');
+    
     for(const c of cards) {
       const img = await upload(c.querySelector('.fileInput').files[0]);
       const q = parseFloat(c.querySelector('.quantity').value);
       const p = parseFloat(c.querySelector('.price').value);
+      
+      // Duplicated keys to guarantee Google Apps Script catches the data
       items.push({
         name: c.querySelector('.itemName').value,
+        itemNameEN: c.querySelector('.itemName').value, 
         purpose: c.querySelector('.purpose').value,
+        purposeEN: c.querySelector('.purpose').value,
         quantity: q,
+        qty: q, 
         unit: c.querySelector('.unit').value,
         price: p,
         summary: q * p, 
+        totalPrice: q * p, 
         link: c.querySelector('.link').value,
         tax: c.querySelector('.tax').value,
-        imgUrl: img
+        taxInvoice: c.querySelector('.tax').value, 
+        imgUrl: img,
+        photo: img 
       });
     }
     const payload = {
