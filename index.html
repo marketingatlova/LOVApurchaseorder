@@ -67,7 +67,7 @@
     .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 16px; box-shadow: 0 6px 20px rgba(0,0,0,0.04); }
     .card-title { font-size: 16px; font-weight: 700; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--input-bg); display: flex; justify-content: space-between; align-items: center;}
     
-    /* Typography & Inputs */
+    /* Inputs */
     .form-group { width: 100%; display: flex; flex-direction: column;}
     .form-group label { font-size: 10px; color: var(--text-kicker); font-weight: 700; margin-bottom: 6px; letter-spacing: 0.5px; text-transform: uppercase; display: block; }
     input[type="text"], input[type="number"], input[type="url"], select, textarea { width: 100%; height: 42px; padding: 0 14px; border: 1px solid transparent; border-radius: 8px; font-size: 14px; background-color: var(--input-bg); font-family: 'Plus Jakarta Sans', sans-serif; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); appearance: none; color: var(--text-main); font-weight: 500; box-sizing: border-box;}
@@ -80,19 +80,19 @@
     .split-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
     .row-span-2 { grid-row: span 2; height: 100%; }
     
-    /* Right Column Upload Box */
+    /* Upload Box */
     .upload-box { flex: 1; width: 100%; height: calc(100% - 18px); min-height: 106px; background: var(--surface); border: 1px dashed #c4c1b5; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; position: relative; overflow: hidden; transition: 0.2s;}
     .upload-box:hover { border-color: var(--navy); background: #faf9f6; }
     .upload-box img { width: 100%; height: 100%; object-fit: cover; display: none; position: absolute; inset: 0;}
     .upload-placeholder { font-size: 11px; color: var(--text-kicker); font-weight: 600; display: flex; flex-direction: column; align-items: center; gap: 6px; }
 
-    /* Add/Remove Buttons */
+    /* Buttons */
     .btn-add { width: 100%; min-height: 48px; background: transparent; color: var(--text-main); border: 1px dashed var(--border-dashed); border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; transition: 0.2s; font-family: 'Plus Jakarta Sans', sans-serif;}
     .btn-add:hover { background: #f9f8f6; border-color: #c7c4ba;}
     .btn-remove { color: var(--text-muted); font-size: 12px; font-weight: 600; background: transparent; border: none; cursor: pointer; padding: 4px 8px; border-radius: 6px; font-family: 'Plus Jakarta Sans', sans-serif;}
-    .btn-remove:hover { color: var(--red); background: var(--red-soft); }
+    .btn-remove:hover { color: var(--red); background: #fdf0ef; }
 
-    /* Sticky Bottom & Grand Total */
+    /* Sticky Bottom */
     .sticky-bottom { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(243,241,235,0.95); backdrop-filter: blur(12px); padding: 16px 20px 24px; border-top: 1px solid var(--border); z-index: 100; display: flex; flex-direction: column; align-items: center;}
     .grand-total-bar { width: 100%; max-width: 760px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding: 0 8px;}
     .grand-total-label { font-size: 14px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;}
@@ -101,7 +101,7 @@
     .sticky-bottom button:active { transform: scale(0.98); }
     .sticky-bottom button:disabled { opacity: 0.5; cursor: not-allowed; box-shadow: none; }
 
-    /* Pre-Submit Receipt Modal */
+    /* Modal */
     .modal-overlay { position: fixed; inset: 0; background: rgba(26,31,46,0.6); display: flex; align-items: flex-end; justify-content: center; z-index: 200; opacity: 0; pointer-events: none; transition: opacity 0.3s; backdrop-filter: blur(4px);}
     .modal-overlay.open { opacity: 1; pointer-events: auto; }
     .modal-sheet { background: var(--surface); width: 100%; max-width: 600px; border-radius: 20px 20px 0 0; padding: 32px 24px 40px; transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.16,1,0.3,1); max-height: 85vh; display: flex; flex-direction: column; }
@@ -385,6 +385,7 @@
       document.getElementById('routingRequester').innerText = user.name; 
       if(user.role === 'admin') { showView('adminDashboard'); fetchLiveAdminData(); } 
       else { showView('staffMenu'); document.getElementById('itemsContainer').innerHTML = ''; addItemRow(); if(user.branch) document.getElementById('branch').value = user.branch; }
+      document.getElementById('authError').style.display = 'none';
     } else { document.getElementById('authError').style.display = 'block'; }
   }
 
@@ -463,7 +464,6 @@
       const p = items[0];
       const rNums = items.map(x => x.rowNumber).join(',');
       
-      // Fixed Header String (Added Section Support Back In)
       const headerStr = `By <b>${p.requester || 'Unknown'}</b> • ${p.branch || 'Unknown'} ${p.section ? `(${p.section})` : ''}`;
       
       let html = `<div class="order-batch" id="batch-${id}"><div class="batch-head"><div><div class="batch-id-text">${id} ${items.some(x=>x.isUrgent)?'<span class="badge-urgent">URGENT</span>':''}</div><div class="batch-meta">${headerStr}</div></div></div>`;
@@ -471,7 +471,6 @@
       items.forEach(req => {
         const photo = req.photo || req.imgUrl;
         
-        // Bulletproof Math
         const q = parseFloat(String(req.quantity || req.qty || 0).replace(/[^0-9.-]+/g, "")) || 0;
         let pr = parseFloat(String(req.price || 0).replace(/[^0-9.-]+/g, "")) || 0;
         let sum = parseFloat(String(req.summary || req.totalPrice || 0).replace(/[^0-9.-]+/g, "")) || 0;
@@ -479,7 +478,7 @@
         if (pr === 0 && sum > 0 && q > 0) { pr = sum / q; } 
         else if (sum === 0 && pr > 0 && q > 0) { sum = pr * q; }
         
-        // Bulletproof Legacy Purpose Fetch
+        // BULLETPROOF PURPOSE MAPPER
         const safePurpose = req.purpose || req.purposeEN || req.desc || req.description || '<span style="color:#aaa; font-style:italic;">No purpose provided</span>';
 
         html += `<div class="order-item-row" id="row-${req.rowNumber}">
@@ -615,12 +614,14 @@
       const q = parseFloat(c.querySelector('.quantity').value);
       const p = parseFloat(c.querySelector('.price').value);
       
-      // Duplicated keys to guarantee Google Apps Script catches the data
+      // Duplicated mapping prevents older Google Sheet script errors
       items.push({
         name: c.querySelector('.itemName').value,
         itemNameEN: c.querySelector('.itemName').value, 
         purpose: c.querySelector('.purpose').value,
         purposeEN: c.querySelector('.purpose').value,
+        desc: c.querySelector('.purpose').value,
+        description: c.querySelector('.purpose').value,
         quantity: q,
         qty: q, 
         unit: c.querySelector('.unit').value,
