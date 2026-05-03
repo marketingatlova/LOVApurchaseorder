@@ -514,6 +514,8 @@
   }
 
   function updateItemStatus(id, row, stat) {
+    const actArea = document.getElementById('item-act-'+row);
+    actArea.innerHTML = `<span style="font-size:12px; font-weight:700; color:var(--navy);">Updating...</span>`;
     safeGoogleFetch({ action: 'update_status', rowNumber: row, newStatus: stat }).then(() => {
       document.getElementById('row-'+row).style.display = 'none';
       liveDataCache = liveDataCache.filter(x => x.rowNumber !== row);
@@ -522,6 +524,8 @@
   }
 
   function updateBatchStatus(id, rows, stat) {
+    const actArea = document.getElementById('act-'+id);
+    actArea.innerHTML = `<div style="text-align:right; width:100%; padding: 10px 0; font-weight:600; font-size:13px; color:var(--navy);">Processing Batch...</div>`;
     Promise.all(rows.map(r => safeGoogleFetch({ action: 'update_status', rowNumber: r, newStatus: stat }))).then(() => {
       document.getElementById('batch-'+id).style.display='none';
       liveDataCache = liveDataCache.filter(x => !rows.includes(x.rowNumber));
@@ -577,7 +581,7 @@
     div.innerHTML = `<div class="card-title"><span>Item Details</span><button type="button" class="btn-remove" onclick="this.closest('.item-card').remove(); updateGrandTotal();">✕ Remove</button></div>
       <div class="item-grid-master">
         <div class="form-group"><label>Item Name</label><input type="text" class="itemName" required></div>
-        <div class="form-group row-span-2"><label>Preview</label><div class="upload-box" onclick="this.nextElementSibling.click()"><div class="upload-placeholder">Tap to Upload</div><img src=""></div><input type="file" class="fileInput" style="display:none" onchange="const f=this.files[0]; if(f){this.previousElementSibling.querySelector('img').src=URL.createObjectURL(f); this.previousElementSibling.querySelector('img').style.display='block';}"></div>
+        <div class="form-group row-span-2"><label>Preview</label><div class="upload-box" onclick="this.nextElementSibling.click()"><div class="upload-placeholder" id="text-${id}">Tap to Upload</div><img id="${id}" src="" style="display:none; width:100%; height:100%; object-fit:cover;"></div><input type="file" class="fileInput" accept="image/*" style="display:none" onchange="handleLocalPreview(this, '${id}')"></div>
         <div class="form-group"><label>Purpose</label><input type="text" class="purpose" required></div>
         <div class="split-2"><div class="form-group"><label>Qty</label><input type="number" class="quantity" oninput="calcTotal(this)" required></div><div class="form-group"><label>Unit</label><select class="unit" required><option>Piece</option><option>Pack</option><option>Box</option><option>Kg</option></select></div></div>
         <div class="form-group"><label>Link</label><input type="url" class="link" required></div>
@@ -587,17 +591,49 @@
     document.getElementById('itemsContainer').appendChild(div);
   }
 
+  function handleLocalPreview(input, uniqueId) {
+    const file = input.files[0];
+    if (!file) return;
+    if (file.size > 5242880) {
+        alert("⚠️ Photo is too large! Please choose a file under 5MB.");
+        input.value = ""; 
+        return;
+    }
+    const previewBox = document.getElementById(uniqueId);
+    const textEl = document.getElementById(`text-${uniqueId}`);
+    previewBox.src = URL.createObjectURL(file);
+    previewBox.style.display = 'block';
+    if(textEl) textEl.style.display = 'none';
+  }
+
+  function removeRow(btn) { btn.closest('.item-card').remove(); updateRemoveButtons(); updateGrandTotal(); }
+  function updateRemoveButtons() { const rows = document.querySelectorAll('.item-card'); rows.forEach(r => r.querySelector('.btn-remove').style.display = rows.length > 1 ? 'block' : 'none'); }
+
   async function upload(file) {
+    if (!file) return "";
     const fd = new FormData(); fd.append("file", file); fd.append("upload_preset", UPLOAD_PRESET);
-    return fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, { method: "POST", body: fd }).then(r => r.json()).then(d => d.secure_url);
+    try {
+      const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, { method: "POST", body: fd });
+      const data = await res.json();
+      return data.secure_url || "";
+    } catch(e) {
+      return "";
+    }
   }
 
   function openReviewModal() {
     if(!document.getElementById('purchaseForm').checkValidity()) return document.getElementById('purchaseForm').reportValidity();
     let h = '';
+    let missingPhoto = false;
     document.querySelectorAll('.item-card').forEach(c => {
+      const fileInput = c.querySelector('.fileInput');
+      if (!fileInput.files[0]) missingPhoto = true;
       h += `<div class="receipt-item"><span>${c.querySelector('.itemName').value}</span><span>${c.querySelector('.item-total-display').value}</span></div>`;
     });
+    if (missingPhoto) {
+        alert("Action Required: Please tap the Preview box and upload a photo for every item before submitting.");
+        return;
+    }
     document.getElementById('modalReceiptList').innerHTML = h;
     document.getElementById('reviewModal').classList.add('open');
   }
@@ -614,7 +650,6 @@
       const q = parseFloat(c.querySelector('.quantity').value);
       const p = parseFloat(c.querySelector('.price').value);
       
-      // Duplicated mapping prevents older Google Sheet script errors
       items.push({
         name: c.querySelector('.itemName').value,
         itemNameEN: c.querySelector('.itemName').value, 
