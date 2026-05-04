@@ -92,9 +92,6 @@
     .btn-remove { color: var(--text-muted); font-size: 12px; font-weight: 600; background: transparent; border: none; cursor: pointer; padding: 4px 8px; border-radius: 6px; font-family: 'Plus Jakarta Sans', sans-serif;}
     .btn-remove:hover { color: var(--red); background: #fdf0ef; }
 
-    /* DIAGNOSTIC SYSTEM LOG (Subtle Version) */
-    #systemLog { background: #faf9f7; color: var(--text-kicker); font-family: monospace; font-size: 10px; padding: 8px 12px; border-radius: 6px; margin-top: 16px; margin-bottom: 24px; max-height: 60px; overflow-y: auto; text-align: left; border: 1px dashed var(--border-dashed); line-height: 1.4; display: none; }
-
     /* Sticky Bottom & Grand Total */
     .sticky-bottom { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(243,241,235,0.95); backdrop-filter: blur(12px); padding: 16px 20px 24px; border-top: 1px solid var(--border); z-index: 100; display: flex; flex-direction: column; align-items: center;}
     .grand-total-bar { width: 100%; max-width: 760px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding: 0 8px;}
@@ -131,9 +128,8 @@
     .menu-grid { display: grid; gap: 12px; margin-top: 32px;}
     .menu-btn { height: 76px; background: var(--surface); color: var(--text-main); border: 1px solid var(--border); font-size: 15px; font-weight: 600; justify-content: flex-start; padding-left: 20px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); transition: all 0.2s; text-align: left; cursor: pointer; font-family: 'Plus Jakarta Sans', sans-serif;}
     .menu-btn:hover { border-color: var(--navy); transform: translateY(-1px);}
-    
-    /* ADMIN & STAFF SHARED */
-    .loading-text { text-align: center; color: var(--text-muted); font-size: 14px; margin-top: 40px; padding: 30px; background: var(--surface); border: 1px dashed var(--border); border-radius: 12px; font-weight: 500;}
+
+    /* Admin UI */
     .admin-sticky-header { position: sticky; top: 0; z-index: 50; background: var(--bg); padding: 10px 0 16px 0; border-bottom: 1px solid var(--border); margin-bottom: 24px; }
     .admin-stats-bar { display: flex; gap: 10px; margin-bottom: 16px; }
     .stat-pill { padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; background: var(--surface); border: 1px solid var(--border); color: var(--text-main);}
@@ -262,9 +258,6 @@
 
         <div id="itemsContainer"></div>
         <button type="button" class="btn-add" onclick="addItemRow()">+ Add Another Item</button>
-        
-        <!-- DIAGNOSTIC LOG (Subtle) -->
-        <div id="systemLog" style="display:none;">System Log Initiated...</div>
 
         <div class="sticky-bottom">
             <div class="grand-total-bar">
@@ -349,21 +342,6 @@
   
   let currentUser = {};
   let liveDataCache = []; 
-
-  // ==========================================
-  // SUBTLE DIAGNOSTIC LOGGING ENGINE
-  // ==========================================
-  function systemLog(msg, obj = null) {
-      const logBox = document.getElementById('systemLog');
-      if (!logBox) return;
-      logBox.style.display = 'block'; 
-      
-      const time = new Date().toLocaleTimeString();
-      let logStr = `[${time}] ${msg}`;
-      logBox.innerHTML += `<br>${logStr}`;
-      logBox.scrollTop = logBox.scrollHeight;
-      console.log(msg, obj);
-  }
 
   document.addEventListener("DOMContentLoaded", () => {
     applyTranslations();
@@ -546,7 +524,6 @@
         </div>`;
       });
       
-      // New Action Layout with Alert Button
       html += `
         <div class="admin-actions" id="act-${id}">
             <button class="btn-alert" onclick="resendLineAlert('${id}', this)">🔔 Send LINE Alert</button>
@@ -561,7 +538,7 @@
     }
   }
 
-  // --- MANUAL LINE ALERT SENDER ---
+  // --- MANUAL LINE ALERT SENDER (WITH ERROR POPUP) ---
   function resendLineAlert(orderId, btnElement) {
       const originalText = btnElement.innerHTML;
       btnElement.innerText = "Sending...";
@@ -571,7 +548,6 @@
       if(itemsForOrder.length === 0) return;
       const primary = itemsForOrder[0];
       
-      // Build exactly what Code.gs expects
       const mappedItems = itemsForOrder.map(item => ({ summary: item.totalPrice || 0 }));
       
       const payload = {
@@ -588,17 +564,30 @@
 
       safeGoogleFetch(payload).then(res => {
           if(res.status === 'success') {
-              btnElement.innerHTML = "✅ Sent!";
-              btnElement.style.background = "#dcfce7";
-              btnElement.style.color = "#166534";
-              btnElement.style.borderColor = "#86efac";
-              setTimeout(() => { 
-                  btnElement.innerHTML = originalText; 
-                  btnElement.disabled = false; 
-                  btnElement.style = ""; // Reset style
-              }, 3000);
+              if (res.lineStatus === "LINE Success") {
+                  btnElement.innerHTML = "✅ Sent!";
+                  btnElement.style.background = "#dcfce7";
+                  btnElement.style.color = "#166534";
+                  btnElement.style.borderColor = "#86efac";
+                  setTimeout(() => { 
+                      btnElement.innerHTML = originalText; 
+                      btnElement.disabled = false; 
+                      btnElement.style = "";
+                  }, 3000);
+              } else {
+                  // IF LINE REJECTS IT, WE CATCH IT HERE
+                  alert("LINE Failed to Send:\n\n" + res.lineStatus);
+                  btnElement.innerHTML = "⚠️ Failed";
+                  btnElement.style.background = "#fdf0ef";
+                  btnElement.style.color = "#d93025";
+                  setTimeout(() => { 
+                      btnElement.innerHTML = originalText; 
+                      btnElement.disabled = false; 
+                      btnElement.style = "";
+                  }, 4000);
+              }
           } else {
-              alert("Failed to send: " + res.error);
+              alert("Failed to connect: " + res.error);
               btnElement.innerHTML = originalText;
               btnElement.disabled = false;
           }
@@ -709,14 +698,12 @@
 
   async function upload(file) {
     if (!file) return "";
-    systemLog(`Uploading Image...`);
     const fd = new FormData(); fd.append("file", file); fd.append("upload_preset", UPLOAD_PRESET);
     try {
       const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, { method: "POST", body: fd });
       const data = await res.json();
       return data.secure_url || "";
     } catch(e) {
-      systemLog(`❌ Image Upload Failed`);
       return "";
     }
   }
@@ -743,7 +730,6 @@
   function closeReviewModal() { document.getElementById('reviewModal').classList.remove('open'); }
 
   async function executeOrderUpload() {
-    systemLog("Initiating Submission...");
     const btn = document.getElementById('finalSubmitBtn'); btn.disabled = true; btn.innerText = "Sending...";
     const items = [];
     const cards = document.querySelectorAll('.item-card');
@@ -809,7 +795,7 @@
             }
             updateGrandTotal();
             closeReviewModal();
-            showView('staffMenu'); // Go smoothly back to the Staff Menu
+            showView('staffMenu'); 
         } 
     }).catch(err => {
         alert("System Error. Please try again.");
