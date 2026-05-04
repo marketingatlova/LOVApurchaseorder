@@ -92,6 +92,9 @@
     .btn-remove { color: var(--text-muted); font-size: 12px; font-weight: 600; background: transparent; border: none; cursor: pointer; padding: 4px 8px; border-radius: 6px; font-family: 'Plus Jakarta Sans', sans-serif;}
     .btn-remove:hover { color: var(--red); background: #fdf0ef; }
 
+    /* DIAGNOSTIC SYSTEM LOG (Subtle Version) */
+    #systemLog { background: #faf9f7; color: var(--text-kicker); font-family: monospace; font-size: 10px; padding: 8px 12px; border-radius: 6px; margin-top: 16px; margin-bottom: 24px; max-height: 60px; overflow-y: auto; text-align: left; border: 1px dashed var(--border-dashed); line-height: 1.4; display: none; }
+
     /* Sticky Bottom & Grand Total */
     .sticky-bottom { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(243,241,235,0.95); backdrop-filter: blur(12px); padding: 16px 20px 24px; border-top: 1px solid var(--border); z-index: 100; display: flex; flex-direction: column; align-items: center;}
     .grand-total-bar { width: 100%; max-width: 760px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding: 0 8px;}
@@ -258,6 +261,9 @@
 
         <div id="itemsContainer"></div>
         <button type="button" class="btn-add" onclick="addItemRow()">+ Add Another Item</button>
+        
+        <!-- DIAGNOSTIC LOG (Subtle) -->
+        <div id="systemLog" style="display:none;">System Log Initiated...</div>
 
         <div class="sticky-bottom">
             <div class="grand-total-bar">
@@ -342,6 +348,21 @@
   
   let currentUser = {};
   let liveDataCache = []; 
+
+  // ==========================================
+  // SUBTLE DIAGNOSTIC LOGGING ENGINE
+  // ==========================================
+  function systemLog(msg, obj = null) {
+      const logBox = document.getElementById('systemLog');
+      if (!logBox) return;
+      logBox.style.display = 'block'; 
+      
+      const time = new Date().toLocaleTimeString();
+      let logStr = `[${time}] ${msg}`;
+      logBox.innerHTML += `<br>${logStr}`;
+      logBox.scrollTop = logBox.scrollHeight;
+      console.log(msg, obj);
+  }
 
   document.addEventListener("DOMContentLoaded", () => {
     applyTranslations();
@@ -538,7 +559,7 @@
     }
   }
 
-  // --- MANUAL LINE ALERT SENDER (WITH ERROR POPUP) ---
+  // --- MANUAL LINE ALERT SENDER (FIXED PAYLOAD MAPPER) ---
   function resendLineAlert(orderId, btnElement) {
       const originalText = btnElement.innerHTML;
       btnElement.innerText = "Sending...";
@@ -548,7 +569,25 @@
       if(itemsForOrder.length === 0) return;
       const primary = itemsForOrder[0];
       
-      const mappedItems = itemsForOrder.map(item => ({ summary: item.totalPrice || 0 }));
+      // 🚨 FIX: Rebuilt map to grab ALL details for the LINE Carousel, not just the subtotal!
+      const mappedItems = itemsForOrder.map(item => {
+          const calculatedPrice = (item.qty && item.qty > 0) ? (item.totalPrice / item.qty) : 0;
+          return {
+              name: item.itemTitle,
+              itemNameEN: item.itemTitle,
+              itemTitle: item.itemTitle,
+              purpose: item.purpose,
+              purposeEN: item.purpose,
+              qty: item.qty,
+              quantity: item.qty,
+              unit: item.unit,
+              price: calculatedPrice,
+              summary: item.totalPrice,
+              totalPrice: item.totalPrice,
+              imgUrl: item.photo,
+              photo: item.photo
+          };
+      });
       
       const payload = {
           action: 'resend_line',
@@ -575,7 +614,6 @@
                       btnElement.style = "";
                   }, 3000);
               } else {
-                  // IF LINE REJECTS IT, WE CATCH IT HERE
                   alert("LINE Failed to Send:\n\n" + res.lineStatus);
                   btnElement.innerHTML = "⚠️ Failed";
                   btnElement.style.background = "#fdf0ef";
