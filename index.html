@@ -164,9 +164,12 @@
     .btn-approve-sm { background: #dcfce7; color: #166534; border: 1px solid #86efac; padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: 700; cursor: pointer; transition: 0.2s; font-family: 'Plus Jakarta Sans', sans-serif;}
     .btn-reject-sm { background: var(--surface); color: var(--red); border: 1px solid #f5c6c2; padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: 700; cursor: pointer; transition: 0.2s; font-family: 'Plus Jakarta Sans', sans-serif;}
 
-    .admin-actions { display: flex; gap: 12px; justify-content: flex-end; padding: 16px 20px; background: var(--surface); border-top: 1px solid var(--border); border-radius: 0 0 12px 12px;}
+    /* Modified Actions Area for Send Alert Button */
+    .admin-actions { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; background: var(--surface); border-top: 1px solid var(--border); border-radius: 0 0 12px 12px;}
     .btn-approve { background: var(--green); color: #fff; border: none; min-height: 42px; font-size: 13px; padding: 0 24px; border-radius: 8px; font-weight: 600; cursor: pointer; font-family: 'Plus Jakarta Sans', sans-serif;}
     .btn-reject { background: var(--surface); color: var(--text-main); border: 1px solid var(--border); min-height: 42px; font-size: 13px; padding: 0 24px; border-radius: 8px; font-weight: 600; cursor: pointer; font-family: 'Plus Jakarta Sans', sans-serif;}
+    .btn-alert { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; min-height: 42px; font-size: 13px; padding: 0 16px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.2s; font-family: 'Plus Jakarta Sans', sans-serif;}
+    .btn-alert:hover { background: #dbeafe; }
     
     .badge { display:inline-block; padding:4px 10px; border-radius:6px; font-size:10px; font-weight:700; margin-top:8px; letter-spacing: 0.5px; text-transform: uppercase;}
     .badge-pending { background:#fef3c7; color:#92570a; border: 1px solid #fcd34d; }
@@ -180,6 +183,9 @@
       .row-span-2 { grid-row: auto; height: auto; }
       .upload-box { min-height: 140px; margin-bottom: 8px;}
       .admin-controls { grid-template-columns: 1fr; }
+      .admin-actions { flex-direction: column; gap: 12px; align-items: stretch; }
+      .admin-actions > div { display: flex; gap: 12px; flex-direction: column;}
+      .admin-actions button { width: 100%; }
     }
   </style>
 </head>
@@ -449,13 +455,11 @@
   }
 
   async function safeGoogleFetch(payload) {
-    systemLog("Connecting to API...", payload.action);
     try {
       const response = await fetch(API_URL, { method: 'POST', body: JSON.stringify(payload) });
       const text = await response.text();
       return JSON.parse(text);
     } catch(err) {
-      systemLog("❌ Connection Error");
       throw err;
     }
   }
@@ -541,9 +545,68 @@
           </div>
         </div>`;
       });
-      html += `<div class="admin-actions" id="act-${id}"><button class="btn-reject" onclick="updateBatchStatus('${id}',[${rNums}],'Rejected')">Reject All</button><button class="btn-approve" onclick="updateBatchStatus('${id}',[${rNums}],'Approved')">Approve All</button></div></div>`;
+      
+      // New Action Layout with Alert Button
+      html += `
+        <div class="admin-actions" id="act-${id}">
+            <button class="btn-alert" onclick="resendLineAlert('${id}', this)">🔔 Send LINE Alert</button>
+            <div style="display:flex; gap:12px;">
+                <button class="btn-reject" onclick="updateBatchStatus('${id}',[${rNums}],'Rejected')">Reject All</button>
+                <button class="btn-approve" onclick="updateBatchStatus('${id}',[${rNums}],'Approved')">Approve All</button>
+            </div>
+        </div>
+      </div>`;
+      
       container.innerHTML += html;
     }
+  }
+
+  // --- MANUAL LINE ALERT SENDER ---
+  function resendLineAlert(orderId, btnElement) {
+      const originalText = btnElement.innerHTML;
+      btnElement.innerText = "Sending...";
+      btnElement.disabled = true;
+
+      const itemsForOrder = liveDataCache.filter(item => item.orderId === orderId);
+      if(itemsForOrder.length === 0) return;
+      const primary = itemsForOrder[0];
+      
+      // Build exactly what Code.gs expects
+      const mappedItems = itemsForOrder.map(item => ({ summary: item.totalPrice || 0 }));
+      
+      const payload = {
+          action: 'resend_line',
+          payload: {
+              orderId: orderId,
+              requester: primary.requester,
+              branch: primary.branch,
+              section: primary.section,
+              isUrgent: itemsForOrder.some(x => x.isUrgent),
+              items: mappedItems
+          }
+      };
+
+      safeGoogleFetch(payload).then(res => {
+          if(res.status === 'success') {
+              btnElement.innerHTML = "✅ Sent!";
+              btnElement.style.background = "#dcfce7";
+              btnElement.style.color = "#166534";
+              btnElement.style.borderColor = "#86efac";
+              setTimeout(() => { 
+                  btnElement.innerHTML = originalText; 
+                  btnElement.disabled = false; 
+                  btnElement.style = ""; // Reset style
+              }, 3000);
+          } else {
+              alert("Failed to send: " + res.error);
+              btnElement.innerHTML = originalText;
+              btnElement.disabled = false;
+          }
+      }).catch(err => {
+          alert("Connection error.");
+          btnElement.innerHTML = originalText;
+          btnElement.disabled = false;
+      });
   }
 
   function updateItemStatus(id, row, stat) {
@@ -628,7 +691,6 @@
     const file = input.files[0];
     if (!file) return;
     
-    // FILE SIZE LIMIT (5MB)
     if (file.size > 5242880) {
         alert("⚠️ Photo is too large! Please choose a file under 5MB.");
         input.value = ""; 
@@ -725,9 +787,14 @@
     };
     
     safeGoogleFetch(payload).then(res => { 
-        systemLog("✅ Success");
         if(res.status==='success') { 
-            alert(`SUCCESS! Your Request ID is: ${payload.payload.orderId}`); 
+            let msg = `SUCCESS!\nYour Request ID is: ${payload.payload.orderId}`;
+            
+            if (res.lineStatus && res.lineStatus !== "LINE Success") {
+                msg += `\n\n⚠️ Sheet saved, but LINE failed to send:\n${res.lineStatus}`;
+            }
+            
+            alert(msg); 
             
             // Soft reset without logging out
             document.getElementById('purchaseForm').reset();
@@ -742,9 +809,10 @@
             }
             updateGrandTotal();
             closeReviewModal();
-            showView('staffMenu'); 
+            showView('staffMenu'); // Go smoothly back to the Staff Menu
         } 
     }).catch(err => {
+        alert("System Error. Please try again.");
         btn.disabled = false; btn.innerText = "Yes, Submit Order";
     });
   }
