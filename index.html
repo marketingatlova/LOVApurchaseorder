@@ -92,7 +92,10 @@
     .btn-remove { color: var(--text-muted); font-size: 12px; font-weight: 600; background: transparent; border: none; cursor: pointer; padding: 4px 8px; border-radius: 6px; font-family: 'Plus Jakarta Sans', sans-serif;}
     .btn-remove:hover { color: var(--red); background: #fdf0ef; }
 
-    /* Sticky Bottom */
+    /* DIAGNOSTIC SYSTEM LOG */
+    #systemLog { background: #1a1a1a; color: #4ade80; font-family: monospace; font-size: 11px; padding: 16px; border-radius: 8px; margin-top: 24px; margin-bottom: 24px; max-height: 250px; overflow-y: auto; text-align: left; word-break: break-all; border: 1px solid #333; line-height: 1.5; }
+
+    /* Sticky Bottom & Grand Total */
     .sticky-bottom { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(243,241,235,0.95); backdrop-filter: blur(12px); padding: 16px 20px 24px; border-top: 1px solid var(--border); z-index: 100; display: flex; flex-direction: column; align-items: center;}
     .grand-total-bar { width: 100%; max-width: 760px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding: 0 8px;}
     .grand-total-label { font-size: 14px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;}
@@ -128,15 +131,13 @@
     .menu-grid { display: grid; gap: 12px; margin-top: 32px;}
     .menu-btn { height: 76px; background: var(--surface); color: var(--text-main); border: 1px solid var(--border); font-size: 15px; font-weight: 600; justify-content: flex-start; padding-left: 20px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); transition: all 0.2s; text-align: left; cursor: pointer; font-family: 'Plus Jakarta Sans', sans-serif;}
     .menu-btn:hover { border-color: var(--navy); transform: translateY(-1px);}
-    
-    /* ADMIN & STAFF SHARED */
-    .loading-text { text-align: center; color: var(--text-muted); font-size: 14px; margin-top: 40px; padding: 30px; background: var(--surface); border: 1px dashed var(--border); border-radius: 12px; font-weight: 500;}
+
+    /* Admin UI */
     .admin-sticky-header { position: sticky; top: 0; z-index: 50; background: var(--bg); padding: 10px 0 16px 0; border-bottom: 1px solid var(--border); margin-bottom: 24px; }
     .admin-stats-bar { display: flex; gap: 10px; margin-bottom: 16px; }
     .stat-pill { padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; background: var(--surface); border: 1px solid var(--border); color: var(--text-main);}
     .admin-controls { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 12px;}
     
-    /* Multi Select */
     .multi-select-container { position: relative; width: 100%; font-family: 'Plus Jakarta Sans', sans-serif;}
     .multi-select-btn { width: 100%; height: 42px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; display: flex; align-items: center; padding: 0 14px; font-size: 13px; font-weight: 600; cursor: pointer; justify-content: space-between; color: var(--text-main);}
     .multi-select-btn:after { content: ""; width: 12px; height: 12px; background-image: url('data:image/svg+xml;utf8,<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="%23737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>'); background-repeat: no-repeat; background-position: center;}
@@ -146,7 +147,6 @@
     .multi-option:hover { background: var(--bg); }
     .multi-option input { width: 16px; height: 16px; margin: 0; cursor: pointer; accent-color: var(--navy); }
 
-    /* Admin Order Cards */
     .order-batch { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 24px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.04);}
     .batch-head { padding: 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: #faf9f7;}
     .batch-id-text { font-size: 15px; font-weight: 700; color: var(--text-main); font-family: monospace;}
@@ -160,16 +160,11 @@
     
     .btn-approve-sm { background: #dcfce7; color: #166534; border: 1px solid #86efac; padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: 700; cursor: pointer; transition: 0.2s; font-family: 'Plus Jakarta Sans', sans-serif;}
     .btn-reject-sm { background: var(--surface); color: var(--red); border: 1px solid #f5c6c2; padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: 700; cursor: pointer; transition: 0.2s; font-family: 'Plus Jakarta Sans', sans-serif;}
-
     .admin-actions { display: flex; gap: 12px; justify-content: flex-end; padding: 16px 20px; background: var(--surface); border-top: 1px solid var(--border); border-radius: 0 0 12px 12px;}
-    .btn-approve { background: var(--green); color: #fff; border: none; min-height: 42px; font-size: 13px; padding: 0 24px; border-radius: 8px; font-weight: 600; cursor: pointer; font-family: 'Plus Jakarta Sans', sans-serif;}
-    .btn-reject { background: var(--surface); color: var(--text-main); border: 1px solid var(--border); min-height: 42px; font-size: 13px; padding: 0 24px; border-radius: 8px; font-weight: 600; cursor: pointer; font-family: 'Plus Jakarta Sans', sans-serif;}
+    .btn-approve { background: var(--green); color: #fff; border: none; min-height: 42px; font-size: 13px; padding: 0 24px; border-radius: 8px; font-weight: 600; cursor: pointer;}
+    .btn-reject { background: var(--surface); color: var(--text-main); border: 1px solid var(--border); min-height: 42px; font-size: 13px; padding: 0 24px; border-radius: 8px; font-weight: 600; cursor: pointer;}
     
-    .badge { display:inline-block; padding:4px 10px; border-radius:6px; font-size:10px; font-weight:700; margin-top:8px; letter-spacing: 0.5px; text-transform: uppercase;}
-    .badge-pending { background:#fef3c7; color:#92570a; border: 1px solid #fcd34d; }
-    .badge-approved { background:#dcfce7; color:#166534; border: 1px solid #86efac; }
-    .badge-rejected { background:#fdf0ef; color:#d93025; border: 1px solid #f5c6c2; }
-    .badge-urgent { background: var(--red); color: #fff; padding: 4px 10px; border-radius: 4px; font-size: 10px; font-weight: 700; margin-left: 12px; border: none;}
+    .loading-text { text-align: center; color: var(--text-muted); font-size: 14px; margin-top: 40px; padding: 30px; background: var(--surface); border: 1px dashed var(--border); border-radius: 12px; font-weight: 500;}
 
     @media (max-width: 650px) {
       .flat-routing { grid-template-columns: 1fr; gap: 24px; padding: 0;}
@@ -254,6 +249,9 @@
         <div id="itemsContainer"></div>
         <button type="button" class="btn-add" onclick="addItemRow()">+ Add Another Item</button>
         
+        <!-- DIAGNOSTIC LOG -->
+        <div id="systemLog" style="display:none;">System Log Initiated...</div>
+
         <div class="sticky-bottom">
             <div class="grand-total-bar">
                 <div class="grand-total-label">Grand Total</div>
@@ -322,6 +320,7 @@
   </div>
 
 <script>
+  // YOUR API URL GOES HERE (Ensure this exactly matches your "New Version" Web App URL)
   const API_URL = "https://script.google.com/macros/s/AKfycbxgxY6BXooYtMjMlV3wVfW1F7IikNRUWGv_Y89eCuJzlHk_k_2nl10nqvc3ATlk0vss/exec"; 
   const CLOUD_NAME = "dynjnftnu";
   const UPLOAD_PRESET = "lova_staff_purchase_app"; 
@@ -361,6 +360,28 @@
   let currentUser = {};
   let liveDataCache = []; 
   let finalOrderPayload = []; 
+
+  // ==========================================
+  // DIAGNOSTIC LOGGING ENGINE
+  // ==========================================
+  function systemLog(msg, obj = null) {
+      const logBox = document.getElementById('systemLog');
+      if (!logBox) return;
+      logBox.style.display = 'block'; // Make visible once activated
+      
+      const time = new Date().toLocaleTimeString();
+      let logStr = `[${time}] ${msg}`;
+      if (obj) {
+          try {
+              logStr += `\n${JSON.stringify(obj, null, 2)}`;
+          } catch(e) {
+              logStr += `\n[Cannot Parse Object]`;
+          }
+      }
+      logBox.innerHTML += `\n\n${logStr}`;
+      logBox.scrollTop = logBox.scrollHeight;
+      console.log(msg, obj);
+  }
 
   document.addEventListener("DOMContentLoaded", () => {
     applyTranslations();
@@ -423,7 +444,19 @@
   }
 
   async function safeGoogleFetch(payload) {
-    return fetch(API_URL, { method: 'POST', body: JSON.stringify(payload) }).then(res => res.json());
+    systemLog("📡 Connecting to Google API...", { action: payload.action });
+    try {
+      const response = await fetch(API_URL, { 
+        method: 'POST', 
+        body: JSON.stringify(payload) 
+      });
+      const text = await response.text();
+      systemLog("📥 Raw Response Received from Google:", text);
+      return JSON.parse(text);
+    } catch(err) {
+      systemLog("❌ FATAL CONNECTION ERROR", err.message);
+      throw err;
+    }
   }
 
   function toggleMultiSelect(id) {
@@ -478,7 +511,6 @@
         if (pr === 0 && sum > 0 && q > 0) { pr = sum / q; } 
         else if (sum === 0 && pr > 0 && q > 0) { sum = pr * q; }
         
-        // BULLETPROOF PURPOSE MAPPER
         const safePurpose = req.purpose || req.purposeEN || req.desc || req.description || '<span style="color:#aaa; font-style:italic;">No purpose provided</span>';
 
         html += `<div class="order-item-row" id="row-${req.rowNumber}">
@@ -514,8 +546,6 @@
   }
 
   function updateItemStatus(id, row, stat) {
-    const actArea = document.getElementById('item-act-'+row);
-    actArea.innerHTML = `<span style="font-size:12px; font-weight:700; color:var(--navy);">Updating...</span>`;
     safeGoogleFetch({ action: 'update_status', rowNumber: row, newStatus: stat }).then(() => {
       document.getElementById('row-'+row).style.display = 'none';
       liveDataCache = liveDataCache.filter(x => x.rowNumber !== row);
@@ -524,8 +554,6 @@
   }
 
   function updateBatchStatus(id, rows, stat) {
-    const actArea = document.getElementById('act-'+id);
-    actArea.innerHTML = `<div style="text-align:right; width:100%; padding: 10px 0; font-weight:600; font-size:13px; color:var(--navy);">Processing Batch...</div>`;
     Promise.all(rows.map(r => safeGoogleFetch({ action: 'update_status', rowNumber: r, newStatus: stat }))).then(() => {
       document.getElementById('batch-'+id).style.display='none';
       liveDataCache = liveDataCache.filter(x => !rows.includes(x.rowNumber));
@@ -594,11 +622,14 @@
   function handleLocalPreview(input, uniqueId) {
     const file = input.files[0];
     if (!file) return;
+    
+    // FILE SIZE LIMIT (5MB)
     if (file.size > 5242880) {
         alert("⚠️ Photo is too large! Please choose a file under 5MB.");
         input.value = ""; 
         return;
     }
+    
     const previewBox = document.getElementById(uniqueId);
     const textEl = document.getElementById(`text-${uniqueId}`);
     previewBox.src = URL.createObjectURL(file);
@@ -611,12 +642,15 @@
 
   async function upload(file) {
     if (!file) return "";
+    systemLog(`☁️ Uploading Image to Cloudinary...`);
     const fd = new FormData(); fd.append("file", file); fd.append("upload_preset", UPLOAD_PRESET);
     try {
       const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, { method: "POST", body: fd });
       const data = await res.json();
+      systemLog(`✅ Image Uploaded: ${data.secure_url}`);
       return data.secure_url || "";
     } catch(e) {
+      systemLog(`❌ Image Upload Failed`, e);
       return "";
     }
   }
@@ -630,10 +664,12 @@
       if (!fileInput.files[0]) missingPhoto = true;
       h += `<div class="receipt-item"><span>${c.querySelector('.itemName').value}</span><span>${c.querySelector('.item-total-display').value}</span></div>`;
     });
+    
     if (missingPhoto) {
         alert("Action Required: Please tap the Preview box and upload a photo for every item before submitting.");
         return;
     }
+    
     document.getElementById('modalReceiptList').innerHTML = h;
     document.getElementById('reviewModal').classList.add('open');
   }
@@ -641,6 +677,7 @@
   function closeReviewModal() { document.getElementById('reviewModal').classList.remove('open'); }
 
   async function executeOrderUpload() {
+    systemLog("🚀 Initiating Final Submission Protocol...");
     const btn = document.getElementById('finalSubmitBtn'); btn.disabled = true; btn.innerText = "Sending...";
     const items = [];
     const cards = document.querySelectorAll('.item-card');
@@ -670,6 +707,7 @@
         photo: img 
       });
     }
+    
     const payload = {
       action: 'submit_order',
       payload: {
@@ -681,7 +719,16 @@
         items: items
       }
     };
-    safeGoogleFetch(payload).then(res => { if(res.status==='success') { alert("Success!"); location.reload(); } });
+    
+    systemLog("📦 Assembled Final Payload", payload);
+
+    safeGoogleFetch(payload).then(res => { 
+        systemLog("✅ Submission Accepted by Google", res);
+        if(res.status==='success') { alert("Success!"); location.reload(); } 
+    }).catch(err => {
+        systemLog("❌ Submission Rejected", err);
+        btn.disabled = false; btn.innerText = "Yes, Submit Order";
+    });
   }
 </script>
 </body>
