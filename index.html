@@ -15,6 +15,7 @@
     body.form-open{padding-bottom:calc(var(--bar-h) + 16px + env(safe-area-inset-bottom,0px))}
     @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
     .fade-in{animation:fadeUp 0.3s cubic-bezier(0.16,1,0.3,1) both}
+    /* NAV */
     .nav{background:var(--navy);height:var(--nav-h);padding:0 16px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 10px rgba(0,0,0,0.2)}
     .nav-brand{display:flex;align-items:baseline;gap:7px}
     .nav-logo{font-family:var(--font-serif);font-size:16px;font-weight:700;color:#fff;letter-spacing:1.5px}
@@ -26,12 +27,14 @@
     .lang-btn.active{background:rgba(255,255,255,0.16);color:#fff}
     .btn-logout{background:transparent;color:rgba(255,255,255,0.65);border:1px solid rgba(255,255,255,0.16);padding:4px 10px;border-radius:5px;font-size:11px;font-weight:600;cursor:pointer;transition:0.15s;font-family:var(--font);white-space:nowrap}
     .btn-logout:hover{background:rgba(255,255,255,0.07);color:#fff}
+    /* LAYOUT */
     .wrap{max-width:680px;margin:0 auto;padding:0 16px}
     .page-head{display:flex;flex-direction:column;align-items:center;text-align:center;padding:28px 0 20px}
     .btn-back{display:inline-flex;align-items:center;gap:4px;background:transparent;color:var(--tx-muted);border:1px solid var(--border);padding:5px 14px;border-radius:20px;font-size:12px;font-weight:500;cursor:pointer;margin-bottom:20px;transition:0.18s;font-family:var(--font)}
     .btn-back:hover{background:var(--surface);color:var(--tx)}
     .page-title{font-family:var(--font);font-size:24px;font-weight:800;color:var(--tx);margin-bottom:5px;line-height:1.2;letter-spacing:-0.3px}
     .page-sub{color:var(--tx-muted);font-size:13px;font-weight:400;line-height:1.5}
+    /* AUTH */
     #authSection{max-width:340px!important;padding:44px 28px!important;margin:10vh auto!important;background:var(--surface);border-radius:20px;box-shadow:var(--sh-md);text-align:center}
     #authSection .page-title{font-size:26px;margin-bottom:6px}
     #passcode{width:100%;height:56px;text-align:center;font-size:28px;letter-spacing:12px;text-indent:12px;font-weight:700;padding:0;background:var(--surface-alt);border:2px solid var(--border);border-radius:12px;color:var(--tx);outline:none;transition:border-color 0.2s,box-shadow 0.2s;font-family:var(--font);margin-bottom:14px}
@@ -39,10 +42,12 @@
     #authError{color:var(--red);font-size:12px;font-weight:600;display:none;margin-bottom:12px}
     #loginBtn{width:100%;height:50px;background:var(--navy);color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;transition:0.18s;font-family:var(--font)}
     #loginBtn:hover{background:var(--navy-hover)}#loginBtn:disabled{opacity:0.55;cursor:not-allowed}
+    /* STAFF MENU */
     .menu-grid{display:grid;gap:10px}
     .menu-btn{min-height:66px;background:var(--surface);color:var(--tx);border:1px solid var(--border);border-radius:12px;font-size:14px;font-weight:600;display:flex;align-items:center;padding:14px 18px;gap:13px;box-shadow:var(--sh-sm);transition:all 0.16s;text-align:left;cursor:pointer;font-family:var(--font);line-height:1.4}
     .menu-icon{font-size:18px;flex-shrink:0;width:26px;text-align:center}
     .menu-btn:hover{border-color:var(--navy);transform:translateY(-1px);box-shadow:var(--sh-md)}.menu-btn:active{transform:none}
+    /* ROUTING */
     .routing-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-card);padding:20px;margin-bottom:14px;box-shadow:var(--sh-sm)}
     .routing-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px 24px}
     .r-field{display:flex;flex-direction:column}
@@ -58,6 +63,7 @@
     .urgent-pill:has(input:checked){background:var(--red-lt);border-color:var(--red-br)}
     .urgent-pill:has(input:checked) .u-dot{background:var(--red);box-shadow:0 0 5px rgba(217,48,37,0.35)}
     .urgent-pill:has(input:checked) .u-text{color:var(--red)}
+    /* ITEM CARDS (form) */
     .item-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-card);padding:16px 18px;margin-bottom:12px;box-shadow:var(--sh-sm)}
     .card-top{display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;margin-bottom:14px;border-bottom:1px solid var(--input-bg)}
     .card-title{font-size:13px;font-weight:700;color:var(--tx)}
@@ -81,6 +87,7 @@
     .upload-icon{font-size:18px;opacity:0.35}.upload-txt{font-size:10px;font-weight:700;color:var(--tx-faint);text-transform:uppercase;letter-spacing:0.5px}
     .btn-add{width:100%;min-height:44px;background:transparent;color:var(--tx-muted);border:1.5px dashed var(--border-dash);border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;transition:0.16s;margin-top:4px;font-family:var(--font)}
     .btn-add:hover{background:#f6f5f2;border-color:#b8b4ab;color:var(--tx)}
+    /* STICKY BAR */
     .sticky-bar{position:fixed;bottom:0;left:0;right:0;background:rgba(238,236,228,0.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid var(--border);z-index:90;padding:12px 16px;padding-bottom:calc(12px + env(safe-area-inset-bottom,0px));display:none}
     .sticky-bar.visible{display:block}
     .bar-inner{max-width:680px;margin:0 auto;display:flex;flex-direction:column;gap:9px}
@@ -89,6 +96,7 @@
     .total-val{font-size:22px;font-weight:800;color:var(--navy);letter-spacing:-0.5px}
     .btn-submit{width:100%;height:48px;background:var(--green);color:#fff;border:none;border-radius:var(--r-btn);font-size:14px;font-weight:700;cursor:pointer;transition:0.16s;font-family:var(--font);box-shadow:0 3px 10px rgba(25,104,53,0.25)}
     .btn-submit:hover{filter:brightness(1.07)}.btn-submit:active{transform:scale(0.99)}.btn-submit:disabled{opacity:0.5;cursor:not-allowed;box-shadow:none;filter:none}
+    /* REVIEW MODAL */
     .modal-bd{position:fixed;inset:0;background:rgba(26,31,46,0.5);display:flex;align-items:flex-end;justify-content:center;z-index:200;opacity:0;pointer-events:none;transition:opacity 0.22s;backdrop-filter:blur(3px)}
     .modal-bd.open{opacity:1;pointer-events:auto}
     .modal-sheet{background:var(--surface);width:100%;max-width:560px;border-radius:20px 20px 0 0;padding:24px 20px 32px;transform:translateY(100%);transition:transform 0.36s cubic-bezier(0.16,1,0.3,1);max-height:88vh;display:flex;flex-direction:column}
@@ -108,25 +116,37 @@
     .btn-m-cancel:hover{background:var(--surface)}
     .btn-m-confirm{flex:2;height:48px;background:var(--navy);color:#fff;border:none;border-radius:var(--r-btn);font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font);transition:0.15s}
     .btn-m-confirm:hover{background:var(--navy-hover)}.btn-m-confirm:disabled{opacity:0.5;cursor:not-allowed}
-    /* REJECT MODAL */
-    .rej-modal-bd{position:fixed;inset:0;background:rgba(26,31,46,0.55);display:flex;align-items:flex-end;justify-content:center;z-index:300;opacity:0;pointer-events:none;transition:opacity 0.22s;backdrop-filter:blur(4px)}
-    .rej-modal-bd.open{opacity:1;pointer-events:auto}
-    .rej-sheet{background:var(--surface);width:100%;max-width:560px;border-radius:20px 20px 0 0;padding:24px 20px 32px;transform:translateY(100%);transition:transform 0.36s cubic-bezier(0.16,1,0.3,1);max-height:90vh;display:flex;flex-direction:column;overflow-y:auto}
-    .rej-modal-bd.open .rej-sheet{transform:translateY(0)}
-    .rej-handle{width:34px;height:4px;background:var(--border);border-radius:2px;margin:0 auto 18px}
-    .rej-title{font-size:18px;font-weight:800;color:var(--red);margin-bottom:4px}
-    .rej-sub{font-size:13px;color:var(--tx-muted);margin-bottom:16px}
-    .rej-item-block{margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--border)}
-    .rej-item-block:last-of-type{border-bottom:none;margin-bottom:0;padding-bottom:0}
-    .rej-item-name{font-size:13px;font-weight:700;color:var(--tx);margin-bottom:6px}
-    .rej-reason-input{width:100%;min-height:64px;padding:10px 12px;border:1px solid var(--border);border-radius:8px;font-size:13px;font-family:var(--font);color:var(--tx);resize:vertical;background:var(--surface-alt);transition:0.15s}
-    .rej-reason-input:focus{outline:none;border-color:var(--red);background:#fff;box-shadow:0 0 0 3px rgba(217,48,37,0.08)}
-    .rej-reason-input::placeholder{color:#b5b0a5}
-    .rej-btns{display:flex;gap:10px;margin-top:20px;flex-shrink:0}
-    .btn-rej-cancel{flex:1;height:48px;background:var(--bg);color:var(--tx);border:1px solid var(--border);border-radius:var(--r-btn);font-size:14px;font-weight:600;cursor:pointer;font-family:var(--font);transition:0.15s}
-    .btn-rej-cancel:hover{background:var(--surface)}
-    .btn-rej-confirm{flex:2;height:48px;background:var(--red);color:#fff;border:none;border-radius:var(--r-btn);font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font);transition:0.15s}
-    .btn-rej-confirm:hover{filter:brightness(1.08)}.btn-rej-confirm:disabled{opacity:0.5;cursor:not-allowed}
+    /* CONFIRM DECISION MODAL */
+    .conf-modal-bd{position:fixed;inset:0;background:rgba(26,31,46,0.55);display:flex;align-items:flex-end;justify-content:center;z-index:300;opacity:0;pointer-events:none;transition:opacity 0.22s;backdrop-filter:blur(4px)}
+    .conf-modal-bd.open{opacity:1;pointer-events:auto}
+    .conf-sheet{background:var(--surface);width:100%;max-width:560px;border-radius:20px 20px 0 0;padding:24px 20px 32px;transform:translateY(100%);transition:transform 0.36s cubic-bezier(0.16,1,0.3,1);max-height:88vh;overflow-y:auto}
+    .conf-modal-bd.open .conf-sheet{transform:translateY(0)}
+    .conf-handle{width:34px;height:4px;background:var(--border);border-radius:2px;margin:0 auto 18px}
+    .conf-title{font-size:18px;font-weight:800;color:var(--tx);margin-bottom:4px}
+    .conf-sub{font-size:13px;color:var(--tx-muted);margin-bottom:16px}
+    .conf-summary{display:flex;gap:10px;margin-bottom:18px}
+    .conf-pill{flex:1;padding:12px;border-radius:10px;text-align:center}
+    .conf-pill-green{background:var(--green-lt);border:1px solid #86efac}
+    .conf-pill-red{background:var(--red-lt);border:1px solid var(--red-br)}
+    .conf-pill-num{font-size:24px;font-weight:800}
+    .conf-pill-green .conf-pill-num{color:var(--green-tx)}
+    .conf-pill-red .conf-pill-num{color:var(--red)}
+    .conf-pill-lbl{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-top:2px}
+    .conf-pill-green .conf-pill-lbl{color:var(--green-tx)}
+    .conf-pill-red .conf-pill-lbl{color:var(--red)}
+    .conf-item-list{max-height:200px;overflow-y:auto;border:1px solid var(--border);border-radius:8px;margin-bottom:18px}
+    .conf-item-row{display:flex;justify-content:space-between;align-items:center;padding:9px 13px;border-bottom:1px solid #f2f1ee;gap:8px}
+    .conf-item-row:last-child{border-bottom:none}
+    .conf-item-name{font-size:13px;font-weight:600;flex:1}
+    .conf-item-badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;flex-shrink:0}
+    .badge-app{background:var(--green-lt);color:var(--green-tx)}
+    .badge-rej{background:var(--red-lt);color:var(--red)}
+    .conf-btns{display:flex;gap:10px}
+    .btn-conf-cancel{flex:1;height:48px;background:var(--bg);color:var(--tx);border:1px solid var(--border);border-radius:var(--r-btn);font-size:14px;font-weight:600;cursor:pointer;font-family:var(--font);transition:0.15s}
+    .btn-conf-cancel:hover{background:var(--surface)}
+    .btn-conf-submit{flex:2;height:48px;background:var(--navy);color:#fff;border:none;border-radius:var(--r-btn);font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font);transition:0.15s}
+    .btn-conf-submit:hover{background:var(--navy-hover)}.btn-conf-submit:disabled{opacity:0.5;cursor:not-allowed}
+    /* ADMIN BAR */
     .admin-bar{position:sticky;top:var(--nav-h);z-index:50;background:var(--bg);padding:13px 0 11px;border-bottom:1px solid var(--border);margin-bottom:18px}
     .stats-row{display:flex;gap:7px;margin-bottom:9px;flex-wrap:wrap}
     .stat-chip{padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;background:var(--surface);border:1px solid var(--border);color:var(--tx)}
@@ -146,6 +166,7 @@
     .msd-opt input{width:14px;height:14px;margin:0;cursor:pointer;accent-color:var(--navy);flex-shrink:0}
     .sort-sel{width:100%;height:38px;padding:0 28px 0 10px;border:1px solid var(--border);border-radius:7px;font-size:12px;font-weight:600;font-family:var(--font);background:var(--surface);color:var(--tx);appearance:none;cursor:pointer;transition:0.15s;background-image:url('data:image/svg+xml;utf8,<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="%23737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>');background-repeat:no-repeat;background-position:right 10px center}
     .sort-sel:focus{outline:none;border-color:#c0bdb4}
+    /* BATCH CARDS */
     .batch{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-card);margin-bottom:16px;overflow:hidden;box-shadow:var(--sh-sm)}
     .batch-head{padding:12px 16px;background:var(--surface-alt);border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:12px}
     .batch-id{font-size:13px;font-weight:800;font-family:'DM Mono',monospace;color:var(--tx);display:flex;align-items:center;gap:7px;flex-wrap:wrap}
@@ -153,32 +174,50 @@
     .urg-badge{background:var(--red);color:#fff;padding:2px 7px;border-radius:4px;font-size:10px;font-weight:700;letter-spacing:0.3px}
     .btn-line{flex-shrink:0;display:inline-flex;align-items:center;gap:5px;background:var(--blue-lt);color:var(--blue);border:1px solid var(--blue-br);padding:5px 11px;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;transition:0.15s;font-family:var(--font)}
     .btn-line:hover{background:#dbeafe}.btn-line:disabled{opacity:0.5;cursor:not-allowed}
-    .i-row{display:flex;gap:12px;padding:13px 16px;border-bottom:1px solid #f2f1ee;transition:all 0.25s}
+    /* ITEM ROWS */
+    .i-row{display:flex;gap:12px;padding:13px 16px;border-bottom:1px solid #f2f1ee;transition:all 0.2s}
     .i-row:last-of-type{border-bottom:none}
-    /* REJECTED ROW STYLING */
-    .i-row.rejected-row{background:var(--red-lt);opacity:0.75}
-    .i-row.rejected-row .i-name{text-decoration:line-through;color:var(--red)}
-    .i-row.rejected-row .i-price{text-decoration:line-through;color:var(--red)}
-    .thumb{width:66px;height:66px;min-width:66px;border-radius:8px;object-fit:cover;background:var(--input-bg);border:1px solid var(--border);align-self:flex-start;display:block}
-    .thumb-empty{width:66px;height:66px;min-width:66px;border-radius:8px;background:var(--input-bg);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--tx-faint);font-weight:600;text-align:center;line-height:1.3}
+    /* Decision states */
+    .i-row.decided-approve{background:#f0fdf4}
+    .i-row.decided-reject{background:var(--red-lt)}
+    .i-row.decided-reject .i-name{text-decoration:line-through;color:var(--red)}
+    .i-row.decided-reject .i-price{text-decoration:line-through;color:var(--red)}
+    .thumb{width:58px;height:58px;min-width:58px;border-radius:8px;object-fit:cover;background:var(--input-bg);border:1px solid var(--border);align-self:flex-start;display:block}
+    .thumb-empty{width:58px;height:58px;min-width:58px;border-radius:8px;background:var(--input-bg);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--tx-faint);font-weight:600;text-align:center;line-height:1.3}
     .i-info{flex:1;display:flex;flex-direction:column;gap:2px;min-width:0}
     .i-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
     .i-name{font-size:14px;font-weight:700;color:var(--tx);line-height:1.3}
-    .i-price{font-size:15px;font-weight:800;color:var(--navy);white-space:nowrap;flex-shrink:0;letter-spacing:-0.3px}
+    .i-price{font-size:14px;font-weight:800;color:var(--navy);white-space:nowrap;flex-shrink:0;letter-spacing:-0.3px}
     .i-qty{font-size:12px;font-weight:400;color:var(--tx-muted);margin-top:2px}
-    .i-purp{display:flex;align-items:baseline;gap:5px;margin-top:5px;padding-left:2px}
-    .i-purp-arrow{font-size:11px;color:var(--tx-faint);flex-shrink:0;line-height:1.5}
+    .i-purp{display:flex;align-items:baseline;gap:5px;margin-top:4px;padding-left:2px}
+    .i-purp-arrow{font-size:11px;color:var(--tx-faint);flex-shrink:0}
     .i-purp-text{font-size:12px;font-weight:400;color:var(--tx-muted);line-height:1.5;font-style:italic}
-    .i-acts{display:flex;gap:7px;margin-top:10px}
-    .btn-rej{height:28px;padding:0 13px;background:var(--surface);color:var(--red);border:1px solid var(--red-br);border-radius:5px;font-size:12px;font-weight:700;cursor:pointer;transition:0.12s;font-family:var(--font)}
-    .btn-rej:hover{background:var(--red-lt)}
-    .btn-app{height:28px;padding:0 13px;background:var(--green-lt);color:var(--green-tx);border:1px solid #86efac;border-radius:5px;font-size:12px;font-weight:700;cursor:pointer;transition:0.12s;font-family:var(--font)}
-    .btn-app:hover{background:#bbf7d0}
-    .batch-foot{padding:11px 16px;background:var(--surface-alt);border-top:1px solid var(--border);display:flex;gap:9px;align-items:center}
-    .btn-rej-all{flex-shrink:0;height:42px;padding:0 16px;background:transparent;color:var(--tx-muted);border:1px solid var(--border);border-radius:var(--r-btn);font-size:13px;font-weight:600;cursor:pointer;transition:0.15s;font-family:var(--font);white-space:nowrap}
-    .btn-rej-all:hover{color:var(--red);border-color:var(--red-br);background:var(--red-lt)}
-    .btn-app-all{flex:1;height:42px;background:var(--green);color:#fff;border:none;border-radius:var(--r-btn);font-size:13px;font-weight:700;cursor:pointer;transition:0.15s;font-family:var(--font);box-shadow:0 2px 8px rgba(25,104,53,0.2)}
-    .btn-app-all:hover{filter:brightness(1.07)}
+    /* Decision buttons — compact, one row */
+    .i-acts{display:flex;gap:6px;margin-top:9px;align-items:center}
+    .btn-dec{height:30px;padding:0 14px;border-radius:5px;font-size:12px;font-weight:700;cursor:pointer;transition:all 0.15s;font-family:var(--font);border:1.5px solid transparent}
+    .btn-dec-app{background:var(--surface);color:var(--green-tx);border-color:#86efac}
+    .btn-dec-app:hover,.btn-dec-app.active{background:var(--green-lt);border-color:#4ade80}
+    .btn-dec-rej{background:var(--surface);color:var(--red);border-color:var(--red-br)}
+    .btn-dec-rej:hover,.btn-dec-rej.active{background:var(--red-lt);border-color:var(--red)}
+    .i-decision-badge{font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;flex-shrink:0}
+    /* Reject reason textarea — inline */
+    .i-reason-wrap{margin-top:8px;display:none}
+    .i-reason-wrap.show{display:block}
+    .i-reason-input{width:100%;padding:8px 11px;border:1px solid var(--red-br);border-radius:7px;font-size:12px;font-family:var(--font);color:var(--tx);resize:none;background:#fff;min-height:56px;transition:0.15s}
+    .i-reason-input:focus{outline:none;border-color:var(--red);box-shadow:0 0 0 3px rgba(217,48,37,0.08)}
+    .i-reason-input::placeholder{color:#b5b0a5}
+    /* Batch footer — quick actions + submit */
+    .batch-foot{padding:12px 16px;background:var(--surface-alt);border-top:1px solid var(--border)}
+    .batch-quick{display:flex;gap:8px;margin-bottom:10px}
+    .btn-quick{flex:1;height:36px;font-size:12px;font-weight:600;border-radius:var(--r-btn);cursor:pointer;transition:0.15s;font-family:var(--font);border:1.5px solid transparent}
+    .btn-quick-app{background:var(--green-lt);color:var(--green-tx);border-color:#86efac}
+    .btn-quick-app:hover{background:#bbf7d0}
+    .btn-quick-rej{background:var(--red-lt);color:var(--red);border-color:var(--red-br)}
+    .btn-quick-rej:hover{background:#fecaca}
+    .btn-submit-decisions{width:100%;height:44px;background:var(--navy);color:#fff;border:none;border-radius:var(--r-btn);font-size:13px;font-weight:700;cursor:pointer;transition:0.15s;font-family:var(--font)}
+    .btn-submit-decisions:hover{background:var(--navy-hover)}
+    .btn-submit-decisions:disabled{opacity:0.4;cursor:not-allowed;background:var(--tx-faint)}
+    /* STAFF STATUS */
     .s-batch{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-card);margin-bottom:14px;overflow:hidden;box-shadow:var(--sh-sm)}
     .s-head{padding:12px 16px;background:var(--surface-alt);border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
     .s-oid{font-size:13px;font-weight:700;font-family:monospace;color:var(--tx)}
@@ -193,6 +232,7 @@
     .s-qty{font-size:12px;color:var(--tx-muted);margin-top:1px}
     .s-reject-reason{margin-top:5px;padding:6px 9px;background:var(--red-lt);border:1px solid var(--red-br);border-radius:6px;font-size:11px;color:var(--red);font-weight:500;line-height:1.4}
     .s-reject-label{font-weight:700;margin-right:4px}
+    /* BADGES */
     .badge{display:inline-flex;align-items:center;padding:3px 8px;border-radius:5px;font-size:10px;font-weight:700;letter-spacing:0.3px;text-transform:uppercase;flex-shrink:0;white-space:nowrap}
     .b-pending{background:var(--amber-lt);color:var(--amber);border:1px solid var(--amber-br)}
     .b-approved{background:var(--green-lt);color:var(--green-tx);border:1px solid #86efac}
@@ -211,6 +251,7 @@
       <button class="btn-logout" onclick="logout()" data-i18n="nav_logout">Logout</button>
     </div>
   </nav>
+
   <div id="authSection" class="wrap fade-in">
     <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:0 auto 16px"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
     <p class="page-title" data-i18n="auth_title">LOVA Hub</p>
@@ -219,6 +260,7 @@
     <p id="authError" data-i18n="auth_err">Incorrect PIN. Please try again.</p>
     <button id="loginBtn" onclick="doLogin()" data-i18n="auth_btn">Secure Login</button>
   </div>
+
   <div id="staffMenu" class="fade-in">
     <div class="wrap">
       <div class="page-head"><h1 class="page-title" data-i18n="menu_title">Staff Operations</h1></div>
@@ -229,6 +271,7 @@
       </div>
     </div>
   </div>
+
   <div id="oseForm" class="fade-in">
     <div class="wrap">
       <div class="page-head">
@@ -260,12 +303,14 @@
       </form>
     </div>
   </div>
+
   <div class="sticky-bar" id="stickyBar">
     <div class="bar-inner">
       <div class="total-row"><span class="total-lbl" data-i18n="grand_total">Grand Total</span><span class="total-val" id="grandTotal">&#3647;0.00</span></div>
       <button type="button" class="btn-submit" onclick="openModal()" data-i18n="review_submit">Review &amp; Submit</button>
     </div>
   </div>
+
   <div id="staffStatus" class="fade-in">
     <div class="wrap">
       <div class="page-head">
@@ -275,6 +320,7 @@
       <div id="statusList"></div>
     </div>
   </div>
+
   <div id="adminDash" class="fade-in">
     <div class="wrap">
       <div class="page-head" style="padding-top:20px"><h1 class="page-title" data-i18n="admin_title">Approval Center</h1></div>
@@ -316,7 +362,8 @@
       <div id="adminList"></div>
     </div>
   </div>
-  <!-- REVIEW MODAL -->
+
+  <!-- SUBMIT ORDER REVIEW MODAL -->
   <div class="modal-bd" id="reviewModal">
     <div class="modal-sheet">
       <div class="modal-handle"></div>
@@ -330,16 +377,18 @@
       </div>
     </div>
   </div>
-  <!-- REJECT REASON MODAL -->
-  <div class="rej-modal-bd" id="rejModal">
-    <div class="rej-sheet">
-      <div class="rej-handle"></div>
-      <div class="rej-title" data-i18n="rej_title">Reason for Rejection</div>
-      <div class="rej-sub" data-i18n="rej_sub">Please provide a reason for each item being rejected.</div>
-      <div id="rejItemsList"></div>
-      <div class="rej-btns">
-        <button class="btn-rej-cancel" onclick="closeRejModal()" data-i18n="modal_cancel">Cancel</button>
-        <button class="btn-rej-confirm" id="rejConfirmBtn" onclick="confirmReject()" data-i18n="rej_confirm">Confirm Rejection</button>
+
+  <!-- CONFIRM DECISIONS MODAL -->
+  <div class="conf-modal-bd" id="confModal">
+    <div class="conf-sheet">
+      <div class="conf-handle"></div>
+      <div class="conf-title">Confirm Decisions</div>
+      <div class="conf-sub">Review your decisions before submitting. This cannot be undone.</div>
+      <div class="conf-summary" id="confSummary"></div>
+      <div class="conf-item-list" id="confItemList"></div>
+      <div class="conf-btns">
+        <button class="btn-conf-cancel" onclick="closeConfModal()">Cancel</button>
+        <button class="btn-conf-submit" id="confSubmitBtn" onclick="submitDecisions()">Submit Decisions</button>
       </div>
     </div>
   </div>
@@ -350,12 +399,15 @@ const CLOUD_NAME="dynjnftnu";
 const UPLOAD_PRESET="lova_staff_purchase_app";
 
 const T={
-  en:{auth_title:"LOVA Hub",auth_sub:"Enter your secure PIN to access",auth_err:"Incorrect PIN. Please try again.",auth_btn:"Secure Login",nav_logout:"Logout",menu_title:"Staff Operations",menu_form:"External Purchase Form",menu_status:"My Order Status",menu_inv:"Counting Inventory",form_back:"\u2190 Back to Menu",form_title:"External Purchase Form",form_sub:"Ensure all details are correct before submitting.",req_name:"Requester Name",branch:"Branch",section:"Section",urgent:"URGENT",add_item:"+ Add Another Item",grand_total:"Grand Total",review_submit:"Review & Submit",item_details:"Item Details",remove:"\u2715 Remove",item_name:"Item Name",preview:"Photo",tap_upload:"Tap to Upload",purpose:"Purpose / Use",qty:"Qty",unit:"Unit",link:"Reference Link",price:"Unit Price",tax:"Tax Invoice?",total:"Total",modal_title:"Review Order",modal_sub:"Please confirm your request details.",modal_cancel:"Cancel",modal_confirm:"Yes, Submit Order",status_title:"My Order Status",admin_title:"Approval Center",search_ph:"Search Order ID or Item\u2026",filter_branch:"All Branches",filter_section:"All Sections",sort_new:"Newest First",sort_old:"Oldest First",send_alert:"\uD83D\uDD14 LINE Alert",reject:"Reject",approve:"Approve",reject_all:"Reject All",approve_all:"Approve All",sending:"Sending\u2026",sent:"\u2705 Sent",failed:"\u26A0\uFE0F Failed",processing:"Processing\u2026",badge_pending:"PENDING",badge_approved:"APPROVED",badge_rejected:"REJECTED",selected:"selected",orders:"Orders",urgent_lbl:"Urgent",no_orders:"No pending orders.",no_img:"No Image",rej_title:"Reason for Rejection",rej_sub:"Please provide a reason for each item being rejected.",rej_confirm:"Confirm Rejection",rej_reason_ph:"Enter reason for rejection...",rej_label:"Reject Reason:"},
-  th:{auth_title:"LOVA Hub",auth_sub:"\u0E01\u0E23\u0E38\u0E13\u0E32\u0E43\u0E2A\u0E48\u0E23\u0E2B\u0E31\u0E2A PIN \u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E40\u0E02\u0E49\u0E32\u0E2A\u0E39\u0E48\u0E23\u0E30\u0E1A\u0E1A",auth_err:"\u0E23\u0E2B\u0E31\u0E2A PIN \u0E44\u0E21\u0E48\u0E16\u0E39\u0E01\u0E15\u0E49\u0E2D\u0E07 \u0E01\u0E23\u0E38\u0E13\u0E32\u0E25\u0E2D\u0E07\u0E43\u0E2B\u0E21\u0E48",auth_btn:"\u0E40\u0E02\u0E49\u0E32\u0E2A\u0E39\u0E48\u0E23\u0E30\u0E1A\u0E1A",nav_logout:"\u0E2D\u0E2D\u0E01\u0E08\u0E32\u0E01\u0E23\u0E30\u0E1A\u0E1A",menu_title:"\u0E40\u0E21\u0E19\u0E39\u0E01\u0E32\u0E23\u0E17\u0E33\u0E07\u0E32\u0E19",menu_form:"\u0E41\u0E1A\u0E1A\u0E1F\u0E2D\u0E23\u0E4C\u0E21\u0E02\u0E2D\u0E2D\u0E19\u0E38\u0E21\u0E31\u0E15\u0E34\u0E2A\u0E31\u0E48\u0E07\u0E0B\u0E37\u0E49\u0E2D",menu_status:"\u0E15\u0E23\u0E27\u0E08\u0E2A\u0E2D\u0E1A\u0E2A\u0E16\u0E32\u0E19\u0E30\u0E04\u0E33\u0E02\u0E2D",menu_inv:"\u0E40\u0E0A\u0E47\u0E04\u0E2A\u0E15\u0E47\u0E2D\u0E01",form_back:"\u2190 \u0E01\u0E25\u0E31\u0E1A\u0E2A\u0E39\u0E48\u0E2B\u0E19\u0E49\u0E32\u0E40\u0E21\u0E19\u0E39",form_title:"\u0E41\u0E1A\u0E1A\u0E1F\u0E2D\u0E23\u0E4C\u0E21\u0E02\u0E2D\u0E2D\u0E19\u0E38\u0E21\u0E31\u0E15\u0E34\u0E2A\u0E31\u0E48\u0E07\u0E0B\u0E37\u0E49\u0E2D",form_sub:"\u0E01\u0E23\u0E38\u0E13\u0E32\u0E15\u0E23\u0E27\u0E08\u0E2A\u0E2D\u0E1A\u0E04\u0E27\u0E32\u0E21\u0E16\u0E39\u0E01\u0E15\u0E49\u0E2D\u0E07\u0E01\u0E48\u0E2D\u0E19\u0E01\u0E14\u0E2A\u0E48\u0E07",req_name:"\u0E1C\u0E39\u0E49\u0E02\u0E2D\u0E40\u0E1A\u0E34\u0E01",branch:"\u0E2A\u0E32\u0E02\u0E32",section:"\u0E41\u0E1C\u0E19\u0E01",urgent:"\u0E14\u0E48\u0E27\u0E19\u0E1E\u0E34\u0E40\u0E28\u0E29",add_item:"+ \u0E40\u0E1E\u0E34\u0E48\u0E21\u0E23\u0E32\u0E22\u0E01\u0E32\u0E23\u0E2A\u0E34\u0E19\u0E04\u0E49\u0E32",grand_total:"\u0E22\u0E2D\u0E14\u0E23\u0E27\u0E21\u0E17\u0E31\u0E49\u0E07\u0E2A\u0E34\u0E49\u0E19",review_submit:"\u0E15\u0E23\u0E27\u0E08\u0E2A\u0E2D\u0E1A & \u0E14\u0E33\u0E40\u0E19\u0E34\u0E19\u0E01\u0E32\u0E23\u0E2A\u0E31\u0E48\u0E07\u0E0B\u0E37\u0E49\u0E2D",item_details:"\u0E23\u0E32\u0E22\u0E25\u0E30\u0E40\u0E2D\u0E35\u0E22\u0E14\u0E2A\u0E34\u0E19\u0E04\u0E49\u0E32",remove:"\u2715 \u0E25\u0E1A",item_name:"\u0E0A\u0E37\u0E48\u0E2D\u0E2A\u0E34\u0E19\u0E04\u0E49\u0E32",preview:"\u0E23\u0E39\u0E1B\u0E2A\u0E34\u0E19\u0E04\u0E49\u0E32",tap_upload:"\u0E41\u0E15\u0E30\u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E2D\u0E31\u0E1B\u0E42\u0E2B\u0E25\u0E14",purpose:"\u0E27\u0E31\u0E15\u0E16\u0E38\u0E1B\u0E23\u0E30\u0E2A\u0E07\u0E04\u0E4C\u0E01\u0E32\u0E23\u0E43\u0E0A\u0E49\u0E07\u0E32\u0E19",qty:"\u0E08\u0E33\u0E19\u0E27\u0E19",unit:"\u0E2B\u0E19\u0E48\u0E27\u0E22",link:"\u0E25\u0E34\u0E07\u0E01\u0E4C\u0E2D\u0E49\u0E32\u0E07\u0E2D\u0E34\u0E07",price:"\u0E23\u0E32\u0E04\u0E32\u0E15\u0E48\u0E2D\u0E2B\u0E19\u0E48\u0E27\u0E22",tax:"\u0E23\u0E31\u0E1A\u0E43\u0E1A\u0E01\u0E33\u0E01\u0E31\u0E1A\u0E20\u0E32\u0E29\u0E35\u0E44\u0E2B\u0E21\u0E48?",total:"\u0E23\u0E32\u0E04\u0E32\u0E23\u0E27\u0E21",modal_title:"\u0E15\u0E23\u0E27\u0E08\u0E2A\u0E2D\u0E1A\u0E23\u0E32\u0E22\u0E01\u0E32\u0E23\u0E2A\u0E31\u0E48\u0E07\u0E0B\u0E37\u0E49\u0E2D",modal_sub:"\u0E01\u0E23\u0E38\u0E13\u0E32\u0E22\u0E37\u0E19\u0E22\u0E31\u0E19\u0E04\u0E27\u0E32\u0E21\u0E16\u0E39\u0E01\u0E15\u0E49\u0E2D\u0E07\u0E02\u0E2D\u0E07\u0E23\u0E32\u0E22\u0E01\u0E32\u0E23",modal_cancel:"\u0E22\u0E01\u0E40\u0E25\u0E34\u0E01",modal_confirm:"\u0E22\u0E37\u0E19\u0E22\u0E31\u0E19\u0E01\u0E32\u0E23\u0E2A\u0E48\u0E07\u0E2D\u0E2D\u0E40\u0E14\u0E2D\u0E23\u0E4C",status_title:"\u0E2A\u0E16\u0E32\u0E19\u0E30\u0E04\u0E33\u0E02\u0E2D\u0E01\u0E32\u0E23\u0E2A\u0E31\u0E48\u0E07\u0E0B\u0E37\u0E49\u0E2D",admin_title:"\u0E28\u0E39\u0E19\u0E22\u0E4C\u0E2D\u0E19\u0E38\u0E21\u0E31\u0E15\u0E34\u0E04\u0E33\u0E2A\u0E31\u0E48\u0E07\u0E0B\u0E37\u0E49\u0E2D",search_ph:"\u0E04\u0E49\u0E19\u0E2B\u0E32\u0E23\u0E2B\u0E31\u0E2A\u0E2D\u0E2D\u0E40\u0E14\u0E2D\u0E23\u0E4C \u0E2B\u0E23\u0E37\u0E2D \u0E0A\u0E37\u0E48\u0E2D\u0E2A\u0E34\u0E19\u0E04\u0E49\u0E32\u2026",filter_branch:"\u0E17\u0E38\u0E01\u0E2A\u0E32\u0E02\u0E32",filter_section:"\u0E17\u0E38\u0E01\u0E41\u0E1C\u0E19\u0E01",sort_new:"\u0E43\u0E2B\u0E21\u0E48\u0E2A\u0E38\u0E14\u0E01\u0E48\u0E2D\u0E19",sort_old:"\u0E40\u0E01\u0E48\u0E32\u0E2A\u0E38\u0E14\u0E01\u0E48\u0E2D\u0E19",send_alert:"\uD83D\uDD14 LINE",reject:"\u0E44\u0E21\u0E48\u0E2D\u0E19\u0E38\u0E21\u0E31\u0E15\u0E34",approve:"\u0E2D\u0E19\u0E38\u0E21\u0E31\u0E15\u0E34",reject_all:"\u0E44\u0E21\u0E48\u0E2D\u0E19\u0E38\u0E21\u0E31\u0E15\u0E34\u0E17\u0E31\u0E49\u0E07\u0E2B\u0E21\u0E14",approve_all:"\u0E2D\u0E19\u0E38\u0E21\u0E31\u0E15\u0E34\u0E17\u0E31\u0E49\u0E07\u0E2B\u0E21\u0E14",sending:"\u0E01\u0E33\u0E25\u0E31\u0E07\u0E2A\u0E48\u0E07\u2026",sent:"\u2705 \u0E2A\u0E48\u0E07\u0E41\u0E25\u0E49\u0E27",failed:"\u26A0\uFE0F \u0E25\u0E49\u0E21\u0E40\u0E2B\u0E25\u0E27",processing:"\u0E01\u0E33\u0E25\u0E31\u0E07\u0E1B\u0E23\u0E30\u0E21\u0E27\u0E25\u0E1C\u0E25\u2026",badge_pending:"\u0E23\u0E2D\u0E2D\u0E19\u0E38\u0E21\u0E31\u0E15\u0E34",badge_approved:"\u0E2D\u0E19\u0E38\u0E21\u0E31\u0E15\u0E34\u0E41\u0E25\u0E49\u0E27",badge_rejected:"\u0E44\u0E21\u0E48\u0E2D\u0E19\u0E38\u0E21\u0E31\u0E15\u0E34",selected:"\u0E23\u0E32\u0E22\u0E01\u0E32\u0E23",orders:"\u0E2D\u0E2D\u0E40\u0E14\u0E2D\u0E23\u0E4C",urgent_lbl:"\u0E14\u0E48\u0E27\u0E19",no_orders:"\u0E44\u0E21\u0E48\u0E21\u0E35\u0E2D\u0E2D\u0E40\u0E14\u0E2D\u0E23\u0E4C\u0E23\u0E2D\u0E2D\u0E19\u0E38\u0E21\u0E31\u0E15\u0E14",no_img:"\u0E44\u0E21\u0E48\u0E21\u0E35\u0E23\u0E39\u0E1B",rej_title:"\u0E40\u0E2B\u0E15\u0E38\u0E1C\u0E25\u0E01\u0E32\u0E23\u0E44\u0E21\u0E48\u0E2D\u0E19\u0E38\u0E21\u0E31\u0E15\u0E34",rej_sub:"\u0E01\u0E23\u0E38\u0E13\u0E32\u0E23\u0E30\u0E1A\u0E38\u0E40\u0E2B\u0E15\u0E38\u0E1C\u0E25\u0E2A\u0E33\u0E2B\u0E23\u0E31\u0E1A\u0E41\u0E15\u0E48\u0E25\u0E30\u0E23\u0E32\u0E22\u0E01\u0E32\u0E23",rej_confirm:"\u0E22\u0E37\u0E19\u0E22\u0E31\u0E19\u0E01\u0E32\u0E23\u0E44\u0E21\u0E48\u0E2D\u0E19\u0E38\u0E21\u0E31\u0E15\u0E34",rej_reason_ph:"\u0E23\u0E30\u0E1A\u0E38\u0E40\u0E2B\u0E15\u0E38\u0E1C\u0E25...",rej_label:"\u0E40\u0E2B\u0E15\u0E38\u0E1C\u0E25:"}
+  en:{auth_title:"LOVA Hub",auth_sub:"Enter your secure PIN to access",auth_err:"Incorrect PIN. Please try again.",auth_btn:"Secure Login",nav_logout:"Logout",menu_title:"Staff Operations",menu_form:"External Purchase Form",menu_status:"My Order Status",menu_inv:"Counting Inventory",form_back:"\u2190 Back to Menu",form_title:"External Purchase Form",form_sub:"Ensure all details are correct before submitting.",req_name:"Requester Name",branch:"Branch",section:"Section",urgent:"URGENT",add_item:"+ Add Another Item",grand_total:"Grand Total",review_submit:"Review & Submit",item_details:"Item Details",remove:"\u2715 Remove",item_name:"Item Name",preview:"Photo",tap_upload:"Tap to Upload",purpose:"Purpose / Use",qty:"Qty",unit:"Unit",link:"Reference Link",price:"Unit Price",tax:"Tax Invoice?",total:"Total",modal_title:"Review Order",modal_sub:"Please confirm your request details.",modal_cancel:"Cancel",modal_confirm:"Yes, Submit Order",status_title:"My Order Status",admin_title:"Approval Center",search_ph:"Search Order ID or Item\u2026",filter_branch:"All Branches",filter_section:"All Sections",sort_new:"Newest First",sort_old:"Oldest First",send_alert:"\uD83D\uDD14 LINE Alert",sending:"Sending\u2026",sent:"\u2705 Sent",failed:"\u26A0\uFE0F Failed",processing:"Processing\u2026",badge_pending:"PENDING",badge_approved:"APPROVED",badge_rejected:"REJECTED",selected:"selected",orders:"Orders",urgent_lbl:"Urgent",no_orders:"No pending orders.",no_img:"No Image",rej_label:"Reject Reason:",approve_all:"Approve All",reject_all:"Reject All",submit_decisions:"Submit Decisions",undecided:"undecided"},
+  th:{auth_title:"LOVA Hub",auth_sub:"\u0E01\u0E23\u0E38\u0E13\u0E32\u0E43\u0E2A\u0E48\u0E23\u0E2B\u0E31\u0E2A PIN \u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E40\u0E02\u0E49\u0E32\u0E2A\u0E39\u0E48\u0E23\u0E30\u0E1A\u0E1A",auth_err:"\u0E23\u0E2B\u0E31\u0E2A PIN \u0E44\u0E21\u0E48\u0E16\u0E39\u0E01\u0E15\u0E49\u0E2D\u0E07 \u0E01\u0E23\u0E38\u0E13\u0E32\u0E25\u0E2D\u0E07\u0E43\u0E2B\u0E21\u0E48",auth_btn:"\u0E40\u0E02\u0E49\u0E32\u0E2A\u0E39\u0E48\u0E23\u0E30\u0E1A\u0E1A",nav_logout:"\u0E2D\u0E2D\u0E01\u0E08\u0E32\u0E01\u0E23\u0E30\u0E1A\u0E1A",menu_title:"\u0E40\u0E21\u0E19\u0E39\u0E01\u0E32\u0E23\u0E17\u0E33\u0E07\u0E32\u0E19",menu_form:"\u0E41\u0E1A\u0E1A\u0E1F\u0E2D\u0E23\u0E4C\u0E21\u0E02\u0E2D\u0E2D\u0E19\u0E38\u0E21\u0E31\u0E15\u0E34\u0E2A\u0E31\u0E48\u0E07\u0E0B\u0E37\u0E49\u0E2D",menu_status:"\u0E15\u0E23\u0E27\u0E08\u0E2A\u0E2D\u0E1A\u0E2A\u0E16\u0E32\u0E19\u0E30\u0E04\u0E33\u0E02\u0E2D",menu_inv:"\u0E40\u0E0A\u0E47\u0E04\u0E2A\u0E15\u0E47\u0E2D\u0E01",form_back:"\u2190 \u0E01\u0E25\u0E31\u0E1A\u0E2A\u0E39\u0E48\u0E2B\u0E19\u0E49\u0E32\u0E40\u0E21\u0E19\u0E39",form_title:"\u0E41\u0E1A\u0E1A\u0E1F\u0E2D\u0E23\u0E4C\u0E21\u0E02\u0E2D\u0E2D\u0E19\u0E38\u0E21\u0E31\u0E15\u0E34\u0E2A\u0E31\u0E48\u0E07\u0E0B\u0E37\u0E49\u0E2D",form_sub:"\u0E01\u0E23\u0E38\u0E13\u0E32\u0E15\u0E23\u0E27\u0E08\u0E2A\u0E2D\u0E1A\u0E04\u0E27\u0E32\u0E21\u0E16\u0E39\u0E01\u0E15\u0E49\u0E2D\u0E07\u0E01\u0E48\u0E2D\u0E19\u0E01\u0E14\u0E2A\u0E48\u0E07",req_name:"\u0E1C\u0E39\u0E49\u0E02\u0E2D\u0E40\u0E1A\u0E34\u0E01",branch:"\u0E2A\u0E32\u0E02\u0E32",section:"\u0E41\u0E1C\u0E19\u0E01",urgent:"\u0E14\u0E48\u0E27\u0E19\u0E1E\u0E34\u0E40\u0E28\u0E29",add_item:"+ \u0E40\u0E1E\u0E34\u0E48\u0E21\u0E23\u0E32\u0E22\u0E01\u0E32\u0E23\u0E2A\u0E34\u0E19\u0E04\u0E49\u0E32",grand_total:"\u0E22\u0E2D\u0E14\u0E23\u0E27\u0E21\u0E17\u0E31\u0E49\u0E07\u0E2A\u0E34\u0E49\u0E19",review_submit:"\u0E15\u0E23\u0E27\u0E08\u0E2A\u0E2D\u0E1A & \u0E14\u0E33\u0E40\u0E19\u0E34\u0E19\u0E01\u0E32\u0E23\u0E2A\u0E31\u0E48\u0E07\u0E0B\u0E37\u0E49\u0E2D",item_details:"\u0E23\u0E32\u0E22\u0E25\u0E30\u0E40\u0E2D\u0E35\u0E22\u0E14\u0E2A\u0E34\u0E19\u0E04\u0E49\u0E32",remove:"\u2715 \u0E25\u0E1A",item_name:"\u0E0A\u0E37\u0E48\u0E2D\u0E2A\u0E34\u0E19\u0E04\u0E49\u0E32",preview:"\u0E23\u0E39\u0E1B\u0E2A\u0E34\u0E19\u0E04\u0E49\u0E32",tap_upload:"\u0E41\u0E15\u0E30\u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E2D\u0E31\u0E1B\u0E42\u0E2B\u0E25\u0E14",purpose:"\u0E27\u0E31\u0E15\u0E16\u0E38\u0E1B\u0E23\u0E30\u0E2A\u0E07\u0E04\u0E4C\u0E01\u0E32\u0E23\u0E43\u0E0A\u0E49\u0E07\u0E32\u0E19",qty:"\u0E08\u0E33\u0E19\u0E27\u0E19",unit:"\u0E2B\u0E19\u0E48\u0E27\u0E22",link:"\u0E25\u0E34\u0E07\u0E01\u0E4C\u0E2D\u0E49\u0E32\u0E07\u0E2D\u0E34\u0E07",price:"\u0E23\u0E32\u0E04\u0E32\u0E15\u0E48\u0E2D\u0E2B\u0E19\u0E48\u0E27\u0E22",tax:"\u0E23\u0E31\u0E1A\u0E43\u0E1A\u0E01\u0E33\u0E01\u0E31\u0E1A\u0E20\u0E32\u0E29\u0E35\u0E44\u0E2B\u0E21\u0E48?",total:"\u0E23\u0E32\u0E04\u0E32\u0E23\u0E27\u0E21",modal_title:"\u0E15\u0E23\u0E27\u0E08\u0E2A\u0E2D\u0E1A\u0E23\u0E32\u0E22\u0E01\u0E32\u0E23\u0E2A\u0E31\u0E48\u0E07\u0E0B\u0E37\u0E49\u0E2D",modal_sub:"\u0E01\u0E23\u0E38\u0E13\u0E32\u0E22\u0E37\u0E19\u0E22\u0E31\u0E19\u0E04\u0E27\u0E32\u0E21\u0E16\u0E39\u0E01\u0E15\u0E49\u0E2D\u0E07\u0E02\u0E2D\u0E07\u0E23\u0E32\u0E22\u0E01\u0E32\u0E23",modal_cancel:"\u0E22\u0E01\u0E40\u0E25\u0E34\u0E01",modal_confirm:"\u0E22\u0E37\u0E19\u0E22\u0E31\u0E19\u0E01\u0E32\u0E23\u0E2A\u0E48\u0E07\u0E2D\u0E2D\u0E40\u0E14\u0E2D\u0E23\u0E4C",status_title:"\u0E2A\u0E16\u0E32\u0E19\u0E30\u0E04\u0E33\u0E02\u0E2D\u0E01\u0E32\u0E23\u0E2A\u0E31\u0E48\u0E07\u0E0B\u0E37\u0E49\u0E2D",admin_title:"\u0E28\u0E39\u0E19\u0E22\u0E4C\u0E2D\u0E19\u0E38\u0E21\u0E31\u0E15\u0E34\u0E04\u0E33\u0E2A\u0E31\u0E48\u0E07\u0E0B\u0E37\u0E49\u0E2D",search_ph:"\u0E04\u0E49\u0E19\u0E2B\u0E32...",filter_branch:"\u0E17\u0E38\u0E01\u0E2A\u0E32\u0E02\u0E32",filter_section:"\u0E17\u0E38\u0E01\u0E41\u0E1C\u0E19\u0E01",sort_new:"\u0E43\u0E2B\u0E21\u0E48\u0E2A\u0E38\u0E14\u0E01\u0E48\u0E2D\u0E19",sort_old:"\u0E40\u0E01\u0E48\u0E32\u0E2A\u0E38\u0E14\u0E01\u0E48\u0E2D\u0E19",send_alert:"\uD83D\uDD14 LINE",sending:"\u0E01\u0E33\u0E25\u0E31\u0E07\u0E2A\u0E48\u0E07\u2026",sent:"\u2705 \u0E2A\u0E48\u0E07\u0E41\u0E25\u0E49\u0E27",failed:"\u26A0\uFE0F \u0E25\u0E49\u0E21\u0E40\u0E2B\u0E25\u0E27",processing:"\u0E01\u0E33\u0E25\u0E31\u0E07\u0E1B\u0E23\u0E30\u0E21\u0E27\u0E25\u0E1C\u0E25\u2026",badge_pending:"\u0E23\u0E2D\u0E2D\u0E19\u0E38\u0E21\u0E31\u0E15\u0E34",badge_approved:"\u0E2D\u0E19\u0E38\u0E21\u0E31\u0E15\u0E34\u0E41\u0E25\u0E49\u0E27",badge_rejected:"\u0E44\u0E21\u0E48\u0E2D\u0E19\u0E38\u0E21\u0E31\u0E15\u0E34",selected:"\u0E23\u0E32\u0E22\u0E01\u0E32\u0E23",orders:"\u0E2D\u0E2D\u0E40\u0E14\u0E2D\u0E23\u0E4C",urgent_lbl:"\u0E14\u0E48\u0E27\u0E19",no_orders:"\u0E44\u0E21\u0E48\u0E21\u0E35\u0E2D\u0E2D\u0E40\u0E14\u0E2D\u0E23\u0E4C\u0E23\u0E2D\u0E2D\u0E19\u0E38\u0E21\u0E31\u0E15\u0E14",no_img:"\u0E44\u0E21\u0E48\u0E21\u0E35\u0E23\u0E39\u0E1B",rej_label:"\u0E40\u0E2B\u0E15\u0E38\u0E1C\u0E25:",approve_all:"\u0E2D\u0E19\u0E38\u0E21\u0E31\u0E15\u0E34\u0E17\u0E31\u0E49\u0E07\u0E2B\u0E21\u0E14",reject_all:"\u0E44\u0E21\u0E48\u0E2D\u0E19\u0E38\u0E21\u0E31\u0E15\u0E34\u0E17\u0E31\u0E49\u0E07\u0E2B\u0E21\u0E14",submit_decisions:"\u0E22\u0E37\u0E19\u0E22\u0E31\u0E19\u0E01\u0E32\u0E23\u0E15\u0E31\u0E14\u0E2A\u0E34\u0E19\u0E43\u0E08",undecided:"\u0E22\u0E31\u0E07\u0E44\u0E21\u0E48\u0E15\u0E31\u0E14\u0E2A\u0E34\u0E19\u0E43\u0E08"}
 };
 
 let lang="en";try{lang=localStorage.getItem("lova_lang")||"en"}catch(e){}
-let me={},cache=[],urgentOn=false,rejQueue=[];
+let me={},cache=[],urgentOn=false;
+// batchDecisions: { [batchId]: { [rowNumber]: {status,rejectReason,itemData} } }
+let batchDecisions={};
+let pendingConfirmBatchId=null;
 
 document.addEventListener("DOMContentLoaded",()=>{applyLang(lang);document.addEventListener("click",e=>{if(!e.target.closest(".msd"))document.querySelectorAll(".msd-menu.open").forEach(m=>m.classList.remove("open"))})});
 function setLang(l){lang=l;try{localStorage.setItem("lova_lang",l)}catch(e){}applyLang(l)}
@@ -363,12 +415,23 @@ function applyLang(l){lang=l;document.getElementById("lang-en").classList.toggle
 function refreshCardLabels(card,l){const keys=["item_name","preview","purpose","qty","unit","link","price","tax","total"];card.querySelectorAll(".f-label").forEach((lb,i)=>{if(keys[i])lb.textContent=T[l][keys[i]]});const up=card.querySelector(".upload-txt");if(up)up.textContent=T[l].tap_upload;const ti=card.querySelector(".card-title");if(ti)ti.textContent=T[l].item_details;const rm=card.querySelector(".btn-remove");if(rm)rm.textContent=T[l].remove}
 function vis(id){return document.getElementById(id)?.style.display==="block"}
 function handleEnter(e){if(e.key==="Enter")doLogin()}
-async function doLogin(){const pin=document.getElementById("passcode").value.trim();if(!pin)return;const btn=document.getElementById("loginBtn"),err=document.getElementById("authError");btn.textContent=T[lang].sending;btn.disabled=true;err.style.display="none";try{const res=await api({action:"login",pin});if(res.status==="success"&&res.user){me=res.user;document.getElementById("navUser").textContent=me.name+" ("+me.role+")";document.getElementById("routingName").textContent=me.name;if(me.role==="admin"){showView("adminDash");loadAdmin()}else{showView("staffMenu");document.getElementById("itemsContainer").innerHTML="";addCard();if(me.branch)document.getElementById("branch").value=me.branch}}else{err.textContent=T[lang].auth_err;err.style.display="block";document.getElementById("passcode").value=""}}catch(e){err.textContent="Connection error.";err.style.display="block"}finally{btn.textContent=T[lang].auth_btn;btn.disabled=false}}
-function logout(){me={};cache=[];document.getElementById("passcode").value="";document.getElementById("navUser").textContent="";showView("authSection")}
+
+async function doLogin(){
+  const pin=document.getElementById("passcode").value.trim();if(!pin)return;
+  const btn=document.getElementById("loginBtn"),err=document.getElementById("authError");
+  btn.textContent=T[lang].sending;btn.disabled=true;err.style.display="none";
+  try{const res=await api({action:"login",pin});if(res.status==="success"&&res.user){me=res.user;document.getElementById("navUser").textContent=me.name+" ("+me.role+")";document.getElementById("routingName").textContent=me.name;if(me.role==="admin"){showView("adminDash");loadAdmin()}else{showView("staffMenu");document.getElementById("itemsContainer").innerHTML="";addCard();if(me.branch)document.getElementById("branch").value=me.branch}}else{err.textContent=T[lang].auth_err;err.style.display="block";document.getElementById("passcode").value=""}}catch(e){err.textContent="Connection error.";err.style.display="block"}finally{btn.textContent=T[lang].auth_btn;btn.disabled=false}
+}
+function logout(){me={};cache=[];batchDecisions={};document.getElementById("passcode").value="";document.getElementById("navUser").textContent="";showView("authSection")}
 function showView(id){["authSection","staffMenu","oseForm","staffStatus","adminDash"].forEach(v=>document.getElementById(v).style.display="none");document.getElementById(id).style.display="block";document.getElementById("sharedNav").style.display=id==="authSection"?"none":"flex";const bar=document.getElementById("stickyBar");if(id==="oseForm"){bar.classList.add("visible");document.body.classList.add("form-open")}else{bar.classList.remove("visible");document.body.classList.remove("form-open")}window.scrollTo(0,0)}
 function guardBranch(){if(me.branch&&me.role!=="admin"&&document.getElementById("branch").value!==me.branch)if(!confirm("Branch mismatch - are you sure?"))document.getElementById("branch").value=me.branch}
-function addCard(){const uid=Date.now();const card=document.createElement("div");card.className="item-card fade-in";card.innerHTML='<div class="card-top"><span class="card-title">'+T[lang].item_details+'</span><button type="button" class="btn-remove" onclick="this.closest(\'.item-card\').remove();recalc();">'+T[lang].remove+'</button></div><div class="item-form"><div class="f-field if-name"><label class="f-label">'+T[lang].item_name+'</label><input type="text" class="f-input itemName" required></div><div class="f-field if-photo upload-wrap"><label class="f-label">'+T[lang].preview+'</label><div class="upload-box" onclick="document.getElementById(\'fi-'+uid+'\').click()"><div class="upload-ph" id="ph-'+uid+'"><span class="upload-icon">\uD83D\uDCF7</span><span class="upload-txt">'+T[lang].tap_upload+'</span></div><img id="pv-'+uid+'" src="" alt="" style="display:none"></div><input type="file" id="fi-'+uid+'" class="fileInput" accept="image/*" style="display:none" onchange="previewImg(this,\''+uid+'\')"></div><div class="f-field if-purp"><label class="f-label">'+T[lang].purpose+'</label><input type="text" class="f-input purpose" required></div><div class="f-field if-quunit"><div class="half-row"><div class="f-field"><label class="f-label">'+T[lang].qty+'</label><input type="number" class="f-input qty" min="0" step="any" oninput="calcLine(this)" required></div><div class="f-field"><label class="f-label">'+T[lang].unit+'</label><select class="f-input f-select unit"><option>Piece</option><option>Pack</option><option>Box</option><option>Kg</option></select></div></div></div><div class="f-field if-link"><label class="f-label">'+T[lang].link+'</label><input type="url" class="f-input link"></div><div class="f-field if-pritax"><div class="half-row"><div class="f-field"><label class="f-label">'+T[lang].price+'</label><input type="number" class="f-input price" min="0" step="any" oninput="calcLine(this)" required></div><div class="f-field"><label class="f-label">'+T[lang].tax+'</label><select class="f-input f-select tax"><option>No</option><option>Yes</option></select></div></div></div><div class="f-field if-total"><label class="f-label">'+T[lang].total+'</label><input type="text" class="f-input f-readonly lineTotal" readonly value="\u0E3F0.00"></div></div>';document.getElementById("itemsContainer").appendChild(card)}
-function previewImg(input,uid){const file=input.files[0];if(!file)return;if(file.size>5242880){alert("\u26A0\uFE0F Max 5 MB per photo.");input.value="";return}document.getElementById("pv-"+uid).src=URL.createObjectURL(file);document.getElementById("pv-"+uid).style.display="block";document.getElementById("ph-"+uid).style.display="none"}
+
+function addCard(){
+  const uid=Date.now();const card=document.createElement("div");card.className="item-card fade-in";
+  card.innerHTML='<div class="card-top"><span class="card-title">'+T[lang].item_details+'</span><button type="button" class="btn-remove" onclick="this.closest(\'.item-card\').remove();recalc();">'+T[lang].remove+'</button></div><div class="item-form"><div class="f-field if-name"><label class="f-label">'+T[lang].item_name+'</label><input type="text" class="f-input itemName" required></div><div class="f-field if-photo upload-wrap"><label class="f-label">'+T[lang].preview+'</label><div class="upload-box" onclick="document.getElementById(\'fi-'+uid+'\').click()"><div class="upload-ph" id="ph-'+uid+'"><span class="upload-icon">\uD83D\uDCF7</span><span class="upload-txt">'+T[lang].tap_upload+'</span></div><img id="pv-'+uid+'" src="" alt="" style="display:none"></div><input type="file" id="fi-'+uid+'" class="fileInput" accept="image/*" style="display:none" onchange="previewImg(this,\''+uid+'\')"></div><div class="f-field if-purp"><label class="f-label">'+T[lang].purpose+'</label><input type="text" class="f-input purpose" required></div><div class="f-field if-quunit"><div class="half-row"><div class="f-field"><label class="f-label">'+T[lang].qty+'</label><input type="number" class="f-input qty" min="0" step="any" oninput="calcLine(this)" required></div><div class="f-field"><label class="f-label">'+T[lang].unit+'</label><select class="f-input f-select unit"><option>Piece</option><option>Pack</option><option>Box</option><option>Kg</option></select></div></div></div><div class="f-field if-link"><label class="f-label">'+T[lang].link+'</label><input type="url" class="f-input link"></div><div class="f-field if-pritax"><div class="half-row"><div class="f-field"><label class="f-label">'+T[lang].price+'</label><input type="number" class="f-input price" min="0" step="any" oninput="calcLine(this)" required></div><div class="f-field"><label class="f-label">'+T[lang].tax+'</label><select class="f-input f-select tax"><option>No</option><option>Yes</option></select></div></div></div><div class="f-field if-total"><label class="f-label">'+T[lang].total+'</label><input type="text" class="f-input f-readonly lineTotal" readonly value="\u0E3F0.00"></div></div>';
+  document.getElementById("itemsContainer").appendChild(card);
+}
+function previewImg(input,uid){const file=input.files[0];if(!file)return;if(file.size>5242880){alert("\u26A0\uFE0F Max 5 MB.");input.value="";return}document.getElementById("pv-"+uid).src=URL.createObjectURL(file);document.getElementById("pv-"+uid).style.display="block";document.getElementById("ph-"+uid).style.display="none"}
 function calcLine(el){const card=el.closest(".item-card");const q=parseFloat(card.querySelector(".qty").value)||0;const p=parseFloat(card.querySelector(".price").value)||0;card.querySelector(".lineTotal").value=q*p>0?fmt(q*p):"\u0E3F0.00";recalc()}
 function recalc(){let sum=0;document.querySelectorAll(".item-card").forEach(c=>{sum+=(parseFloat(c.querySelector(".qty").value)||0)*(parseFloat(c.querySelector(".price").value)||0)});const s=fmt(sum);document.getElementById("grandTotal").textContent=s;document.getElementById("modalTotal").textContent=s}
 function openModal(){const b=document.getElementById("branch").value,s=document.getElementById("section").value;if(!b||!s){alert("Please select Branch and Section.");return}let ok=true,noPhoto=false;document.querySelectorAll(".item-card").forEach(c=>{if(!c.querySelector(".itemName").value.trim()||!c.querySelector(".purpose").value.trim()||!c.querySelector(".qty").value||!c.querySelector(".price").value)ok=false;if(!c.querySelector(".fileInput").files[0])noPhoto=true});if(!ok){alert("Please fill in all required fields.");return}if(noPhoto){alert("Please upload a photo for every item.");return}let html="";document.querySelectorAll(".item-card").forEach(c=>{html+='<div class="receipt-row"><span class="receipt-name">'+c.querySelector(".itemName").value+'</span><span class="receipt-price">'+c.querySelector(".lineTotal").value+'</span></div>'});document.getElementById("receiptList").innerHTML=html;document.getElementById("reviewModal").classList.add("open")}
@@ -377,7 +440,7 @@ async function submitOrder(){const btn=document.getElementById("confirmBtn");btn
 function resetForm(){document.getElementById("purchaseForm").reset();const cards=document.querySelectorAll(".item-card");for(let i=1;i<cards.length;i++)cards[i].remove();const fc=document.querySelector(".item-card");if(fc){const img=fc.querySelector(".upload-box img"),ph=fc.querySelector(".upload-ph");if(img)img.style.display="none";if(ph)ph.style.display="flex";fc.querySelector(".lineTotal").value="\u0E3F0.00"}recalc()}
 
 /* ADMIN */
-function loadAdmin(){document.getElementById("adminList").innerHTML='<div class="empty">'+T[lang].sending+"</div>";api({action:"get_data",role:"admin"}).then(r=>{if(r.status==="success"){cache=r.data;renderAdmin()}})}
+function loadAdmin(){document.getElementById("adminList").innerHTML='<div class="empty">'+T[lang].sending+"</div>";api({action:"get_data",role:"admin"}).then(r=>{if(r.status==="success"){cache=r.data;batchDecisions={};renderAdmin()}})}
 function updateStats(data){const orders=new Set(data.map(r=>r.orderId));const urgents=new Set(data.filter(r=>r.isUrgent).map(r=>r.orderId));document.getElementById("statTotal").textContent=orders.size+" "+T[lang].orders;document.getElementById("statUrgent").textContent=urgents.size+" "+T[lang].urgent_lbl}
 function toggleUrgent(){urgentOn=!urgentOn;document.getElementById("statUrgent").classList.toggle("on",urgentOn);renderAdmin()}
 function applyFilters(){const bc=checked("msdBranchMenu"),sc=checked("msdSectionMenu");document.getElementById("branchLbl").textContent=bc.length===0?T[lang].filter_branch:bc.length===1?bc[0]:bc.length+" "+T[lang].selected;document.getElementById("sectionLbl").textContent=sc.length===0?T[lang].filter_section:sc.length===1?sc[0]:sc.length+" "+T[lang].selected;renderAdmin()}
@@ -399,8 +462,7 @@ function renderAdmin(){
   Object.keys(grouped).sort((a,b)=>{const da=new Date(grouped[a][0].date),db=new Date(grouped[b][0].date);return srt==="oldest"?da-db:db-da}).forEach(id=>{
     const rows=grouped[id],p=rows[0];
     const isUrgent=rows.some(r=>r.isUrgent);
-    const rNums=rows.map(r=>r.rowNumber);
-    const reqDate=fmtDate(p.date);
+    if(!batchDecisions[id])batchDecisions[id]={};
     let items="";
     rows.forEach(req=>{
       const photo=req.photo||req.imgUrl;
@@ -408,178 +470,168 @@ function renderAdmin(){
       let pr=parseFloat(String(req.price||0).replace(/[^0-9.-]/g,""))||0;
       let sum=parseFloat(String(req.summary||req.totalPrice||0).replace(/[^0-9.-]/g,""))||0;
       if(pr===0&&sum>0&&q2>0)pr=sum/q2;if(sum===0&&pr>0&&q2>0)sum=pr*q2;
-      const purp=cleanPurpose(req.purpose||req.purposeEN||req.desc||"");
-      const purposeHTML=purp?'<div class="i-purp"><span class="i-purp-arrow">\u21B3</span><span class="i-purp-text">'+purp+'</span></div>':"";
-      items+='<div class="i-row" id="row-'+req.rowNumber+'">'
+      const purp=cleanPurpose(req.purpose||req.purposeEN||"");
+      const purpHTML=purp?'<div class="i-purp"><span class="i-purp-arrow">\u21B3</span><span class="i-purp-text">'+purp+'</span></div>':"";
+      const dec=batchDecisions[id][req.rowNumber];
+      const rowClass=dec?(dec.status==="Approved"?"decided-approve":"decided-reject"):"";
+      const reasonShow=dec&&dec.status==="Rejected"?"show":"";
+      const reasonVal=dec&&dec.rejectReason?dec.rejectReason:"";
+      items+=
+        '<div class="i-row '+rowClass+'" id="row-'+req.rowNumber+'">'
         +(photo?'<a href="'+photo+'" target="_blank" rel="noopener"><img src="'+photo+'" class="thumb" alt=""></a>':'<div class="thumb-empty">'+T[lang].no_img+"</div>")
-        +'<div class="i-info"><div class="i-top"><span class="i-name">'+(req.itemTitle||req.itemNameEN||"Untitled")+'</span><span class="i-price">'+fmt(sum)+'</span></div>'
+        +'<div class="i-info">'
+        +'<div class="i-top"><span class="i-name">'+(req.itemTitle||req.itemNameEN||"Untitled")+'</span><span class="i-price">'+fmt(sum)+'</span></div>'
         +'<div class="i-qty">'+(q2>0?q2:"\u2014")+" "+(req.unit||"")+" @ "+fmt(pr)+"</div>"
-        +purposeHTML
-        +'<div class="i-acts" id="ia-'+req.rowNumber+'">'
-        +'<button class="btn-rej" onclick="openRejModal(\''+id+'\','+req.rowNumber+',\''+escJs(req.itemTitle||req.itemNameEN||"Item")+'\')">'+T[lang].reject+'</button>'
-        +'<button class="btn-app" onclick="itemApprove(\''+id+'\','+req.rowNumber+','+JSON.stringify(rNums)+')">'+T[lang].approve+'</button>'
-        +'</div></div></div>';
+        +purpHTML
+        +'<div class="i-acts">'
+        +'<button class="btn-dec btn-dec-app'+(dec&&dec.status==="Approved"?" active":"")+'" onclick="setDecision(\''+id+'\','+req.rowNumber+',\'Approved\',this)">\u2713 Approve</button>'
+        +'<button class="btn-dec btn-dec-rej'+(dec&&dec.status==="Rejected"?" active":"")+'" onclick="setDecision(\''+id+'\','+req.rowNumber+',\'Rejected\',this)">\u2715 Reject</button>'
+        +'</div>'
+        +'<div class="i-reason-wrap '+reasonShow+'" id="reason-wrap-'+req.rowNumber+'">'
+        +'<textarea class="i-reason-input" id="reason-'+req.rowNumber+'" placeholder="Reason for rejection..." oninput="updateReason(\''+id+'\','+req.rowNumber+',this.value)">'+reasonVal+'</textarea>'
+        +'</div>'
+        +'</div></div>';
     });
     const lineBtn=isUrgent?'<button class="btn-line" onclick="sendLine(\''+id+'\',this)">'+T[lang].send_alert+"</button>":"";
-    el.innerHTML+='<div class="batch fade-in" id="batch-'+id+'">'
+    const submitDisabled=isUndecided(id,rows)?"disabled":"";
+    el.innerHTML+=
+      '<div class="batch fade-in" id="batch-'+id+'">'
       +'<div class="batch-head"><div>'
       +'<div class="batch-id">'+id+(isUrgent?' <span class="urg-badge">'+T[lang].urgent_lbl+"</span>":"")+'</div>'
-      +'<div class="batch-meta">By <strong>'+(p.requester||"Unknown")+"</strong> \u00B7 "+(p.branch||"")+(p.section?" ("+p.section+")":"")+" &nbsp;|&nbsp; "+reqDate+"</div>"
+      +'<div class="batch-meta">By <strong>'+(p.requester||"Unknown")+"</strong> \u00B7 "+(p.branch||"")+(p.section?" ("+p.section+")":"")+" &nbsp;|&nbsp; "+fmtDate(p.date)+"</div>"
       +'</div>'+lineBtn+'</div>'
       +items
-      +'<div class="batch-foot" id="bf-'+id+'">'
-      +'<button class="btn-rej-all" onclick="openRejModalAll(\''+id+'\',['+rNums+'])">'+T[lang].reject_all+'</button>'
-      +'<button class="btn-app-all" onclick="batchApproveAll(\''+id+'\',['+rNums+'])">'+T[lang].approve_all+'</button>'
+      +'<div class="batch-foot">'
+      +'<div class="batch-quick">'
+      +'<button class="btn-quick btn-quick-app" onclick="quickDecideAll(\''+id+'\',\'Approved\')">\u2713 '+T[lang].approve_all+'</button>'
+      +'<button class="btn-quick btn-quick-rej" onclick="quickDecideAll(\''+id+'\',\'Rejected\')">\u2715 '+T[lang].reject_all+'</button>'
+      +'</div>'
+      +'<button class="btn-submit-decisions" id="submit-btn-'+id+'" '+submitDisabled+' onclick="openConfModal(\''+id+'\')">'
+      +T[lang].submit_decisions
+      +'</button>'
       +'</div></div>';
   });
 }
 
-/* Build batchData — includes ALL items with their status (approved/rejected) */
-function buildBatchData(batchId, allBatchRows) {
-  // Pull from original full cache snapshot stored per batch
-  const allItems = allBatchRows.map(rn => {
-    const found = batchSnapshot[batchId] && batchSnapshot[batchId].find(x => x.rowNumber === rn);
-    return found || cache.find(x => x.rowNumber === rn);
-  }).filter(Boolean);
-  if (!allItems.length) return null;
-  const p = allItems[0];
-  return {
-    orderId:     batchId,
-    requester:   p.requester || "",
-    branch:      p.branch    || "",
-    section:     p.section   || "",
-    adminName:   me.name,
-    requestDate: fmtDate(p.date),
-    items: allItems.map(r => ({
-      itemTitle:    r.itemTitle || r.itemNameEN || "Item",
-      name:         r.itemTitle || r.itemNameEN || "Item",
-      purpose:      cleanPurpose(r.purpose || ""),
-      qty:          r.qty || r.quantity || 0,
-      unit:         r.unit || "",
-      price:        r.qty > 0 ? (r.totalPrice / r.qty) : 0,
-      totalPrice:   r.totalPrice || 0,
-      isRejected:   r._approvalStatus === "Rejected",
-      rejectReason: r._rejectReason   || ""
-    }))
-  };
+/* Decision logic */
+function setDecision(batchId,rowNumber,status,btn){
+  if(!batchDecisions[batchId])batchDecisions[batchId]={};
+  const cacheItem=cache.find(x=>x.rowNumber===rowNumber);
+  batchDecisions[batchId][rowNumber]={status:status,rejectReason:batchDecisions[batchId][rowNumber]?.rejectReason||"",itemData:cacheItem};
+  // Update row class
+  const row=document.getElementById("row-"+rowNumber);
+  if(row){row.classList.remove("decided-approve","decided-reject");row.classList.add(status==="Approved"?"decided-approve":"decided-reject")}
+  // Toggle active state on buttons
+  const acts=row?.querySelector(".i-acts");
+  if(acts){acts.querySelectorAll(".btn-dec-app").forEach(b=>b.classList.remove("active"));acts.querySelectorAll(".btn-dec-rej").forEach(b=>b.classList.remove("active"));btn.classList.add("active")}
+  // Show/hide reason textarea
+  const wrap=document.getElementById("reason-wrap-"+rowNumber);
+  if(wrap){if(status==="Rejected"){wrap.classList.add("show");const ta=document.getElementById("reason-"+rowNumber);if(ta)ta.focus()}else{wrap.classList.remove("show")}}
+  // Update submit button
+  updateSubmitBtn(batchId);
 }
 
-// Store a snapshot of each batch's items at first interaction
-const batchSnapshot = {};
-function ensureSnapshot(batchId, allBatchRows) {
-  if (!batchSnapshot[batchId]) {
-    batchSnapshot[batchId] = allBatchRows.map(rn => {
-      const item = cache.find(x => x.rowNumber === rn);
-      return item ? Object.assign({}, item) : null;
-    }).filter(Boolean);
+function updateReason(batchId,rowNumber,val){
+  if(batchDecisions[batchId]&&batchDecisions[batchId][rowNumber]){
+    batchDecisions[batchId][rowNumber].rejectReason=val;
+    updateSubmitBtn(batchId);
   }
 }
-function markStatus(batchId, rowNumber, status, reason) {
-  if (!batchSnapshot[batchId]) return;
-  const item = batchSnapshot[batchId].find(x => x.rowNumber === rowNumber);
-  if (item) { item._approvalStatus = status; item._rejectReason = reason || ""; }
-}
 
-/* Check if all items in a batch have been actioned (approved or rejected) */
-function isBatchComplete(batchId, allBatchRows) {
-  if (!batchSnapshot[batchId]) return false;
-  return allBatchRows.every(rn => {
-    const item = batchSnapshot[batchId].find(x => x.rowNumber === rn);
-    return item && (item._approvalStatus === "Approved" || item._approvalStatus === "Rejected");
+function quickDecideAll(batchId,status){
+  const rows=cache.filter(r=>r.orderId===batchId);
+  if(!batchDecisions[batchId])batchDecisions[batchId]={};
+  rows.forEach(req=>{
+    if(!batchDecisions[batchId][req.rowNumber]||batchDecisions[batchId][req.rowNumber].status!==status){
+      const row=document.getElementById("row-"+req.rowNumber);
+      if(row){row.classList.remove("decided-approve","decided-reject");row.classList.add(status==="Approved"?"decided-approve":"decided-reject")}
+      const acts=row?.querySelector(".i-acts");
+      if(acts){acts.querySelectorAll(".btn-dec").forEach(b=>b.classList.remove("active"));acts.querySelector(status==="Approved"?".btn-dec-app":".btn-dec-rej")?.classList.add("active")}
+      const wrap=document.getElementById("reason-wrap-"+req.rowNumber);
+      if(wrap){status==="Rejected"?wrap.classList.add("show"):wrap.classList.remove("show")}
+      batchDecisions[batchId][req.rowNumber]={status:status,rejectReason:batchDecisions[batchId][req.rowNumber]?.rejectReason||"",itemData:req};
+    }
   });
-}
-function hasAnyApproved(batchId) {
-  if (!batchSnapshot[batchId]) return false;
-  return batchSnapshot[batchId].some(x => x._approvalStatus === "Approved");
+  updateSubmitBtn(batchId);
 }
 
-/* Approve single item */
-async function itemApprove(batchId, row, allBatchRows) {
-  ensureSnapshot(batchId, allBatchRows);
-  markStatus(batchId, row, "Approved");
-  document.getElementById("ia-"+row).innerHTML='<span style="font-size:11px;color:var(--tx-muted);font-weight:600">\u2026</span>';
-  const isLast = isBatchComplete(batchId, allBatchRows);
-  const batchData = (isLast && hasAnyApproved(batchId)) ? buildBatchData(batchId, allBatchRows) : null;
-  await api({ action:"update_status", rowNumber:row, newStatus:"Approved", adminName:me.name, batchData:batchData });
-  document.getElementById("row-"+row).style.display="none";
-  cache = cache.filter(x => x.rowNumber !== row);
-  const vis = document.querySelectorAll("#batch-"+batchId+" .i-row:not([style*='none'])");
-  if (!vis.length) document.getElementById("batch-"+batchId).style.display="none";
-  renderAdmin();
+function isUndecided(batchId,rows){
+  const dec=batchDecisions[batchId]||{};
+  for(let i=0;i<rows.length;i++){
+    const d=dec[rows[i].rowNumber];
+    if(!d)return true; // no decision
+    if(d.status==="Rejected"&&!d.rejectReason.trim())return true; // rejected but no reason
+  }
+  return false;
 }
 
-/* Approve all items in batch */
-async function batchApproveAll(batchId, rows) {
-  ensureSnapshot(batchId, rows);
-  rows.forEach(rn => markStatus(batchId, rn, "Approved"));
-  document.getElementById("bf-"+batchId).innerHTML='<div style="width:100%;text-align:center;font-size:13px;font-weight:600;color:var(--tx-muted);padding:8px 0">'+T[lang].processing+"</div>";
-  const batchData = buildBatchData(batchId, rows);
-  await Promise.all(rows.slice(0,-1).map(r => api({ action:"update_status", rowNumber:r, newStatus:"Approved", adminName:me.name })));
-  if (rows.length > 0) await api({ action:"update_status", rowNumber:rows[rows.length-1], newStatus:"Approved", adminName:me.name, batchData:batchData });
-  document.getElementById("batch-"+batchId).style.display="none";
-  cache = cache.filter(x => !rows.includes(x.rowNumber));
-  renderAdmin();
+function updateSubmitBtn(batchId){
+  const rows=cache.filter(r=>r.orderId===batchId);
+  const btn=document.getElementById("submit-btn-"+batchId);
+  if(btn)btn.disabled=isUndecided(batchId,rows);
 }
 
-/* REJECT MODAL */
-function openRejModal(batchId,rowNumber,itemName){rejQueue=[{batchId,rowNumber,itemName}];buildRejModalUI();document.getElementById("rejModal").classList.add("open")}
-function openRejModalAll(batchId,rowNumbers){rejQueue=rowNumbers.map(rn=>{const item=cache.find(x=>x.rowNumber===rn);return{batchId,rowNumber:rn,itemName:item?(item.itemTitle||item.itemNameEN||"Item"):"Item"}});buildRejModalUI();document.getElementById("rejModal").classList.add("open")}
-function buildRejModalUI(){const list=document.getElementById("rejItemsList");list.innerHTML="";rejQueue.forEach((entry,i)=>{const div=document.createElement("div");div.className="rej-item-block";div.innerHTML='<div class="rej-item-name">'+entry.itemName+'</div><textarea class="rej-reason-input" id="rejReason-'+i+'" placeholder="'+T[lang].rej_reason_ph+'"></textarea>';list.appendChild(div)})}
-function closeRejModal(){document.getElementById("rejModal").classList.remove("open");rejQueue=[]}
-async function confirmReject(){
-  let allFilled=true;
-  rejQueue.forEach((_,i)=>{if(!(document.getElementById("rejReason-"+i).value||"").trim())allFilled=false});
-  if(!allFilled){alert(lang==="th"?"\u0E01\u0E23\u0E38\u0E13\u0E32\u0E01\u0E23\u0E2D\u0E01\u0E40\u0E2B\u0E15\u0E38\u0E1C\u0E25\u0E2A\u0E33\u0E2B\u0E23\u0E31\u0E1A\u0E17\u0E38\u0E01\u0E23\u0E32\u0E22\u0E01\u0E32\u0E23":"Please fill in a reason for every item.");return}
-  const btn=document.getElementById("rejConfirmBtn");btn.disabled=true;btn.textContent=T[lang].sending;
+/* Confirm modal */
+function openConfModal(batchId){
+  pendingConfirmBatchId=batchId;
+  const rows=cache.filter(r=>r.orderId===batchId);
+  const dec=batchDecisions[batchId]||{};
+  const approved=rows.filter(r=>dec[r.rowNumber]&&dec[r.rowNumber].status==="Approved");
+  const rejected=rows.filter(r=>dec[r.rowNumber]&&dec[r.rowNumber].status==="Rejected");
+  // Summary pills
+  document.getElementById("confSummary").innerHTML=
+    '<div class="conf-pill conf-pill-green"><div class="conf-pill-num">'+approved.length+'</div><div class="conf-pill-lbl">Approved</div></div>'+
+    '<div class="conf-pill conf-pill-red"><div class="conf-pill-num">'+rejected.length+'</div><div class="conf-pill-lbl">Rejected</div></div>';
+  // Item list
+  let html="";
+  rows.forEach(r=>{
+    const d=dec[r.rowNumber];
+    const isApp=d&&d.status==="Approved";
+    html+='<div class="conf-item-row"><span class="conf-item-name">'+(r.itemTitle||r.itemNameEN||"Item")+'</span><span class="conf-item-badge '+(isApp?"badge-app":"badge-rej")+'">'+(isApp?"Approved":"Rejected")+'</span></div>';
+  });
+  document.getElementById("confItemList").innerHTML=html;
+  document.getElementById("confModal").classList.add("open");
+}
+function closeConfModal(){document.getElementById("confModal").classList.remove("open");pendingConfirmBatchId=null}
+
+async function submitDecisions(){
+  if(!pendingConfirmBatchId)return;
+  const batchId=pendingConfirmBatchId;
+  const btn=document.getElementById("confSubmitBtn");
+  btn.disabled=true;btn.textContent=T[lang].sending;
+  const rows=cache.filter(r=>r.orderId===batchId);
+  const p=rows[0];
+  const dec=batchDecisions[batchId]||{};
+  const decisions=rows.map(r=>({
+    rowNumber:r.rowNumber,
+    status:dec[r.rowNumber].status,
+    rejectReason:dec[r.rowNumber].rejectReason||"",
+    itemTitle:r.itemTitle||r.itemNameEN||"Item",
+    qty:r.qty||r.quantity||0,
+    unit:r.unit||"",
+    price:r.price||0,
+    totalPrice:r.totalPrice||0,
+    purpose:cleanPurpose(r.purpose||"")
+  }));
   try{
-    await Promise.all(rejQueue.map((entry,i)=>{
-      const reason=(document.getElementById("rejReason-"+i).value||"").trim();
-      // Mark in snapshot so combined email knows this was rejected
-      ensureSnapshot(entry.batchId, Object.keys(batchSnapshot[entry.batchId]||{}).length
-        ? batchSnapshot[entry.batchId].map(x=>x.rowNumber)
-        : [entry.rowNumber]);
-      markStatus(entry.batchId, entry.rowNumber, "Rejected", reason);
-      // Build rejectedItem payload for rejection email
-      const cachedItem = (batchSnapshot[entry.batchId]||[]).find(x=>x.rowNumber===entry.rowNumber)
-                      || cache.find(x=>x.rowNumber===entry.rowNumber) || {};
-      entry._finalReason = reason;
-      const cachedItem2=(batchSnapshot[entry.batchId]||[]).find(x=>x.rowNumber===entry.rowNumber)||{};
-      const rejItemData={
-        orderId:entry.batchId,
-        requester:cachedItem2.requester||((batchSnapshot[entry.batchId]||[])[0]||{}).requester||"",
-        branch:cachedItem2.branch||((batchSnapshot[entry.batchId]||[])[0]||{}).branch||"",
-        section:cachedItem2.section||((batchSnapshot[entry.batchId]||[])[0]||{}).section||"",
-        adminName:me.name,
-        requestDate:fmtDate(cachedItem2.date||(((batchSnapshot[entry.batchId]||[])[0])||{}).date||""),
-        rejectedItems:[{
-          itemTitle:entry.itemName,
-          name:entry.itemName,
-          purpose:cleanPurpose(cachedItem2.purpose||""),
-          qty:cachedItem2.qty||0,
-          unit:cachedItem2.unit||"",
-          price:cachedItem2.qty>0?(cachedItem2.totalPrice/cachedItem2.qty):0,
-          totalPrice:cachedItem2.totalPrice||0,
-          rejectReason:reason
-        }]
-      };
-      return api({action:"update_status",rowNumber:entry.rowNumber,newStatus:"Rejected",rejectReason:reason,rejectedItemData:rejItemData}).then(()=>{
-        const row=document.getElementById("row-"+entry.rowNumber);
-        if(row)row.classList.add("rejected-row");
-        const acts=document.getElementById("ia-"+entry.rowNumber);
-        if(acts)acts.innerHTML='<span style="font-size:11px;color:var(--red);font-weight:700">\u2715 Rejected</span>';
-        setTimeout(()=>{if(row)row.style.display="none";cache=cache.filter(x=>x.rowNumber!==entry.rowNumber)},1200);
-      });
-    }));
-    // Rejection emails sent per-item via rejectedItemData in update_status calls above
-    const batchIds=[...new Set(rejQueue.map(e=>e.batchId))];
-    setTimeout(()=>{
-      batchIds.forEach(bid=>{
-        const vis=document.querySelectorAll("#batch-"+bid+" .i-row:not([style*='none'])");
-        if(!vis.length)document.getElementById("batch-"+bid).style.display="none";
-      });
+    const res=await api({action:"batch_decide",payload:{
+      orderId:batchId,
+      requester:p.requester,
+      branch:p.branch,
+      section:p.section,
+      adminName:me.name,
+      requestDate:fmtDate(p.date),
+      decisions:decisions
+    }});
+    if(res.status==="success"){
+      document.getElementById("batch-"+batchId).style.display="none";
+      cache=cache.filter(x=>x.orderId!==batchId);
+      delete batchDecisions[batchId];
+      closeConfModal();
       renderAdmin();
-    },1300);
-  }finally{btn.disabled=false;btn.textContent=T[lang].rej_confirm;closeRejModal()}
+    }else{alert("Error: "+(res.error||"Unknown error"))}
+  }catch(ex){alert("Connection error.")}
+  finally{btn.disabled=false;btn.textContent="Submit Decisions"}
 }
 
 function sendLine(orderId,btn){const orig=btn.innerHTML;btn.textContent=T[lang].sending;btn.disabled=true;const rows=cache.filter(i=>i.orderId===orderId);if(!rows.length){btn.innerHTML=orig;btn.disabled=false;return}const p=rows[0];const mapped=rows.map(i=>({name:i.itemTitle,itemNameEN:i.itemTitle,itemTitle:i.itemTitle,purpose:i.purpose,purposeEN:i.purpose,qty:i.qty,quantity:i.qty,unit:i.unit,price:i.qty>0?i.totalPrice/i.qty:0,summary:i.totalPrice,totalPrice:i.totalPrice,imgUrl:i.photo,photo:i.photo}));api({action:"resend_line",payload:{orderId,requester:p.requester,branch:p.branch,section:p.section,isUrgent:true,items:mapped}}).then(res=>{if(res.status==="success"){if(res.lineStatus==="LINE Success"){btn.textContent=T[lang].sent;setTimeout(()=>{btn.innerHTML=orig;btn.disabled=false},3000)}else{alert("LINE failed:\n"+res.lineStatus);btn.textContent=T[lang].failed;setTimeout(()=>{btn.innerHTML=orig;btn.disabled=false},4000)}}else{alert("Error: "+res.error);btn.innerHTML=orig;btn.disabled=false}}).catch(()=>{alert("Connection error.");btn.innerHTML=orig;btn.disabled=false})}
@@ -588,8 +640,6 @@ function sendLine(orderId,btn){const orig=btn.innerHTML;btn.textContent=T[lang].
 function loadStatus(){document.getElementById("statusList").innerHTML='<div class="empty">'+T[lang].sending+"</div>";api({action:"get_data",role:"staff",userName:me.name}).then(r=>{if(r.status==="success")renderStatus(r.data)})}
 function renderStatus(data){const el=document.getElementById("statusList");el.innerHTML="";if(!data.length){el.innerHTML='<div class="empty">No order history yet.</div>';return}const grouped={};data.forEach(r=>{(grouped[r.orderId]=grouped[r.orderId]||[]).push(r)});Object.keys(grouped).sort((a,b)=>new Date(grouped[b][0].date)-new Date(grouped[a][0].date)).forEach(id=>{const rows=grouped[id],p=rows[0];const ds=fmtDate(p.date);let html='<div class="s-batch fade-in"><div class="s-head"><div><div class="s-oid">'+id+'</div><div class="s-meta">'+(p.branch||"")+(p.section?" ("+p.section+")":"")+'</div></div><div class="s-date">'+ds+"</div></div>";rows.forEach(req=>{const photo=req.photo||req.imgUrl;let cls="b-pending",lbl=T[lang].badge_pending;if(req.status==="Approved"){cls="b-approved";lbl=T[lang].badge_approved}if(req.status==="Rejected"){cls="b-rejected";lbl=T[lang].badge_rejected}const reason=cleanPurpose(req.rejectReason||"");const reasonHTML=req.status==="Rejected"&&reason?'<div class="s-reject-reason"><span class="s-reject-label">'+T[lang].rej_label+"</span>"+reason+"</div>":"";html+='<div class="s-row">'+(photo?'<img src="'+photo+'" class="s-thumb" alt="">':'<div class="s-thumb-empty">'+T[lang].no_img+"</div>")+'<div class="s-info"><div class="s-name">'+(req.itemTitle||req.itemNameEN||"Untitled")+'</div><div class="s-qty">'+(req.qty||"\u2014")+" "+(req.unit||"")+"</div>"+reasonHTML+"</div>"+'<span class="badge '+cls+'">'+lbl+"</span></div>"});el.innerHTML+=html+"</div>"})}
 
-/* HELPERS */
-function escJs(s){return String(s).replace(/\\/g,"\\\\").replace(/'/g,"\\'").replace(/"/g,'\\"')}
 function checked(menuId){return Array.from(document.querySelectorAll("#"+menuId+" input:checked")).map(x=>x.value)}
 function toggleMSD(wrapId){const wrap=document.getElementById(wrapId),menu=wrap.querySelector(".msd-menu");const isOpen=menu.classList.contains("open");document.querySelectorAll(".msd-menu.open").forEach(m=>m.classList.remove("open"));if(!isOpen)menu.classList.add("open")}
 async function api(payload){const r=await fetch(API_URL,{method:"POST",body:JSON.stringify(payload)});return JSON.parse(await r.text())}
