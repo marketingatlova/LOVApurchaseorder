@@ -543,7 +543,26 @@ async function confirmReject(){
       const cachedItem = (batchSnapshot[entry.batchId]||[]).find(x=>x.rowNumber===entry.rowNumber)
                       || cache.find(x=>x.rowNumber===entry.rowNumber) || {};
       entry._finalReason = reason;
-      return api({action:"update_status",rowNumber:entry.rowNumber,newStatus:"Rejected",rejectReason:reason}).then(()=>{
+      const cachedItem2=(batchSnapshot[entry.batchId]||[]).find(x=>x.rowNumber===entry.rowNumber)||{};
+      const rejItemData={
+        orderId:entry.batchId,
+        requester:cachedItem2.requester||((batchSnapshot[entry.batchId]||[])[0]||{}).requester||"",
+        branch:cachedItem2.branch||((batchSnapshot[entry.batchId]||[])[0]||{}).branch||"",
+        section:cachedItem2.section||((batchSnapshot[entry.batchId]||[])[0]||{}).section||"",
+        adminName:me.name,
+        requestDate:fmtDate(cachedItem2.date||(((batchSnapshot[entry.batchId]||[])[0])||{}).date||""),
+        rejectedItems:[{
+          itemTitle:entry.itemName,
+          name:entry.itemName,
+          purpose:cleanPurpose(cachedItem2.purpose||""),
+          qty:cachedItem2.qty||0,
+          unit:cachedItem2.unit||"",
+          price:cachedItem2.qty>0?(cachedItem2.totalPrice/cachedItem2.qty):0,
+          totalPrice:cachedItem2.totalPrice||0,
+          rejectReason:reason
+        }]
+      };
+      return api({action:"update_status",rowNumber:entry.rowNumber,newStatus:"Rejected",rejectReason:reason,rejectedItemData:rejItemData}).then(()=>{
         const row=document.getElementById("row-"+entry.rowNumber);
         if(row)row.classList.add("rejected-row");
         const acts=document.getElementById("ia-"+entry.rowNumber);
@@ -551,32 +570,8 @@ async function confirmReject(){
         setTimeout(()=>{if(row)row.style.display="none";cache=cache.filter(x=>x.rowNumber!==entry.rowNumber)},1200);
       });
     }));
-    // Send ONE rejection email per batch grouping all rejected items together
+    // Rejection emails sent per-item via rejectedItemData in update_status calls above
     const batchIds=[...new Set(rejQueue.map(e=>e.batchId))];
-    batchIds.forEach(bid=>{
-      const batchRejectedItems=rejQueue.filter(e=>e.batchId===bid).map((entry,i)=>{
-        const reason=(document.getElementById("rejReason-"+i)||{}).value||entry._reason||"";
-        const cachedItem=(batchSnapshot[bid]||[]).find(x=>x.rowNumber===entry.rowNumber)||{};
-        return{
-          itemTitle:entry.itemName,
-          name:entry.itemName,
-          purpose:cleanPurpose(cachedItem.purpose||""),
-          qty:cachedItem.qty||0,
-          unit:cachedItem.unit||"",
-          rejectReason:entry._finalReason||reason
-        };
-      });
-      const snap=batchSnapshot[bid]&&batchSnapshot[bid][0]||{};
-      const rejEmailData={
-        orderId:bid,
-        requester:snap.requester||"",
-        branch:snap.branch||"",
-        section:snap.section||"",
-        adminName:me.name,
-        rejectedItems:batchRejectedItems
-      };
-      api({action:"send_rejection_email",rejectionEmailData:rejEmailData}).catch(()=>{});
-    });
     setTimeout(()=>{
       batchIds.forEach(bid=>{
         const vis=document.querySelectorAll("#batch-"+bid+" .i-row:not([style*='none'])");
