@@ -542,15 +542,16 @@ function quickDecideAll(batchId,status){
   const rows=cache.filter(r=>r.orderId===batchId);
   if(!batchDecisions[batchId])batchDecisions[batchId]={};
   rows.forEach(req=>{
-    if(!batchDecisions[batchId][req.rowNumber]||batchDecisions[batchId][req.rowNumber].status!==status){
-      const row=document.getElementById("row-"+req.rowNumber);
-      if(row){row.classList.remove("decided-approve","decided-reject");row.classList.add(status==="Approved"?"decided-approve":"decided-reject")}
-      const acts=row?.querySelector(".i-acts");
-      if(acts){acts.querySelectorAll(".btn-dec").forEach(b=>b.classList.remove("active"));acts.querySelector(status==="Approved"?".btn-dec-app":".btn-dec-rej")?.classList.add("active")}
-      const wrap=document.getElementById("reason-wrap-"+req.rowNumber);
-      if(wrap){status==="Rejected"?wrap.classList.add("show"):wrap.classList.remove("show")}
-      batchDecisions[batchId][req.rowNumber]={status:status,rejectReason:batchDecisions[batchId][req.rowNumber]?.rejectReason||"",itemData:req};
-    }
+    // Always override all items regardless of current state
+    const row=document.getElementById("row-"+req.rowNumber);
+    if(row){row.classList.remove("decided-approve","decided-reject");row.classList.add(status==="Approved"?"decided-approve":"decided-reject")}
+    const acts=row?.querySelector(".i-acts");
+    if(acts){acts.querySelectorAll(".btn-dec").forEach(b=>b.classList.remove("active"));acts.querySelector(status==="Approved"?".btn-dec-app":".btn-dec-rej")?.classList.add("active")}
+    const wrap=document.getElementById("reason-wrap-"+req.rowNumber);
+    if(wrap){status==="Rejected"?wrap.classList.add("show"):wrap.classList.remove("show")}
+    // Keep existing reason if switching back to reject, clear if approving
+    const existingReason=status==="Rejected"?(batchDecisions[batchId][req.rowNumber]?.rejectReason||""):"";
+    batchDecisions[batchId][req.rowNumber]={status:status,rejectReason:existingReason,itemData:req};
   });
   updateSubmitBtn(batchId);
 }
