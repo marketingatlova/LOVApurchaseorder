@@ -434,54 +434,90 @@ function renderAdmin(){
   });
 }
 
-/* Build batchData payload for email/PDF */
-function buildBatchData(batchId,rowNumbers){
-  const rows=cache.filter(x=>rowNumbers.includes(x.rowNumber));
-  if(!rows.length)return null;
-  const p=rows[0];
-  return{
-    orderId:batchId,
-    requester:p.requester||"",
-    branch:p.branch||"",
-    section:p.section||"",
-    adminName:me.name,
-    requestDate:fmtDate(p.date),
-    items:rows.map(r=>({
-      itemTitle:r.itemTitle||r.itemNameEN||"Item",
-      name:r.itemTitle||r.itemNameEN||"Item",
-      purpose:cleanPurpose(r.purpose||""),
-      qty:r.qty||r.quantity||0,
-      unit:r.unit||"",
-      price:r.qty>0?(r.totalPrice/r.qty):0,
-      totalPrice:r.totalPrice||0
+/* Build batchData — includes ALL items with their status (approved/rejected) */
+function buildBatchData(batchId, allBatchRows) {
+  // Pull from original full cache snapshot stored per batch
+  const allItems = allBatchRows.map(rn => {
+    const found = batchSnapshot[batchId] && batchSnapshot[batchId].find(x => x.rowNumber === rn);
+    return found || cache.find(x => x.rowNumber === rn);
+  }).filter(Boolean);
+  if (!allItems.length) return null;
+  const p = allItems[0];
+  return {
+    orderId:     batchId,
+    requester:   p.requester || "",
+    branch:      p.branch    || "",
+    section:     p.section   || "",
+    adminName:   me.name,
+    requestDate: fmtDate(p.date),
+    items: allItems.map(r => ({
+      itemTitle:    r.itemTitle || r.itemNameEN || "Item",
+      name:         r.itemTitle || r.itemNameEN || "Item",
+      purpose:      cleanPurpose(r.purpose || ""),
+      qty:          r.qty || r.quantity || 0,
+      unit:         r.unit || "",
+      price:        r.qty > 0 ? (r.totalPrice / r.qty) : 0,
+      totalPrice:   r.totalPrice || 0,
+      isRejected:   r._approvalStatus === "Rejected",
+      rejectReason: r._rejectReason   || ""
     }))
   };
 }
 
-/* Approve single item — check if batch fully done → send email+PDF */
-async function itemApprove(batchId,row,allBatchRows){
+// Store a snapshot of each batch's items at first interaction
+const batchSnapshot = {};
+function ensureSnapshot(batchId, allBatchRows) {
+  if (!batchSnapshot[batchId]) {
+    batchSnapshot[batchId] = allBatchRows.map(rn => {
+      const item = cache.find(x => x.rowNumber === rn);
+      return item ? Object.assign({}, item) : null;
+    }).filter(Boolean);
+  }
+}
+function markStatus(batchId, rowNumber, status, reason) {
+  if (!batchSnapshot[batchId]) return;
+  const item = batchSnapshot[batchId].find(x => x.rowNumber === rowNumber);
+  if (item) { item._approvalStatus = status; item._rejectReason = reason || ""; }
+}
+
+/* Check if all items in a batch have been actioned (approved or rejected) */
+function isBatchComplete(batchId, allBatchRows) {
+  if (!batchSnapshot[batchId]) return false;
+  return allBatchRows.every(rn => {
+    const item = batchSnapshot[batchId].find(x => x.rowNumber === rn);
+    return item && (item._approvalStatus === "Approved" || item._approvalStatus === "Rejected");
+  });
+}
+function hasAnyApproved(batchId) {
+  if (!batchSnapshot[batchId]) return false;
+  return batchSnapshot[batchId].some(x => x._approvalStatus === "Approved");
+}
+
+/* Approve single item */
+async function itemApprove(batchId, row, allBatchRows) {
+  ensureSnapshot(batchId, allBatchRows);
+  markStatus(batchId, row, "Approved");
   document.getElementById("ia-"+row).innerHTML='<span style="font-size:11px;color:var(--tx-muted);font-weight:600">\u2026</span>';
-  // Check remaining pending rows in this batch BEFORE removing from cache
-  const remainingRows=allBatchRows.filter(rn=>rn!==row&&cache.find(x=>x.rowNumber===rn));
-  const isLastItem=remainingRows.length===0;
-  const batchData=isLastItem?buildBatchData(batchId,allBatchRows):null;
-  await api({action:"update_status",rowNumber:row,newStatus:"Approved",adminName:me.name,batchData:batchData});
+  const isLast = isBatchComplete(batchId, allBatchRows);
+  const batchData = (isLast && hasAnyApproved(batchId)) ? buildBatchData(batchId, allBatchRows) : null;
+  await api({ action:"update_status", rowNumber:row, newStatus:"Approved", adminName:me.name, batchData:batchData });
   document.getElementById("row-"+row).style.display="none";
-  cache=cache.filter(x=>x.rowNumber!==row);
-  const vis=document.querySelectorAll("#batch-"+batchId+" .i-row:not([style*='none'])");
-  if(!vis.length)document.getElementById("batch-"+batchId).style.display="none";
+  cache = cache.filter(x => x.rowNumber !== row);
+  const vis = document.querySelectorAll("#batch-"+batchId+" .i-row:not([style*='none'])");
+  if (!vis.length) document.getElementById("batch-"+batchId).style.display="none";
   renderAdmin();
 }
 
-/* Approve all items in batch → definitely sends email+PDF */
-async function batchApproveAll(batchId,rows){
+/* Approve all items in batch */
+async function batchApproveAll(batchId, rows) {
+  ensureSnapshot(batchId, rows);
+  rows.forEach(rn => markStatus(batchId, rn, "Approved"));
   document.getElementById("bf-"+batchId).innerHTML='<div style="width:100%;text-align:center;font-size:13px;font-weight:600;color:var(--tx-muted);padding:8px 0">'+T[lang].processing+"</div>";
-  const batchData=buildBatchData(batchId,rows);
-  // Send email+PDF only on last API call (first N-1 calls have no batchData, last one does)
-  await Promise.all(rows.slice(0,-1).map(r=>api({action:"update_status",rowNumber:r,newStatus:"Approved",adminName:me.name})));
-  if(rows.length>0)await api({action:"update_status",rowNumber:rows[rows.length-1],newStatus:"Approved",adminName:me.name,batchData:batchData});
+  const batchData = buildBatchData(batchId, rows);
+  await Promise.all(rows.slice(0,-1).map(r => api({ action:"update_status", rowNumber:r, newStatus:"Approved", adminName:me.name })));
+  if (rows.length > 0) await api({ action:"update_status", rowNumber:rows[rows.length-1], newStatus:"Approved", adminName:me.name, batchData:batchData });
   document.getElementById("batch-"+batchId).style.display="none";
-  cache=cache.filter(x=>!rows.includes(x.rowNumber));
+  cache = cache.filter(x => !rows.includes(x.rowNumber));
   renderAdmin();
 }
 
@@ -498,16 +534,49 @@ async function confirmReject(){
   try{
     await Promise.all(rejQueue.map((entry,i)=>{
       const reason=(document.getElementById("rejReason-"+i).value||"").trim();
+      // Mark in snapshot so combined email knows this was rejected
+      ensureSnapshot(entry.batchId, Object.keys(batchSnapshot[entry.batchId]||{}).length
+        ? batchSnapshot[entry.batchId].map(x=>x.rowNumber)
+        : [entry.rowNumber]);
+      markStatus(entry.batchId, entry.rowNumber, "Rejected", reason);
+      // Build rejectedItem payload for rejection email
+      const cachedItem = (batchSnapshot[entry.batchId]||[]).find(x=>x.rowNumber===entry.rowNumber)
+                      || cache.find(x=>x.rowNumber===entry.rowNumber) || {};
+      entry._finalReason = reason;
       return api({action:"update_status",rowNumber:entry.rowNumber,newStatus:"Rejected",rejectReason:reason}).then(()=>{
         const row=document.getElementById("row-"+entry.rowNumber);
         if(row)row.classList.add("rejected-row");
-        // Hide acts, keep row visible briefly then fade out
         const acts=document.getElementById("ia-"+entry.rowNumber);
         if(acts)acts.innerHTML='<span style="font-size:11px;color:var(--red);font-weight:700">\u2715 Rejected</span>';
         setTimeout(()=>{if(row)row.style.display="none";cache=cache.filter(x=>x.rowNumber!==entry.rowNumber)},1200);
       });
     }));
+    // Send ONE rejection email per batch grouping all rejected items together
     const batchIds=[...new Set(rejQueue.map(e=>e.batchId))];
+    batchIds.forEach(bid=>{
+      const batchRejectedItems=rejQueue.filter(e=>e.batchId===bid).map((entry,i)=>{
+        const reason=(document.getElementById("rejReason-"+i)||{}).value||entry._reason||"";
+        const cachedItem=(batchSnapshot[bid]||[]).find(x=>x.rowNumber===entry.rowNumber)||{};
+        return{
+          itemTitle:entry.itemName,
+          name:entry.itemName,
+          purpose:cleanPurpose(cachedItem.purpose||""),
+          qty:cachedItem.qty||0,
+          unit:cachedItem.unit||"",
+          rejectReason:entry._finalReason||reason
+        };
+      });
+      const snap=batchSnapshot[bid]&&batchSnapshot[bid][0]||{};
+      const rejEmailData={
+        orderId:bid,
+        requester:snap.requester||"",
+        branch:snap.branch||"",
+        section:snap.section||"",
+        adminName:me.name,
+        rejectedItems:batchRejectedItems
+      };
+      api({action:"send_rejection_email",rejectionEmailData:rejEmailData}).catch(()=>{});
+    });
     setTimeout(()=>{
       batchIds.forEach(bid=>{
         const vis=document.querySelectorAll("#batch-"+bid+" .i-row:not([style*='none'])");
