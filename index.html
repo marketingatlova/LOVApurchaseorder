@@ -440,7 +440,7 @@ async function submitOrder(){const btn=document.getElementById("confirmBtn");btn
 function resetForm(){document.getElementById("purchaseForm").reset();const cards=document.querySelectorAll(".item-card");for(let i=1;i<cards.length;i++)cards[i].remove();const fc=document.querySelector(".item-card");if(fc){const img=fc.querySelector(".upload-box img"),ph=fc.querySelector(".upload-ph");if(img)img.style.display="none";if(ph)ph.style.display="flex";fc.querySelector(".lineTotal").value="\u0E3F0.00"}recalc()}
 
 /* ADMIN */
-function loadAdmin(){document.getElementById("adminList").innerHTML='<div class="empty">'+T[lang].sending+"</div>";api({action:"get_data",role:"admin"}).then(r=>{if(r.status==="success"){cache=r.data;batchDecisions={};renderAdmin()}})}
+function loadAdmin(){document.getElementById("adminList").innerHTML='<div class="empty">'+T[lang].sending+"</div>";api({action:"get_data",role:"admin"}).then(r=>{if(r.status==="success"){cache=r.data;batchDecisions={};renderAdmin();if(window._submitPoll)clearInterval(window._submitPoll);window._submitPoll=setInterval(function(){Object.keys(batchDecisions).forEach(function(bid){checkSubmitBtn(bid)})},500)}})}
 function updateStats(data){const orders=new Set(data.map(r=>r.orderId));const urgents=new Set(data.filter(r=>r.isUrgent).map(r=>r.orderId));document.getElementById("statTotal").textContent=orders.size+" "+T[lang].orders;document.getElementById("statUrgent").textContent=urgents.size+" "+T[lang].urgent_lbl}
 function toggleUrgent(){urgentOn=!urgentOn;document.getElementById("statUrgent").classList.toggle("on",urgentOn);renderAdmin()}
 function applyFilters(){const bc=checked("msdBranchMenu"),sc=checked("msdSectionMenu");document.getElementById("branchLbl").textContent=bc.length===0?T[lang].filter_branch:bc.length===1?bc[0]:bc.length+" "+T[lang].selected;document.getElementById("sectionLbl").textContent=sc.length===0?T[lang].filter_section:sc.length===1?sc[0]:sc.length+" "+T[lang].selected;renderAdmin()}
@@ -488,7 +488,7 @@ function renderAdmin(){
         +'<button class="btn-dec btn-dec-rej'+(dec&&dec.status==="Rejected"?" active":"")+'" onclick="setDecision(\''+id+'\','+req.rowNumber+',\'Rejected\',this)">\u2715 Reject</button>'
         +'</div>'
         +'<div class="i-reason-wrap '+reasonShow+'" id="reason-wrap-'+req.rowNumber+'">'
-        +'<textarea class="i-reason-input" id="reason-'+req.rowNumber+'" placeholder="Reason for rejection..." oninput="updateReason(\''+id+'\','+req.rowNumber+',this.value)">'+reasonVal+'</textarea>'
+        +'<textarea class="i-reason-input" id="reason-'+req.rowNumber+'" placeholder="Reason for rejection..." oninput="updateReason(\''+id+'\','+req.rowNumber+',this.value);checkSubmitBtn(\''+id+'\')" onkeyup="checkSubmitBtn(\''+id+'\')" onpaste="setTimeout(function(){checkSubmitBtn(\''+id+'\')},50)">'+reasonVal+'</textarea>'
         +'</div>'
         +'</div></div>';
     });
@@ -532,10 +532,10 @@ function setDecision(batchId,rowNumber,status,btn){
 }
 
 function updateReason(batchId,rowNumber,val){
-  if(batchDecisions[batchId]&&batchDecisions[batchId][rowNumber]){
-    batchDecisions[batchId][rowNumber].rejectReason=val;
-    updateSubmitBtn(batchId);
-  }
+  if(!batchDecisions[batchId])batchDecisions[batchId]={};
+  if(!batchDecisions[batchId][rowNumber])batchDecisions[batchId][rowNumber]={status:"Rejected",rejectReason:"",itemData:cache.find(function(x){return x.rowNumber===rowNumber})};
+  batchDecisions[batchId][rowNumber].rejectReason=val;
+  checkSubmitBtn(batchId);
 }
 
 function quickDecideAll(batchId,status){
@@ -556,39 +556,59 @@ function quickDecideAll(batchId,status){
   updateSubmitBtn(batchId);
 }
 
+// Single source of truth: read entirely from DOM + batchDecisions
+function checkSubmitBtn(batchId){
+  const btn=document.getElementById("submit-btn-"+batchId);
+  if(!btn)return;
+  // Read entirely from DOM — no reliance on batchDecisions state
+  const batch=document.getElementById("batch-"+batchId);
+  if(!batch){btn.disabled=true;return;}
+  const iRows=batch.querySelectorAll(".i-row");
+  if(!iRows.length){btn.disabled=true;return;}
+  let allDone=true;
+  iRows.forEach(function(row){
+    const isApp=row.classList.contains("decided-approve");
+    const isRej=row.classList.contains("decided-reject");
+    if(!isApp&&!isRej){allDone=false;return;}
+    if(isRej){
+      const ta=row.querySelector(".i-reason-input");
+      if(!ta||!ta.value.trim()){allDone=false;}
+    }
+  });
+  btn.disabled=!allDone;
+}
+function updateSubmitBtn(batchId){checkSubmitBtn(batchId);}
 function isUndecided(batchId,rows){
   const dec=batchDecisions[batchId]||{};
   for(let i=0;i<rows.length;i++){
-    const d=dec[rows[i].rowNumber];
-    if(!d)return true; // no decision
-    if(d.status==="Rejected"&&!d.rejectReason.trim())return true; // rejected but no reason
+    const rn=rows[i].rowNumber;
+    const d=dec[rn];
+    if(!d||!d.status)return true;
+    if(d.status==="Rejected"){const ta=document.getElementById("reason-"+rn);if(!ta||!ta.value.trim())return true;}
   }
   return false;
-}
-
-function updateSubmitBtn(batchId){
-  const rows=cache.filter(r=>r.orderId===batchId);
-  const btn=document.getElementById("submit-btn-"+batchId);
-  if(btn)btn.disabled=isUndecided(batchId,rows);
 }
 
 /* Confirm modal */
 function openConfModal(batchId){
   pendingConfirmBatchId=batchId;
-  const rows=cache.filter(r=>r.orderId===batchId);
-  const dec=batchDecisions[batchId]||{};
-  const approved=rows.filter(r=>dec[r.rowNumber]&&dec[r.rowNumber].status==="Approved");
-  const rejected=rows.filter(r=>dec[r.rowNumber]&&dec[r.rowNumber].status==="Rejected");
+  // Only rows belonging to this exact batch, read entirely from the batch DOM element
+  const batchEl=document.getElementById("batch-"+batchId);
+  if(!batchEl)return;
+  const iRows=Array.from(batchEl.querySelectorAll(".i-row"));
+  const approvedCount=iRows.filter(r=>r.classList.contains("decided-approve")).length;
+  const rejectedCount=iRows.filter(r=>r.classList.contains("decided-reject")).length;
   // Summary pills
   document.getElementById("confSummary").innerHTML=
-    '<div class="conf-pill conf-pill-green"><div class="conf-pill-num">'+approved.length+'</div><div class="conf-pill-lbl">Approved</div></div>'+
-    '<div class="conf-pill conf-pill-red"><div class="conf-pill-num">'+rejected.length+'</div><div class="conf-pill-lbl">Rejected</div></div>';
-  // Item list
+    '<div class="conf-pill conf-pill-green"><div class="conf-pill-num">'+approvedCount+'</div><div class="conf-pill-lbl">Approved</div></div>'+
+    '<div class="conf-pill conf-pill-red"><div class="conf-pill-num">'+rejectedCount+'</div><div class="conf-pill-lbl">Rejected</div></div>';
+  // Item list — read directly from batch DOM, no cache lookup
   let html="";
-  rows.forEach(r=>{
-    const d=dec[r.rowNumber];
-    const isApp=d&&d.status==="Approved";
-    html+='<div class="conf-item-row"><span class="conf-item-name">'+(r.itemTitle||r.itemNameEN||"Item")+'</span><span class="conf-item-badge '+(isApp?"badge-app":"badge-rej")+'">'+(isApp?"Approved":"Rejected")+'</span></div>';
+  iRows.forEach(function(row){
+    const nameEl=row.querySelector(".i-name");
+    const name=nameEl?nameEl.textContent.trim():"Item";
+    const isApp=row.classList.contains("decided-approve");
+    html+='<div class="conf-item-row"><span class="conf-item-name">'+name+'</span><span class="conf-item-badge '+(isApp?"badge-app":"badge-rej")+'">'+(isApp?"Approved":"Rejected")+'</span></div>';
   });
   document.getElementById("confItemList").innerHTML=html;
   document.getElementById("confModal").classList.add("open");
@@ -600,20 +620,34 @@ async function submitDecisions(){
   const batchId=pendingConfirmBatchId;
   const btn=document.getElementById("confSubmitBtn");
   btn.disabled=true;btn.textContent=T[lang].sending;
-  const rows=cache.filter(r=>r.orderId===batchId);
+  // Use batch DOM element as source of truth for which rows belong here
+  const batchEl=document.getElementById("batch-"+batchId);
+  const validRowNums=new Set(
+    Array.from(batchEl?batchEl.querySelectorAll(".i-row"):[])
+      .map(el=>parseInt(el.id.replace("row-","")))
+      .filter(n=>!isNaN(n))
+  );
+  const rows=cache.filter(r=>validRowNums.has(r.rowNumber));
   const p=rows[0];
   const dec=batchDecisions[batchId]||{};
-  const decisions=rows.map(r=>({
-    rowNumber:r.rowNumber,
-    status:dec[r.rowNumber].status,
-    rejectReason:dec[r.rowNumber].rejectReason||"",
-    itemTitle:r.itemTitle||r.itemNameEN||"Item",
-    qty:r.qty||r.quantity||0,
-    unit:r.unit||"",
-    price:r.price||0,
-    totalPrice:r.totalPrice||0,
-    purpose:cleanPurpose(r.purpose||"")
-  }));
+  const decisions=rows.map(r=>{
+    // Read status from DOM class, reason from live textarea
+    const row=document.getElementById("row-"+r.rowNumber);
+    const status=row&&row.classList.contains("decided-reject")?"Rejected":"Approved";
+    const ta=document.getElementById("reason-"+r.rowNumber);
+    const rejectReason=ta?ta.value.trim():"";
+    return{
+      rowNumber:r.rowNumber,
+      status:status,
+      rejectReason:rejectReason,
+      itemTitle:r.itemTitle||r.itemNameEN||"Item",
+      qty:r.qty||r.quantity||0,
+      unit:r.unit||"",
+      price:r.price||0,
+      totalPrice:r.totalPrice||0,
+      purpose:cleanPurpose(r.purpose||"")
+    };
+  });
   try{
     const res=await api({action:"batch_decide",payload:{
       orderId:batchId,
