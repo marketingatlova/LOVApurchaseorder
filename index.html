@@ -238,6 +238,8 @@
     .b-approved{background:var(--green-lt);color:var(--green-tx);border:1px solid #86efac}
     .b-rejected{background:var(--red-lt);color:var(--red);border:1px solid var(--red-br)}
     .empty{text-align:center;padding:52px 0;color:var(--tx-muted);font-size:14px}
+    .empty-err{color:var(--red);font-weight:600}
+    .empty-retry{display:inline-block;margin-top:10px;background:var(--navy);color:#fff;border:none;padding:8px 18px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font)}
     #sharedNav,#staffMenu,#oseForm,#staffStatus,#adminDash{display:none}
     @media(max-width:580px){.nav-user{max-width:72px}.routing-grid{grid-template-columns:1fr;gap:14px}.item-form{display:flex;flex-direction:column;gap:10px}.if-name,.if-photo,.if-purp,.if-quunit,.if-link,.if-pritax,.if-total{grid-column:unset;grid-row:unset}.upload-box{min-height:130px}.filter-row{grid-template-columns:1fr 1fr}.sort-sel{grid-column:1/-1}.batch-head{flex-wrap:wrap}}
   </style>
@@ -399,8 +401,8 @@ const CLOUD_NAME="dynjnftnu";
 const UPLOAD_PRESET="lova_staff_purchase_app";
 
 const T={
-  en:{auth_title:"LOVA Hub",auth_sub:"Enter your secure PIN to access",auth_err:"Incorrect PIN. Please try again.",auth_btn:"Secure Login",nav_logout:"Logout",menu_title:"Staff Operations",menu_form:"External Purchase Form",menu_status:"My Order Status",menu_inv:"Counting Inventory",form_back:"\u2190 Back to Menu",form_title:"External Purchase Form",form_sub:"Ensure all details are correct before submitting.",req_name:"Requester Name",branch:"Branch",section:"Section",urgent:"URGENT",add_item:"+ Add Another Item",grand_total:"Grand Total",review_submit:"Review & Submit",item_details:"Item Details",remove:"\u2715 Remove",item_name:"Item Name",preview:"Photo",tap_upload:"Tap to Upload",purpose:"Purpose / Use",qty:"Qty",unit:"Unit",link:"Reference Link",price:"Unit Price",tax:"Tax Invoice?",total:"Total",modal_title:"Review Order",modal_sub:"Please confirm your request details.",modal_cancel:"Cancel",modal_confirm:"Yes, Submit Order",status_title:"My Order Status",admin_title:"Approval Center",search_ph:"Search Order ID or Item\u2026",filter_branch:"All Branches",filter_section:"All Sections",sort_new:"Newest First",sort_old:"Oldest First",send_alert:"\uD83D\uDD14 LINE Alert",sending:"Sending\u2026",sent:"\u2705 Sent",failed:"\u26A0\uFE0F Failed",processing:"Processing\u2026",badge_pending:"PENDING",badge_approved:"APPROVED",badge_rejected:"REJECTED",selected:"selected",orders:"Orders",urgent_lbl:"Urgent",no_orders:"No pending orders.",no_img:"No Image",rej_label:"Reject Reason:",approve_all:"Approve All",reject_all:"Reject All",submit_decisions:"Submit Decisions",undecided:"undecided"},
-  th:{auth_title:"LOVA Hub",auth_sub:"\u0E01\u0E23\u0E38\u0E13\u0E32\u0E43\u0E2A\u0E48\u0E23\u0E2B\u0E31\u0E2A PIN \u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E40\u0E02\u0E49\u0E32\u0E2A\u0E39\u0E48\u0E23\u0E30\u0E1A\u0E1A",auth_err:"\u0E23\u0E2B\u0E31\u0E2A PIN \u0E44\u0E21\u0E48\u0E16\u0E39\u0E01\u0E15\u0E49\u0E2D\u0E07 \u0E01\u0E23\u0E38\u0E13\u0E32\u0E25\u0E2D\u0E07\u0E43\u0E2B\u0E21\u0E48",auth_btn:"\u0E40\u0E02\u0E49\u0E32\u0E2A\u0E39\u0E48\u0E23\u0E30\u0E1A\u0E1A",nav_logout:"\u0E2D\u0E2D\u0E01\u0E08\u0E32\u0E01\u0E23\u0E30\u0E1A\u0E1A",menu_title:"\u0E40\u0E21\u0E19\u0E39\u0E01\u0E32\u0E23\u0E17\u0E33\u0E07\u0E32\u0E19",menu_form:"\u0E41\u0E1A\u0E1A\u0E1F\u0E2D\u0E23\u0E4C\u0E21\u0E02\u0E2D\u0E2D\u0E19\u0E38\u0E21\u0E31\u0E15\u0E34\u0E2A\u0E31\u0E48\u0E07\u0E0B\u0E37\u0E49\u0E2D",menu_status:"\u0E15\u0E23\u0E27\u0E08\u0E2A\u0E2D\u0E1A\u0E2A\u0E16\u0E32\u0E19\u0E30\u0E04\u0E33\u0E02\u0E2D",menu_inv:"\u0E40\u0E0A\u0E47\u0E04\u0E2A\u0E15\u0E47\u0E2D\u0E01",form_back:"\u2190 \u0E01\u0E25\u0E31\u0E1A\u0E2A\u0E39\u0E48\u0E2B\u0E19\u0E49\u0E32\u0E40\u0E21\u0E19\u0E39",form_title:"\u0E41\u0E1A\u0E1A\u0E1F\u0E2D\u0E23\u0E4C\u0E21\u0E02\u0E2D\u0E2D\u0E19\u0E38\u0E21\u0E31\u0E15\u0E34\u0E2A\u0E31\u0E48\u0E07\u0E0B\u0E37\u0E49\u0E2D",form_sub:"\u0E01\u0E23\u0E38\u0E13\u0E32\u0E15\u0E23\u0E27\u0E08\u0E2A\u0E2D\u0E1A\u0E04\u0E27\u0E32\u0E21\u0E16\u0E39\u0E01\u0E15\u0E49\u0E2D\u0E07\u0E01\u0E48\u0E2D\u0E19\u0E01\u0E14\u0E2A\u0E48\u0E07",req_name:"\u0E1C\u0E39\u0E49\u0E02\u0E2D\u0E40\u0E1A\u0E34\u0E01",branch:"\u0E2A\u0E32\u0E02\u0E32",section:"\u0E41\u0E1C\u0E19\u0E01",urgent:"\u0E14\u0E48\u0E27\u0E19\u0E1E\u0E34\u0E40\u0E28\u0E29",add_item:"+ \u0E40\u0E1E\u0E34\u0E48\u0E21\u0E23\u0E32\u0E22\u0E01\u0E32\u0E23\u0E2A\u0E34\u0E19\u0E04\u0E49\u0E32",grand_total:"\u0E22\u0E2D\u0E14\u0E23\u0E27\u0E21\u0E17\u0E31\u0E49\u0E07\u0E2A\u0E34\u0E49\u0E19",review_submit:"\u0E15\u0E23\u0E27\u0E08\u0E2A\u0E2D\u0E1A & \u0E14\u0E33\u0E40\u0E19\u0E34\u0E19\u0E01\u0E32\u0E23\u0E2A\u0E31\u0E48\u0E07\u0E0B\u0E37\u0E49\u0E2D",item_details:"\u0E23\u0E32\u0E22\u0E25\u0E30\u0E40\u0E2D\u0E35\u0E22\u0E14\u0E2A\u0E34\u0E19\u0E04\u0E49\u0E32",remove:"\u2715 \u0E25\u0E1A",item_name:"\u0E0A\u0E37\u0E48\u0E2D\u0E2A\u0E34\u0E19\u0E04\u0E49\u0E32",preview:"\u0E23\u0E39\u0E1B\u0E2A\u0E34\u0E19\u0E04\u0E49\u0E32",tap_upload:"\u0E41\u0E15\u0E30\u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E2D\u0E31\u0E1B\u0E42\u0E2B\u0E25\u0E14",purpose:"\u0E27\u0E31\u0E15\u0E16\u0E38\u0E1B\u0E23\u0E30\u0E2A\u0E07\u0E04\u0E4C\u0E01\u0E32\u0E23\u0E43\u0E0A\u0E49\u0E07\u0E32\u0E19",qty:"\u0E08\u0E33\u0E19\u0E27\u0E19",unit:"\u0E2B\u0E19\u0E48\u0E27\u0E22",link:"\u0E25\u0E34\u0E07\u0E01\u0E4C\u0E2D\u0E49\u0E32\u0E07\u0E2D\u0E34\u0E07",price:"\u0E23\u0E32\u0E04\u0E32\u0E15\u0E48\u0E2D\u0E2B\u0E19\u0E48\u0E27\u0E22",tax:"\u0E23\u0E31\u0E1A\u0E43\u0E1A\u0E01\u0E33\u0E01\u0E31\u0E1A\u0E20\u0E32\u0E29\u0E35\u0E44\u0E2B\u0E21\u0E48?",total:"\u0E23\u0E32\u0E04\u0E32\u0E23\u0E27\u0E21",modal_title:"\u0E15\u0E23\u0E27\u0E08\u0E2A\u0E2D\u0E1A\u0E23\u0E32\u0E22\u0E01\u0E32\u0E23\u0E2A\u0E31\u0E48\u0E07\u0E0B\u0E37\u0E49\u0E2D",modal_sub:"\u0E01\u0E23\u0E38\u0E13\u0E32\u0E22\u0E37\u0E19\u0E22\u0E31\u0E19\u0E04\u0E27\u0E32\u0E21\u0E16\u0E39\u0E01\u0E15\u0E49\u0E2D\u0E07\u0E02\u0E2D\u0E07\u0E23\u0E32\u0E22\u0E01\u0E32\u0E23",modal_cancel:"\u0E22\u0E01\u0E40\u0E25\u0E34\u0E01",modal_confirm:"\u0E22\u0E37\u0E19\u0E22\u0E31\u0E19\u0E01\u0E32\u0E23\u0E2A\u0E48\u0E07\u0E2D\u0E2D\u0E40\u0E14\u0E2D\u0E23\u0E4C",status_title:"\u0E2A\u0E16\u0E32\u0E19\u0E30\u0E04\u0E33\u0E02\u0E2D\u0E01\u0E32\u0E23\u0E2A\u0E31\u0E48\u0E07\u0E0B\u0E37\u0E49\u0E2D",admin_title:"\u0E28\u0E39\u0E19\u0E22\u0E4C\u0E2D\u0E19\u0E38\u0E21\u0E31\u0E15\u0E34\u0E04\u0E33\u0E2A\u0E31\u0E48\u0E07\u0E0B\u0E37\u0E49\u0E2D",search_ph:"\u0E04\u0E49\u0E19\u0E2B\u0E32...",filter_branch:"\u0E17\u0E38\u0E01\u0E2A\u0E32\u0E02\u0E32",filter_section:"\u0E17\u0E38\u0E01\u0E41\u0E1C\u0E19\u0E01",sort_new:"\u0E43\u0E2B\u0E21\u0E48\u0E2A\u0E38\u0E14\u0E01\u0E48\u0E2D\u0E19",sort_old:"\u0E40\u0E01\u0E48\u0E32\u0E2A\u0E38\u0E14\u0E01\u0E48\u0E2D\u0E19",send_alert:"\uD83D\uDD14 LINE",sending:"\u0E01\u0E33\u0E25\u0E31\u0E07\u0E2A\u0E48\u0E07\u2026",sent:"\u2705 \u0E2A\u0E48\u0E07\u0E41\u0E25\u0E49\u0E27",failed:"\u26A0\uFE0F \u0E25\u0E49\u0E21\u0E40\u0E2B\u0E25\u0E27",processing:"\u0E01\u0E33\u0E25\u0E31\u0E07\u0E1B\u0E23\u0E30\u0E21\u0E27\u0E25\u0E1C\u0E25\u2026",badge_pending:"\u0E23\u0E2D\u0E2D\u0E19\u0E38\u0E21\u0E31\u0E15\u0E34",badge_approved:"\u0E2D\u0E19\u0E38\u0E21\u0E31\u0E15\u0E34\u0E41\u0E25\u0E49\u0E27",badge_rejected:"\u0E44\u0E21\u0E48\u0E2D\u0E19\u0E38\u0E21\u0E31\u0E15\u0E34",selected:"\u0E23\u0E32\u0E22\u0E01\u0E32\u0E23",orders:"\u0E2D\u0E2D\u0E40\u0E14\u0E2D\u0E23\u0E4C",urgent_lbl:"\u0E14\u0E48\u0E27\u0E19",no_orders:"\u0E44\u0E21\u0E48\u0E21\u0E35\u0E2D\u0E2D\u0E40\u0E14\u0E2D\u0E23\u0E4C\u0E23\u0E2D\u0E2D\u0E19\u0E38\u0E21\u0E31\u0E15\u0E14",no_img:"\u0E44\u0E21\u0E48\u0E21\u0E35\u0E23\u0E39\u0E1B",rej_label:"\u0E40\u0E2B\u0E15\u0E38\u0E1C\u0E25:",approve_all:"\u0E2D\u0E19\u0E38\u0E21\u0E31\u0E15\u0E34\u0E17\u0E31\u0E49\u0E07\u0E2B\u0E21\u0E14",reject_all:"\u0E44\u0E21\u0E48\u0E2D\u0E19\u0E38\u0E21\u0E31\u0E15\u0E34\u0E17\u0E31\u0E49\u0E07\u0E2B\u0E21\u0E14",submit_decisions:"\u0E22\u0E37\u0E19\u0E22\u0E31\u0E19\u0E01\u0E32\u0E23\u0E15\u0E31\u0E14\u0E2A\u0E34\u0E19\u0E43\u0E08",undecided:"\u0E22\u0E31\u0E07\u0E44\u0E21\u0E48\u0E15\u0E31\u0E14\u0E2A\u0E34\u0E19\u0E43\u0E08"}
+  en:{auth_title:"LOVA Hub",auth_sub:"Enter your secure PIN to access",auth_err:"Incorrect PIN. Please try again.",auth_btn:"Secure Login",nav_logout:"Logout",menu_title:"Staff Operations",menu_form:"External Purchase Form",menu_status:"My Order Status",menu_inv:"Counting Inventory",form_back:"\u2190 Back to Menu",form_title:"External Purchase Form",form_sub:"Ensure all details are correct before submitting.",req_name:"Requester Name",branch:"Branch",section:"Section",urgent:"URGENT",add_item:"+ Add Another Item",grand_total:"Grand Total",review_submit:"Review & Submit",item_details:"Item Details",remove:"\u2715 Remove",item_name:"Item Name",preview:"Photo",tap_upload:"Tap to Upload",purpose:"Purpose / Use",qty:"Qty",unit:"Unit",link:"Reference Link",price:"Unit Price",tax:"Tax Invoice?",total:"Total",modal_title:"Review Order",modal_sub:"Please confirm your request details.",modal_cancel:"Cancel",modal_confirm:"Yes, Submit Order",status_title:"My Order Status",admin_title:"Approval Center",search_ph:"Search Order ID or Item\u2026",filter_branch:"All Branches",filter_section:"All Sections",sort_new:"Newest First",sort_old:"Oldest First",send_alert:"\uD83D\uDD14 LINE Alert",sending:"Sending\u2026",sent:"\u2705 Sent",failed:"\u26A0\uFE0F Failed",processing:"Processing\u2026",badge_pending:"PENDING",badge_approved:"APPROVED",badge_rejected:"REJECTED",selected:"selected",orders:"Orders",urgent_lbl:"Urgent",no_orders:"No pending orders.",no_img:"No Image",rej_label:"Reject Reason:",approve_all:"Approve All",reject_all:"Reject All",submit_decisions:"Submit Decisions",undecided:"undecided",load_err:"Couldn't load data. Check your connection and try again.",retry:"Retry",session_expired:"Your session has expired. Please log in again."},
+  th:{auth_title:"LOVA Hub",auth_sub:"\u0E01\u0E23\u0E38\u0E13\u0E32\u0E43\u0E2A\u0E48\u0E23\u0E2B\u0E31\u0E2A PIN \u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E40\u0E02\u0E49\u0E32\u0E2A\u0E39\u0E48\u0E23\u0E30\u0E1A\u0E1A",auth_err:"\u0E23\u0E2B\u0E31\u0E2A PIN \u0E44\u0E21\u0E48\u0E16\u0E39\u0E01\u0E15\u0E49\u0E2D\u0E07 \u0E01\u0E23\u0E38\u0E13\u0E32\u0E25\u0E2D\u0E07\u0E43\u0E2B\u0E21\u0E48",auth_btn:"\u0E40\u0E02\u0E49\u0E32\u0E2A\u0E39\u0E48\u0E23\u0E30\u0E1A\u0E1A",nav_logout:"\u0E2D\u0E2D\u0E01\u0E08\u0E32\u0E01\u0E23\u0E30\u0E1A\u0E1A",menu_title:"\u0E40\u0E21\u0E19\u0E39\u0E01\u0E32\u0E23\u0E17\u0E33\u0E07\u0E32\u0E19",menu_form:"\u0E41\u0E1A\u0E1A\u0E1F\u0E2D\u0E23\u0E4C\u0E21\u0E02\u0E2D\u0E2D\u0E19\u0E38\u0E21\u0E31\u0E15\u0E34\u0E2A\u0E31\u0E48\u0E07\u0E0B\u0E37\u0E49\u0E2D",menu_status:"\u0E15\u0E23\u0E27\u0E08\u0E2A\u0E2D\u0E1A\u0E2A\u0E16\u0E32\u0E19\u0E30\u0E04\u0E33\u0E02\u0E2D",menu_inv:"\u0E40\u0E0A\u0E47\u0E04\u0E2A\u0E15\u0E47\u0E2D\u0E01",form_back:"\u2190 \u0E01\u0E25\u0E31\u0E1A\u0E2A\u0E39\u0E48\u0E2B\u0E19\u0E49\u0E32\u0E40\u0E21\u0E19\u0E39",form_title:"\u0E41\u0E1A\u0E1A\u0E1F\u0E2D\u0E23\u0E4C\u0E21\u0E02\u0E2D\u0E2D\u0E19\u0E38\u0E21\u0E31\u0E15\u0E34\u0E2A\u0E31\u0E48\u0E07\u0E0B\u0E37\u0E49\u0E2D",form_sub:"\u0E01\u0E23\u0E38\u0E13\u0E32\u0E15\u0E23\u0E27\u0E08\u0E2A\u0E2D\u0E1A\u0E04\u0E27\u0E32\u0E21\u0E16\u0E39\u0E01\u0E15\u0E49\u0E2D\u0E07\u0E01\u0E48\u0E2D\u0E19\u0E01\u0E14\u0E2A\u0E48\u0E07",req_name:"\u0E1C\u0E39\u0E49\u0E02\u0E2D\u0E40\u0E1A\u0E34\u0E01",branch:"\u0E2A\u0E32\u0E02\u0E32",section:"\u0E41\u0E1C\u0E19\u0E01",urgent:"\u0E14\u0E48\u0E27\u0E19\u0E1E\u0E34\u0E40\u0E28\u0E29",add_item:"+ \u0E40\u0E1E\u0E34\u0E48\u0E21\u0E23\u0E32\u0E22\u0E01\u0E32\u0E23\u0E2A\u0E34\u0E19\u0E04\u0E49\u0E32",grand_total:"\u0E22\u0E2D\u0E14\u0E23\u0E27\u0E21\u0E17\u0E31\u0E49\u0E07\u0E2A\u0E34\u0E49\u0E19",review_submit:"\u0E15\u0E23\u0E27\u0E08\u0E2A\u0E2D\u0E1A & \u0E14\u0E33\u0E40\u0E19\u0E34\u0E19\u0E01\u0E32\u0E23\u0E2A\u0E31\u0E48\u0E07\u0E0B\u0E37\u0E49\u0E2D",item_details:"\u0E23\u0E32\u0E22\u0E25\u0E30\u0E40\u0E2D\u0E35\u0E22\u0E14\u0E2A\u0E34\u0E19\u0E04\u0E49\u0E32",remove:"\u2715 \u0E25\u0E1A",item_name:"\u0E0A\u0E37\u0E48\u0E2D\u0E2A\u0E34\u0E19\u0E04\u0E49\u0E32",preview:"\u0E23\u0E39\u0E1B\u0E2A\u0E34\u0E19\u0E04\u0E49\u0E32",tap_upload:"\u0E41\u0E15\u0E30\u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E2D\u0E31\u0E1B\u0E42\u0E2B\u0E25\u0E14",purpose:"\u0E27\u0E31\u0E15\u0E16\u0E38\u0E1B\u0E23\u0E30\u0E2A\u0E07\u0E04\u0E4C\u0E01\u0E32\u0E23\u0E43\u0E0A\u0E49\u0E07\u0E32\u0E19",qty:"\u0E08\u0E33\u0E19\u0E27\u0E19",unit:"\u0E2B\u0E19\u0E48\u0E27\u0E22",link:"\u0E25\u0E34\u0E07\u0E01\u0E4C\u0E2D\u0E49\u0E32\u0E07\u0E2D\u0E34\u0E07",price:"\u0E23\u0E32\u0E04\u0E32\u0E15\u0E48\u0E2D\u0E2B\u0E19\u0E48\u0E27\u0E22",tax:"\u0E23\u0E31\u0E1A\u0E43\u0E1A\u0E01\u0E33\u0E01\u0E31\u0E1A\u0E20\u0E32\u0E29\u0E35\u0E44\u0E2B\u0E21\u0E48?",total:"\u0E23\u0E32\u0E04\u0E32\u0E23\u0E27\u0E21",modal_title:"\u0E15\u0E23\u0E27\u0E08\u0E2A\u0E2D\u0E1A\u0E23\u0E32\u0E22\u0E01\u0E32\u0E23\u0E2A\u0E31\u0E48\u0E07\u0E0B\u0E37\u0E49\u0E2D",modal_sub:"\u0E01\u0E23\u0E38\u0E13\u0E32\u0E22\u0E37\u0E19\u0E22\u0E31\u0E19\u0E04\u0E27\u0E32\u0E21\u0E16\u0E39\u0E01\u0E15\u0E49\u0E2D\u0E07\u0E02\u0E2D\u0E07\u0E23\u0E32\u0E22\u0E01\u0E32\u0E23",modal_cancel:"\u0E22\u0E01\u0E40\u0E25\u0E34\u0E01",modal_confirm:"\u0E22\u0E37\u0E19\u0E22\u0E31\u0E19\u0E01\u0E32\u0E23\u0E2A\u0E48\u0E07\u0E2D\u0E2D\u0E40\u0E14\u0E2D\u0E23\u0E4C",status_title:"\u0E2A\u0E16\u0E32\u0E19\u0E30\u0E04\u0E33\u0E02\u0E2D\u0E01\u0E32\u0E23\u0E2A\u0E31\u0E48\u0E07\u0E0B\u0E37\u0E49\u0E2D",admin_title:"\u0E28\u0E39\u0E19\u0E22\u0E4C\u0E2D\u0E19\u0E38\u0E21\u0E31\u0E15\u0E34\u0E04\u0E33\u0E2A\u0E31\u0E48\u0E07\u0E0B\u0E37\u0E49\u0E2D",search_ph:"\u0E04\u0E49\u0E19\u0E2B\u0E32...",filter_branch:"\u0E17\u0E38\u0E01\u0E2A\u0E32\u0E02\u0E32",filter_section:"\u0E17\u0E38\u0E01\u0E41\u0E1C\u0E19\u0E01",sort_new:"\u0E43\u0E2B\u0E21\u0E48\u0E2A\u0E38\u0E14\u0E01\u0E48\u0E2D\u0E19",sort_old:"\u0E40\u0E01\u0E48\u0E32\u0E2A\u0E38\u0E14\u0E01\u0E48\u0E2D\u0E19",send_alert:"\uD83D\uDD14 LINE",sending:"\u0E01\u0E33\u0E25\u0E31\u0E07\u0E2A\u0E48\u0E07\u2026",sent:"\u2705 \u0E2A\u0E48\u0E07\u0E41\u0E25\u0E49\u0E27",failed:"\u26A0\uFE0F \u0E25\u0E49\u0E21\u0E40\u0E2B\u0E25\u0E27",processing:"\u0E01\u0E33\u0E25\u0E31\u0E07\u0E1B\u0E23\u0E30\u0E21\u0E27\u0E25\u0E1C\u0E25\u2026",badge_pending:"\u0E23\u0E2D\u0E2D\u0E19\u0E38\u0E21\u0E31\u0E15\u0E34",badge_approved:"\u0E2D\u0E19\u0E38\u0E21\u0E31\u0E15\u0E34\u0E41\u0E25\u0E49\u0E27",badge_rejected:"\u0E44\u0E21\u0E48\u0E2D\u0E19\u0E38\u0E21\u0E31\u0E15\u0E34",selected:"\u0E23\u0E32\u0E22\u0E01\u0E32\u0E23",orders:"\u0E2D\u0E2D\u0E40\u0E14\u0E2D\u0E23\u0E4C",urgent_lbl:"\u0E14\u0E48\u0E27\u0E19",no_orders:"\u0E44\u0E21\u0E48\u0E21\u0E35\u0E2D\u0E2D\u0E40\u0E14\u0E2D\u0E23\u0E4C\u0E23\u0E2D\u0E2D\u0E19\u0E38\u0E21\u0E31\u0E15\u0E14",no_img:"\u0E44\u0E21\u0E48\u0E21\u0E35\u0E23\u0E39\u0E1B",rej_label:"\u0E40\u0E2B\u0E15\u0E38\u0E1C\u0E25:",approve_all:"\u0E2D\u0E19\u0E38\u0E21\u0E31\u0E15\u0E34\u0E17\u0E31\u0E49\u0E07\u0E2B\u0E21\u0E14",reject_all:"\u0E44\u0E21\u0E48\u0E2D\u0E19\u0E38\u0E21\u0E31\u0E15\u0E34\u0E17\u0E31\u0E49\u0E07\u0E2B\u0E21\u0E14",submit_decisions:"\u0E22\u0E37\u0E19\u0E22\u0E31\u0E19\u0E01\u0E32\u0E23\u0E15\u0E31\u0E14\u0E2A\u0E34\u0E19\u0E43\u0E08",undecided:"\u0E22\u0E31\u0E07\u0E44\u0E21\u0E48\u0E15\u0E31\u0E14\u0E2A\u0E34\u0E19\u0E43\u0E08",load_err:"\u0E42\u0E2B\u0E25\u0E14\u0E02\u0E49\u0E2D\u0E21\u0E39\u0E25\u0E44\u0E21\u0E48\u0E2A\u0E33\u0E40\u0E23\u0E47\u0E08 \u0E01\u0E23\u0E38\u0E13\u0E32\u0E15\u0E23\u0E27\u0E08\u0E2A\u0E2D\u0E1A\u0E01\u0E32\u0E23\u0E40\u0E0A\u0E37\u0E48\u0E2D\u0E21\u0E15\u0E48\u0E2D\u0E41\u0E25\u0E30\u0E25\u0E2D\u0E07\u0E43\u0E2B\u0E21\u0E48",retry:"\u0E25\u0E2D\u0E07\u0E43\u0E2B\u0E21\u0E48",session_expired:"\u0E40\u0E0B\u0E2A\u0E0A\u0E31\u0E48\u0E19\u0E2B\u0E21\u0E14\u0E2D\u0E32\u0E22\u0E38 \u0E01\u0E23\u0E38\u0E13\u0E32\u0E40\u0E02\u0E49\u0E32\u0E2A\u0E39\u0E48\u0E23\u0E30\u0E1A\u0E1A\u0E43\u0E2B\u0E21\u0E48"}
 };
 
 let lang="en";try{lang=localStorage.getItem("lova_lang")||"en"}catch(e){}
@@ -411,18 +413,24 @@ let pendingConfirmBatchId=null;
 
 document.addEventListener("DOMContentLoaded",()=>{applyLang(lang);document.addEventListener("click",e=>{if(!e.target.closest(".msd"))document.querySelectorAll(".msd-menu.open").forEach(m=>m.classList.remove("open"))})});
 function setLang(l){lang=l;try{localStorage.setItem("lova_lang",l)}catch(e){}applyLang(l)}
-function applyLang(l){lang=l;document.getElementById("lang-en").classList.toggle("active",l==="en");document.getElementById("lang-th").classList.toggle("active",l==="th");document.querySelectorAll("[data-i18n]").forEach(el=>{const k=el.getAttribute("data-i18n");if(!T[l][k])return;if(el.tagName==="INPUT"&&el.type!=="button")el.placeholder=T[l][k];else el.textContent=T[l][k]});document.querySelectorAll(".item-card").forEach(c=>refreshCardLabels(c,l));if(vis("adminDash"))applyFilters();if(vis("staffStatus"))loadStatus()}
+function applyLang(l){lang=l;document.getElementById("lang-en").classList.toggle("active",l==="en");document.getElementById("lang-th").classList.toggle("active",l==="th");document.querySelectorAll("[data-i18n]").forEach(el=>{const k=el.getAttribute("data-i18n");if(!T[l][k])return;if(el.tagName==="INPUT"&&el.type!=="button")el.placeholder=T[l][k];else el.textContent=T[l][k]});document.querySelectorAll(".item-card").forEach(c=>refreshCardLabels(c,l));if(vis("adminDash"))renderAdmin();if(vis("staffStatus"))loadStatus()}
 function refreshCardLabels(card,l){const keys=["item_name","preview","purpose","qty","unit","link","price","tax","total"];card.querySelectorAll(".f-label").forEach((lb,i)=>{if(keys[i])lb.textContent=T[l][keys[i]]});const up=card.querySelector(".upload-txt");if(up)up.textContent=T[l].tap_upload;const ti=card.querySelector(".card-title");if(ti)ti.textContent=T[l].item_details;const rm=card.querySelector(".btn-remove");if(rm)rm.textContent=T[l].remove}
 function vis(id){return document.getElementById(id)?.style.display==="block"}
 function handleEnter(e){if(e.key==="Enter")doLogin()}
+function esc(s){return (s===undefined||s===null?"":String(s)).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;")}
 
 async function doLogin(){
   const pin=document.getElementById("passcode").value.trim();if(!pin)return;
   const btn=document.getElementById("loginBtn"),err=document.getElementById("authError");
   btn.textContent=T[lang].sending;btn.disabled=true;err.style.display="none";
-  try{const res=await api({action:"login",pin});if(res.status==="success"&&res.user){me=res.user;document.getElementById("navUser").textContent=me.name+" ("+me.role+")";document.getElementById("routingName").textContent=me.name;if(me.role==="admin"){showView("adminDash");loadAdmin()}else{showView("staffMenu");document.getElementById("itemsContainer").innerHTML="";addCard();if(me.branch)document.getElementById("branch").value=me.branch}}else{err.textContent=T[lang].auth_err;err.style.display="block";document.getElementById("passcode").value=""}}catch(e){err.textContent="Connection error.";err.style.display="block"}finally{btn.textContent=T[lang].auth_btn;btn.disabled=false}
+  try{const res=await api({action:"login",pin});if(res.status==="success"&&res.user){me=res.user;me.token=res.token||"";document.getElementById("navUser").textContent=me.name+" ("+me.role+")";document.getElementById("routingName").textContent=me.name;document.getElementById("passcode").value="";if(me.role==="admin"){showView("adminDash");loadAdmin()}else{showView("staffMenu");document.getElementById("itemsContainer").innerHTML="";addCard();if(me.branch)document.getElementById("branch").value=me.branch}}else{err.textContent=T[lang].auth_err;err.style.display="block";document.getElementById("passcode").value=""}}catch(e){err.textContent="Connection error.";err.style.display="block"}finally{btn.textContent=T[lang].auth_btn;btn.disabled=false}
 }
-function logout(){me={};cache=[];batchDecisions={};document.getElementById("passcode").value="";document.getElementById("navUser").textContent="";showView("authSection")}
+function logout(){
+  const token=me.token;
+  me={};cache=[];batchDecisions={};document.getElementById("passcode").value="";document.getElementById("navUser").textContent="";showView("authSection");
+  if(window._submitPoll){clearInterval(window._submitPoll);window._submitPoll=null}
+  if(token){try{fetch(API_URL,{method:"POST",body:JSON.stringify({action:"logout",token})}).catch(()=>{})}catch(e){}}
+}
 function showView(id){["authSection","staffMenu","oseForm","staffStatus","adminDash"].forEach(v=>document.getElementById(v).style.display="none");document.getElementById(id).style.display="block";document.getElementById("sharedNav").style.display=id==="authSection"?"none":"flex";const bar=document.getElementById("stickyBar");if(id==="oseForm"){bar.classList.add("visible");document.body.classList.add("form-open")}else{bar.classList.remove("visible");document.body.classList.remove("form-open")}window.scrollTo(0,0)}
 function guardBranch(){if(me.branch&&me.role!=="admin"&&document.getElementById("branch").value!==me.branch)if(!confirm("Branch mismatch - are you sure?"))document.getElementById("branch").value=me.branch}
 
@@ -434,13 +442,63 @@ function addCard(){
 function previewImg(input,uid){const file=input.files[0];if(!file)return;if(file.size>5242880){alert("\u26A0\uFE0F Max 5 MB.");input.value="";return}document.getElementById("pv-"+uid).src=URL.createObjectURL(file);document.getElementById("pv-"+uid).style.display="block";document.getElementById("ph-"+uid).style.display="none"}
 function calcLine(el){const card=el.closest(".item-card");const q=parseFloat(card.querySelector(".qty").value)||0;const p=parseFloat(card.querySelector(".price").value)||0;card.querySelector(".lineTotal").value=q*p>0?fmt(q*p):"\u0E3F0.00";recalc()}
 function recalc(){let sum=0;document.querySelectorAll(".item-card").forEach(c=>{sum+=(parseFloat(c.querySelector(".qty").value)||0)*(parseFloat(c.querySelector(".price").value)||0)});const s=fmt(sum);document.getElementById("grandTotal").textContent=s;document.getElementById("modalTotal").textContent=s}
-function openModal(){const b=document.getElementById("branch").value,s=document.getElementById("section").value;if(!b||!s){alert("Please select Branch and Section.");return}let ok=true,noPhoto=false;document.querySelectorAll(".item-card").forEach(c=>{if(!c.querySelector(".itemName").value.trim()||!c.querySelector(".purpose").value.trim()||!c.querySelector(".qty").value||!c.querySelector(".price").value)ok=false;if(!c.querySelector(".fileInput").files[0])noPhoto=true});if(!ok){alert("Please fill in all required fields.");return}if(noPhoto){alert("Please upload a photo for every item.");return}let html="";document.querySelectorAll(".item-card").forEach(c=>{html+='<div class="receipt-row"><span class="receipt-name">'+c.querySelector(".itemName").value+'</span><span class="receipt-price">'+c.querySelector(".lineTotal").value+'</span></div>'});document.getElementById("receiptList").innerHTML=html;document.getElementById("reviewModal").classList.add("open")}
+function openModal(){
+  const b=document.getElementById("branch").value,s=document.getElementById("section").value;
+  if(!b||!s){alert("Please select Branch and Section.");return}
+  let ok=true,noPhoto=false,badQty=false;
+  document.querySelectorAll(".item-card").forEach(c=>{
+    const qty=parseFloat(c.querySelector(".qty").value),price=parseFloat(c.querySelector(".price").value);
+    if(!c.querySelector(".itemName").value.trim()||!c.querySelector(".purpose").value.trim()||!c.querySelector(".qty").value||!c.querySelector(".price").value)ok=false;
+    if(isNaN(qty)||qty<=0||isNaN(price)||price<0)badQty=true;
+    if(!c.querySelector(".fileInput").files[0])noPhoto=true;
+  });
+  if(!ok){alert("Please fill in all required fields.");return}
+  if(badQty){alert("Quantity must be greater than 0 and price cannot be negative.");return}
+  if(noPhoto){alert("Please upload a photo for every item.");return}
+  let html="";document.querySelectorAll(".item-card").forEach(c=>{html+='<div class="receipt-row"><span class="receipt-name">'+esc(c.querySelector(".itemName").value)+'</span><span class="receipt-price">'+esc(c.querySelector(".lineTotal").value)+'</span></div>'});
+  document.getElementById("receiptList").innerHTML=html;document.getElementById("reviewModal").classList.add("open")
+}
 function closeModal(){document.getElementById("reviewModal").classList.remove("open")}
-async function submitOrder(){const btn=document.getElementById("confirmBtn");btn.disabled=true;btn.textContent=T[lang].sending;const items=[];for(const c of document.querySelectorAll(".item-card")){const img=await uploadImg(c.querySelector(".fileInput").files[0]);const q=parseFloat(c.querySelector(".qty").value);const p=parseFloat(c.querySelector(".price").value);items.push({name:c.querySelector(".itemName").value,itemNameEN:c.querySelector(".itemName").value,purpose:c.querySelector(".purpose").value,purposeEN:c.querySelector(".purpose").value,desc:c.querySelector(".purpose").value,quantity:q,qty:q,unit:c.querySelector(".unit").value,price:p,summary:q*p,totalPrice:q*p,link:c.querySelector(".link").value,tax:c.querySelector(".tax").value,taxInvoice:c.querySelector(".tax").value,imgUrl:img,photo:img})}const payload={action:"submit_order",payload:{orderId:"REQ-"+Date.now().toString().slice(-6),requester:me.name,branch:document.getElementById("branch").value,section:document.getElementById("section").value,isUrgent:document.getElementById("isUrgent").checked,items}};try{const res=await api(payload);if(res.status==="success"){let msg="\u2705 Submitted!\nRequest ID: "+payload.payload.orderId;if(res.lineStatus&&res.lineStatus!=="LINE Success"&&res.lineStatus!=="Skipped (Not Urgent)")msg+="\n\n\u26A0\uFE0F Saved, but LINE alert failed:\n"+res.lineStatus;alert(msg);resetForm();closeModal();showView("staffMenu")}}catch(e){alert("System error. Please try again.");btn.disabled=false;btn.textContent=T[lang].modal_confirm}}
-function resetForm(){document.getElementById("purchaseForm").reset();const cards=document.querySelectorAll(".item-card");for(let i=1;i<cards.length;i++)cards[i].remove();const fc=document.querySelector(".item-card");if(fc){const img=fc.querySelector(".upload-box img"),ph=fc.querySelector(".upload-ph");if(img)img.style.display="none";if(ph)ph.style.display="flex";fc.querySelector(".lineTotal").value="\u0E3F0.00"}recalc()}
+async function submitOrder(){
+  const btn=document.getElementById("confirmBtn");btn.disabled=true;btn.textContent=T[lang].sending;
+  const items=[];
+  for(const c of document.querySelectorAll(".item-card")){
+    const file=c.querySelector(".fileInput").files[0];
+    const img=await uploadImg(file);
+    if(file&&!img){alert("Photo upload failed for '"+c.querySelector(".itemName").value+"'. Please check your connection and try again.");btn.disabled=false;btn.textContent=T[lang].modal_confirm;return}
+    const q=parseFloat(c.querySelector(".qty").value);const p=parseFloat(c.querySelector(".price").value);
+    items.push({name:c.querySelector(".itemName").value,itemNameEN:c.querySelector(".itemName").value,purpose:c.querySelector(".purpose").value,purposeEN:c.querySelector(".purpose").value,desc:c.querySelector(".purpose").value,quantity:q,qty:q,unit:c.querySelector(".unit").value,price:p,summary:q*p,totalPrice:q*p,link:c.querySelector(".link").value,tax:c.querySelector(".tax").value,taxInvoice:c.querySelector(".tax").value,imgUrl:img,photo:img})
+  }
+  const payload={action:"submit_order",payload:{orderId:"REQ-"+Date.now().toString().slice(-6),requester:me.name,branch:document.getElementById("branch").value,section:document.getElementById("section").value,isUrgent:document.getElementById("isUrgent").checked,items}};
+  try{
+    const res=await api(payload);
+    if(res.status==="success"){
+      let msg="\u2705 Submitted!\nRequest ID: "+payload.payload.orderId;
+      if(res.lineStatus&&res.lineStatus!=="LINE Success"&&res.lineStatus!=="Skipped (Not Urgent)")msg+="\n\n\u26A0\uFE0F Saved, but LINE alert failed:\n"+res.lineStatus;
+      alert(msg);resetForm();closeModal();showView("staffMenu")
+    }else{
+      alert("Error: "+(res.error||"Could not submit order. Please try again."));
+    }
+  }catch(e){alert("System error. Please try again.")}
+  finally{btn.disabled=false;btn.textContent=T[lang].modal_confirm}
+}
+function resetForm(){
+  document.getElementById("purchaseForm").reset();
+  const cards=document.querySelectorAll(".item-card");for(let i=1;i<cards.length;i++)cards[i].remove();
+  const fc=document.querySelector(".item-card");
+  if(fc){const img=fc.querySelector(".upload-box img"),ph=fc.querySelector(".upload-ph");if(img)img.style.display="none";if(ph)ph.style.display="flex";fc.querySelector(".lineTotal").value="\u0E3F0.00";const fi=fc.querySelector(".fileInput");if(fi)fi.value=""}
+  if(me.branch)document.getElementById("branch").value=me.branch; // native reset() clears JS-assigned select values
+  recalc();
+}
 
 /* ADMIN */
-function loadAdmin(){document.getElementById("adminList").innerHTML='<div class="empty">'+T[lang].sending+"</div>";api({action:"get_data",role:"admin"}).then(r=>{if(r.status==="success"){cache=r.data;batchDecisions={};renderAdmin();if(window._submitPoll)clearInterval(window._submitPoll);window._submitPoll=setInterval(function(){Object.keys(batchDecisions).forEach(function(bid){checkSubmitBtn(bid)})},500)}})}
+function loadAdmin(){
+  document.getElementById("adminList").innerHTML='<div class="empty">'+T[lang].sending+"</div>";
+  api({action:"get_data",role:"admin"}).then(r=>{
+    if(r.status==="success"){cache=r.data;batchDecisions={};renderAdmin()}
+    else if(r.status!=="error"||r.code!=="auth"){document.getElementById("adminList").innerHTML='<div class="empty empty-err">'+T[lang].load_err+'<br><button class="empty-retry" onclick="loadAdmin()">'+T[lang].retry+'</button></div>'}
+  }).catch(()=>{document.getElementById("adminList").innerHTML='<div class="empty empty-err">'+T[lang].load_err+'<br><button class="empty-retry" onclick="loadAdmin()">'+T[lang].retry+'</button></div>'})
+}
 function updateStats(data){const orders=new Set(data.map(r=>r.orderId));const urgents=new Set(data.filter(r=>r.isUrgent).map(r=>r.orderId));document.getElementById("statTotal").textContent=orders.size+" "+T[lang].orders;document.getElementById("statUrgent").textContent=urgents.size+" "+T[lang].urgent_lbl}
 function toggleUrgent(){urgentOn=!urgentOn;document.getElementById("statUrgent").classList.toggle("on",urgentOn);renderAdmin()}
 function applyFilters(){const bc=checked("msdBranchMenu"),sc=checked("msdSectionMenu");document.getElementById("branchLbl").textContent=bc.length===0?T[lang].filter_branch:bc.length===1?bc[0]:bc.length+" "+T[lang].selected;document.getElementById("sectionLbl").textContent=sc.length===0?T[lang].filter_section:sc.length===1?sc[0]:sc.length+" "+T[lang].selected;renderAdmin()}
@@ -471,17 +529,18 @@ function renderAdmin(){
       let sum=parseFloat(String(req.summary||req.totalPrice||0).replace(/[^0-9.-]/g,""))||0;
       if(pr===0&&sum>0&&q2>0)pr=sum/q2;if(sum===0&&pr>0&&q2>0)sum=pr*q2;
       const purp=cleanPurpose(req.purpose||req.purposeEN||"");
-      const purpHTML=purp?'<div class="i-purp"><span class="i-purp-arrow">\u21B3</span><span class="i-purp-text">'+purp+'</span></div>':"";
+      const purpHTML=purp?'<div class="i-purp"><span class="i-purp-arrow">\u21B3</span><span class="i-purp-text">'+esc(purp)+'</span></div>':"";
       const dec=batchDecisions[id][req.rowNumber];
       const rowClass=dec?(dec.status==="Approved"?"decided-approve":"decided-reject"):"";
       const reasonShow=dec&&dec.status==="Rejected"?"show":"";
-      const reasonVal=dec&&dec.rejectReason?dec.rejectReason:"";
+      const reasonVal=dec&&dec.rejectReason?esc(dec.rejectReason):"";
+      const photoUrl=(photo&&/^https?:\/\//i.test(photo))?photo:"";
       items+=
         '<div class="i-row '+rowClass+'" id="row-'+req.rowNumber+'">'
-        +(photo?'<a href="'+photo+'" target="_blank" rel="noopener"><img src="'+photo+'" class="thumb" alt=""></a>':'<div class="thumb-empty">'+T[lang].no_img+"</div>")
+        +(photoUrl?'<a href="'+esc(photoUrl)+'" target="_blank" rel="noopener"><img src="'+esc(photoUrl)+'" class="thumb" alt=""></a>':'<div class="thumb-empty">'+T[lang].no_img+"</div>")
         +'<div class="i-info">'
-        +'<div class="i-top"><span class="i-name">'+(req.itemTitle||req.itemNameEN||"Untitled")+'</span><span class="i-price">'+fmt(sum)+'</span></div>'
-        +'<div class="i-qty">'+(q2>0?q2:"\u2014")+" "+(req.unit||"")+" @ "+fmt(pr)+"</div>"
+        +'<div class="i-top"><span class="i-name">'+esc(req.itemTitle||req.itemNameEN||"Untitled")+'</span><span class="i-price">'+fmt(sum)+'</span></div>'
+        +'<div class="i-qty">'+(q2>0?q2:"\u2014")+" "+esc(req.unit||"")+" @ "+fmt(pr)+"</div>"
         +purpHTML
         +'<div class="i-acts">'
         +'<button class="btn-dec btn-dec-app'+(dec&&dec.status==="Approved"?" active":"")+'" onclick="setDecision(\''+id+'\','+req.rowNumber+',\'Approved\',this)">\u2713 Approve</button>'
@@ -497,8 +556,8 @@ function renderAdmin(){
     el.innerHTML+=
       '<div class="batch fade-in" id="batch-'+id+'">'
       +'<div class="batch-head"><div>'
-      +'<div class="batch-id">'+id+(isUrgent?' <span class="urg-badge">'+T[lang].urgent_lbl+"</span>":"")+'</div>'
-      +'<div class="batch-meta">By <strong>'+(p.requester||"Unknown")+"</strong> \u00B7 "+(p.branch||"")+(p.section?" ("+p.section+")":"")+" &nbsp;|&nbsp; "+fmtDate(p.date)+"</div>"
+      +'<div class="batch-id">'+esc(id)+(isUrgent?' <span class="urg-badge">'+T[lang].urgent_lbl+"</span>":"")+'</div>'
+      +'<div class="batch-meta">By <strong>'+esc(p.requester||"Unknown")+"</strong> \u00B7 "+esc(p.branch||"")+(p.section?" ("+esc(p.section)+")":"")+" &nbsp;|&nbsp; "+fmtDate(p.date)+"</div>"
       +'</div>'+lineBtn+'</div>'
       +items
       +'<div class="batch-foot">'
@@ -518,16 +577,12 @@ function setDecision(batchId,rowNumber,status,btn){
   if(!batchDecisions[batchId])batchDecisions[batchId]={};
   const cacheItem=cache.find(x=>x.rowNumber===rowNumber);
   batchDecisions[batchId][rowNumber]={status:status,rejectReason:batchDecisions[batchId][rowNumber]?.rejectReason||"",itemData:cacheItem};
-  // Update row class
   const row=document.getElementById("row-"+rowNumber);
   if(row){row.classList.remove("decided-approve","decided-reject");row.classList.add(status==="Approved"?"decided-approve":"decided-reject")}
-  // Toggle active state on buttons
   const acts=row?.querySelector(".i-acts");
   if(acts){acts.querySelectorAll(".btn-dec-app").forEach(b=>b.classList.remove("active"));acts.querySelectorAll(".btn-dec-rej").forEach(b=>b.classList.remove("active"));btn.classList.add("active")}
-  // Show/hide reason textarea
   const wrap=document.getElementById("reason-wrap-"+rowNumber);
   if(wrap){if(status==="Rejected"){wrap.classList.add("show");const ta=document.getElementById("reason-"+rowNumber);if(ta)ta.focus()}else{wrap.classList.remove("show")}}
-  // Update submit button
   updateSubmitBtn(batchId);
 }
 
@@ -542,25 +597,21 @@ function quickDecideAll(batchId,status){
   const rows=cache.filter(r=>r.orderId===batchId);
   if(!batchDecisions[batchId])batchDecisions[batchId]={};
   rows.forEach(req=>{
-    // Always override all items regardless of current state
     const row=document.getElementById("row-"+req.rowNumber);
     if(row){row.classList.remove("decided-approve","decided-reject");row.classList.add(status==="Approved"?"decided-approve":"decided-reject")}
     const acts=row?.querySelector(".i-acts");
     if(acts){acts.querySelectorAll(".btn-dec").forEach(b=>b.classList.remove("active"));acts.querySelector(status==="Approved"?".btn-dec-app":".btn-dec-rej")?.classList.add("active")}
     const wrap=document.getElementById("reason-wrap-"+req.rowNumber);
     if(wrap){status==="Rejected"?wrap.classList.add("show"):wrap.classList.remove("show")}
-    // Keep existing reason if switching back to reject, clear if approving
     const existingReason=status==="Rejected"?(batchDecisions[batchId][req.rowNumber]?.rejectReason||""):"";
     batchDecisions[batchId][req.rowNumber]={status:status,rejectReason:existingReason,itemData:req};
   });
   updateSubmitBtn(batchId);
 }
 
-// Single source of truth: read entirely from DOM + batchDecisions
 function checkSubmitBtn(batchId){
   const btn=document.getElementById("submit-btn-"+batchId);
   if(!btn)return;
-  // Read entirely from DOM — no reliance on batchDecisions state
   const batch=document.getElementById("batch-"+batchId);
   if(!batch){btn.disabled=true;return;}
   const iRows=batch.querySelectorAll(".i-row");
@@ -592,23 +643,20 @@ function isUndecided(batchId,rows){
 /* Confirm modal */
 function openConfModal(batchId){
   pendingConfirmBatchId=batchId;
-  // Only rows belonging to this exact batch, read entirely from the batch DOM element
   const batchEl=document.getElementById("batch-"+batchId);
   if(!batchEl)return;
   const iRows=Array.from(batchEl.querySelectorAll(".i-row"));
   const approvedCount=iRows.filter(r=>r.classList.contains("decided-approve")).length;
   const rejectedCount=iRows.filter(r=>r.classList.contains("decided-reject")).length;
-  // Summary pills
   document.getElementById("confSummary").innerHTML=
     '<div class="conf-pill conf-pill-green"><div class="conf-pill-num">'+approvedCount+'</div><div class="conf-pill-lbl">Approved</div></div>'+
     '<div class="conf-pill conf-pill-red"><div class="conf-pill-num">'+rejectedCount+'</div><div class="conf-pill-lbl">Rejected</div></div>';
-  // Item list — read directly from batch DOM, no cache lookup
   let html="";
   iRows.forEach(function(row){
     const nameEl=row.querySelector(".i-name");
     const name=nameEl?nameEl.textContent.trim():"Item";
     const isApp=row.classList.contains("decided-approve");
-    html+='<div class="conf-item-row"><span class="conf-item-name">'+name+'</span><span class="conf-item-badge '+(isApp?"badge-app":"badge-rej")+'">'+(isApp?"Approved":"Rejected")+'</span></div>';
+    html+='<div class="conf-item-row"><span class="conf-item-name">'+esc(name)+'</span><span class="conf-item-badge '+(isApp?"badge-app":"badge-rej")+'">'+(isApp?"Approved":"Rejected")+'</span></div>';
   });
   document.getElementById("confItemList").innerHTML=html;
   document.getElementById("confModal").classList.add("open");
@@ -620,7 +668,6 @@ async function submitDecisions(){
   const batchId=pendingConfirmBatchId;
   const btn=document.getElementById("confSubmitBtn");
   btn.disabled=true;btn.textContent=T[lang].sending;
-  // Use batch DOM element as source of truth for which rows belong here
   const batchEl=document.getElementById("batch-"+batchId);
   const validRowNums=new Set(
     Array.from(batchEl?batchEl.querySelectorAll(".i-row"):[])
@@ -629,9 +676,7 @@ async function submitDecisions(){
   );
   const rows=cache.filter(r=>validRowNums.has(r.rowNumber));
   const p=rows[0];
-  const dec=batchDecisions[batchId]||{};
   const decisions=rows.map(r=>{
-    // Read status from DOM class, reason from live textarea
     const row=document.getElementById("row-"+r.rowNumber);
     const status=row&&row.classList.contains("decided-reject")?"Rejected":"Approved";
     const ta=document.getElementById("reason-"+r.rowNumber);
@@ -672,13 +717,40 @@ async function submitDecisions(){
 function sendLine(orderId,btn){const orig=btn.innerHTML;btn.textContent=T[lang].sending;btn.disabled=true;const rows=cache.filter(i=>i.orderId===orderId);if(!rows.length){btn.innerHTML=orig;btn.disabled=false;return}const p=rows[0];const mapped=rows.map(i=>({name:i.itemTitle,itemNameEN:i.itemTitle,itemTitle:i.itemTitle,purpose:i.purpose,purposeEN:i.purpose,qty:i.qty,quantity:i.qty,unit:i.unit,price:i.qty>0?i.totalPrice/i.qty:0,summary:i.totalPrice,totalPrice:i.totalPrice,imgUrl:i.photo,photo:i.photo}));api({action:"resend_line",payload:{orderId,requester:p.requester,branch:p.branch,section:p.section,isUrgent:true,items:mapped}}).then(res=>{if(res.status==="success"){if(res.lineStatus==="LINE Success"){btn.textContent=T[lang].sent;setTimeout(()=>{btn.innerHTML=orig;btn.disabled=false},3000)}else{alert("LINE failed:\n"+res.lineStatus);btn.textContent=T[lang].failed;setTimeout(()=>{btn.innerHTML=orig;btn.disabled=false},4000)}}else{alert("Error: "+res.error);btn.innerHTML=orig;btn.disabled=false}}).catch(()=>{alert("Connection error.");btn.innerHTML=orig;btn.disabled=false})}
 
 /* STAFF STATUS */
-function loadStatus(){document.getElementById("statusList").innerHTML='<div class="empty">'+T[lang].sending+"</div>";api({action:"get_data",role:"staff",userName:me.name}).then(r=>{if(r.status==="success")renderStatus(r.data)})}
-function renderStatus(data){const el=document.getElementById("statusList");el.innerHTML="";if(!data.length){el.innerHTML='<div class="empty">No order history yet.</div>';return}const grouped={};data.forEach(r=>{(grouped[r.orderId]=grouped[r.orderId]||[]).push(r)});Object.keys(grouped).sort((a,b)=>new Date(grouped[b][0].date)-new Date(grouped[a][0].date)).forEach(id=>{const rows=grouped[id],p=rows[0];const ds=fmtDate(p.date);let html='<div class="s-batch fade-in"><div class="s-head"><div><div class="s-oid">'+id+'</div><div class="s-meta">'+(p.branch||"")+(p.section?" ("+p.section+")":"")+'</div></div><div class="s-date">'+ds+"</div></div>";rows.forEach(req=>{const photo=req.photo||req.imgUrl;let cls="b-pending",lbl=T[lang].badge_pending;if(req.status==="Approved"){cls="b-approved";lbl=T[lang].badge_approved}if(req.status==="Rejected"){cls="b-rejected";lbl=T[lang].badge_rejected}const reason=cleanPurpose(req.rejectReason||"");const reasonHTML=req.status==="Rejected"&&reason?'<div class="s-reject-reason"><span class="s-reject-label">'+T[lang].rej_label+"</span>"+reason+"</div>":"";html+='<div class="s-row">'+(photo?'<img src="'+photo+'" class="s-thumb" alt="">':'<div class="s-thumb-empty">'+T[lang].no_img+"</div>")+'<div class="s-info"><div class="s-name">'+(req.itemTitle||req.itemNameEN||"Untitled")+'</div><div class="s-qty">'+(req.qty||"\u2014")+" "+(req.unit||"")+"</div>"+reasonHTML+"</div>"+'<span class="badge '+cls+'">'+lbl+"</span></div>"});el.innerHTML+=html+"</div>"})}
+function loadStatus(){
+  document.getElementById("statusList").innerHTML='<div class="empty">'+T[lang].sending+"</div>";
+  api({action:"get_data",role:"staff",userName:me.name}).then(r=>{
+    if(r.status==="success")renderStatus(r.data);
+    else if(r.status!=="error"||r.code!=="auth"){document.getElementById("statusList").innerHTML='<div class="empty empty-err">'+T[lang].load_err+'<br><button class="empty-retry" onclick="loadStatus()">'+T[lang].retry+'</button></div>'}
+  }).catch(()=>{document.getElementById("statusList").innerHTML='<div class="empty empty-err">'+T[lang].load_err+'<br><button class="empty-retry" onclick="loadStatus()">'+T[lang].retry+'</button></div>'})
+}
+function renderStatus(data){const el=document.getElementById("statusList");el.innerHTML="";if(!data.length){el.innerHTML='<div class="empty">No order history yet.</div>';return}const grouped={};data.forEach(r=>{(grouped[r.orderId]=grouped[r.orderId]||[]).push(r)});Object.keys(grouped).sort((a,b)=>new Date(grouped[b][0].date)-new Date(grouped[a][0].date)).forEach(id=>{const rows=grouped[id],p=rows[0];const ds=fmtDate(p.date);let html='<div class="s-batch fade-in"><div class="s-head"><div><div class="s-oid">'+esc(id)+'</div><div class="s-meta">'+esc(p.branch||"")+(p.section?" ("+esc(p.section)+")":"")+'</div></div><div class="s-date">'+ds+"</div></div>";rows.forEach(req=>{const photo=req.photo||req.imgUrl;const photoUrl=(photo&&/^https?:\/\//i.test(photo))?photo:"";let cls="b-pending",lbl=T[lang].badge_pending;if(req.status==="Approved"){cls="b-approved";lbl=T[lang].badge_approved}if(req.status==="Rejected"){cls="b-rejected";lbl=T[lang].badge_rejected}const reason=cleanPurpose(req.rejectReason||"");const reasonHTML=req.status==="Rejected"&&reason?'<div class="s-reject-reason"><span class="s-reject-label">'+T[lang].rej_label+"</span>"+esc(reason)+"</div>":"";html+='<div class="s-row">'+(photoUrl?'<img src="'+esc(photoUrl)+'" class="s-thumb" alt="">':'<div class="s-thumb-empty">'+T[lang].no_img+"</div>")+'<div class="s-info"><div class="s-name">'+esc(req.itemTitle||req.itemNameEN||"Untitled")+'</div><div class="s-qty">'+(req.qty||"\u2014")+" "+esc(req.unit||"")+"</div>"+reasonHTML+"</div>"+'<span class="badge '+cls+'">'+lbl+"</span></div>"});el.innerHTML+=html+"</div>"})}
 
 function checked(menuId){return Array.from(document.querySelectorAll("#"+menuId+" input:checked")).map(x=>x.value)}
 function toggleMSD(wrapId){const wrap=document.getElementById(wrapId),menu=wrap.querySelector(".msd-menu");const isOpen=menu.classList.contains("open");document.querySelectorAll(".msd-menu.open").forEach(m=>m.classList.remove("open"));if(!isOpen)menu.classList.add("open")}
-async function api(payload){const r=await fetch(API_URL,{method:"POST",body:JSON.stringify(payload)});return JSON.parse(await r.text())}
-async function uploadImg(file){if(!file)return"";const fd=new FormData();fd.append("file",file);fd.append("upload_preset",UPLOAD_PRESET);try{const r=await fetch("https://api.cloudinary.com/v1_1/"+CLOUD_NAME+"/image/upload",{method:"POST",body:fd});return(await r.json()).secure_url||""}catch(e){return""}}
+
+async function api(payload){
+  if(me.token&&payload.token===undefined)payload.token=me.token;
+  let r;
+  try{
+    r=await fetch(API_URL,{method:"POST",body:JSON.stringify(payload)});
+  }catch(netErr){
+    throw new Error("Network error — check your connection.");
+  }
+  let text=await r.text(),res;
+  try{
+    res=JSON.parse(text);
+  }catch(parseErr){
+    // The backend returned something that isn't JSON (deploy issue, quota, Google error page, etc).
+    throw new Error("The server returned an unexpected response. Please try again in a moment.");
+  }
+  if(res.status==="error"&&res.code==="auth"){
+    alert(T[lang].session_expired);
+    logout();
+  }
+  return res;
+}
+async function uploadImg(file){if(!file)return"";const fd=new FormData();fd.append("file",file);fd.append("upload_preset",UPLOAD_PRESET);try{const r=await fetch("https://api.cloudinary.com/v1_1/"+CLOUD_NAME+"/image/upload",{method:"POST",body:fd});const j=await r.json();return j.secure_url||""}catch(e){return""}}
 function fmt(n){return"\u0E3F"+(n||0).toLocaleString("th-TH",{minimumFractionDigits:0,maximumFractionDigits:2})}
 </script>
 </body>
